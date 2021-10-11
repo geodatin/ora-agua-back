@@ -53,7 +53,17 @@ class StationRepository implements IStationRepository {
 
   async getAllStations(): Promise<Station[]> {
     const stations = await this.repository.find({
-      select: ['country', 'country', 'location', 'type'],
+      select: [
+        'country',
+        'location',
+        'type',
+        'name',
+        'subwatershed',
+        'river',
+        'city',
+        'responsible',
+        'operator',
+      ],
       where: {
         country: Not(IsNull()),
       },
