@@ -1,0 +1,18 @@
+{
+    "type": "postgres",
+    "host": "34.70.228.133",
+    "username": "postgres",
+    "password": "admin",
+    "database": "ora-otca-develop",
+    "port":5432,
+    "logging": true,
+    "migrations": [
+        "./src/database/migrations/*.ts"
+    ],
+    "entities": [
+        "./src/modules/**/models/*.ts"
+    ],
+    "cli":{
+        "migrationsDir": "./src/database/migrations"
+    }
+}
