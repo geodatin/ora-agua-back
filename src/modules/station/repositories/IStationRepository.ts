@@ -10,11 +10,12 @@ interface IStationRepository {
   countStationsByType(): Promise<{ count: number; name: string }[]>
   countStationsByCountry({
     order,
-    page,
   }: ICountRequestDTO): Promise<{ count: number; name: string }[]>
   countStationsBySubwatershed({
     order,
-    page,
+  }: ICountRequestDTO): Promise<{ count: number; name: string }[]>
+  countStationsByResponsible({
+    order,
   }: ICountRequestDTO): Promise<{ count: number; name: string }[]>
 }
 
