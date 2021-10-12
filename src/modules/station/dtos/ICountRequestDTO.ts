@@ -1,5 +1,5 @@
 interface ICountRequestDTO {
-  page: number
+  page?: number
   order: string
 }
 
