@@ -10,6 +10,7 @@
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
   },
   "devDependencies": {
+    "@types/dotenv-safe": "^8.1.2",
     "@types/node": "^16.10.1",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
@@ -36,6 +37,7 @@
     "adm-zip": "^0.5.9",
     "async-get-file": "^1.0.4",
     "axios": "^0.21.4",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "geojson": "^0.5.0",
