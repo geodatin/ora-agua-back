@@ -10,6 +10,19 @@ class StationRepository implements IStationRepository {
   constructor() {
     this.repository = getRepository(Station)
   }
+  async countStationsByResponsible({
+    order,
+  }: ICountRequestDTO): Promise<{ count: number; name: string }[]> {
+    const stationsCount = await this.repository
+      .createQueryBuilder('station')
+      .select('responsible', 'name')
+      .addSelect('COUNT(1)', 'count')
+      .where('responsible IS NOT NULL')
+      .groupBy('responsible')
+      .orderBy('count', order === 'asc' ? 'ASC' : 'DESC')
+      .getRawMany()
+    return stationsCount
+  }
   async countStationsBySubwatershed({
     order,
   }: ICountRequestDTO): Promise<{ count: number; name: string }[]> {
