@@ -10,8 +10,8 @@ class CountStationsBySubwatershedController {
       CountStationsBySubwatershedService
     )
     const stationsCount = await countStationsByTypeService.execute({
-      page: Number(page),
-      order: String(order),
+      page: page ? Number(page) : 1,
+      order: order ? String(order) : 'asc',
     })
     return response.json(stationsCount)
   }

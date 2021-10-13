@@ -17,23 +17,15 @@ class CountStationsBySubwatershedService {
     const y: number[] = []
     const pos: number[] = []
     for (const [index, station] of stationsCount.entries()) {
-      x.push(station.name)
+      x.push(station.name.replace(/[^a-zA-Z ]/g, '').trim())
       y.push(station.count)
       pos.push(index + 1)
     }
-    if (page === 1) {
-      return {
-        x: paginate(x, page, 5),
-        series: [{ id: 'station', data: paginate(y, page, 5) }],
-        position: paginate(pos, page, 5),
-        pages: countPages(pos, 5),
-      }
-    } else {
-      return {
-        x: paginate(x, page, 5),
-        series: [{ id: 'station', data: paginate(y, page, 5) }],
-        position: paginate(pos, page, 5),
-      }
+    return {
+      x: paginate(x, page, 5),
+      series: [{ id: 'station', data: paginate(y, page, 5) }],
+      position: paginate(pos, page, 5),
+      pages: countPages(pos, 5),
     }
   }
 }

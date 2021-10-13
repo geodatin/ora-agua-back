@@ -23,19 +23,11 @@ class CountStationsByCountryService {
       y.push(station.count)
       pos.push(index + 1)
     }
-    if (page === 1) {
-      return {
-        x: paginate(x, page, 5),
-        series: [{ id: 'station', data: paginate(y, page, 5) }],
-        position: paginate(pos, page, 5),
-        pages: countPages(pos, 5),
-      }
-    } else {
-      return {
-        x: paginate(x, page, 5),
-        series: [{ id: 'station', data: paginate(y, page, 5) }],
-        position: paginate(pos, page, 5),
-      }
+    return {
+      x: paginate(x, page, 5),
+      series: [{ id: 'station', data: paginate(y, page, 5) }],
+      position: paginate(pos, page, 5),
+      pages: countPages(pos, 5),
     }
   }
 }
