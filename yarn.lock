@@ -2543,6 +2543,11 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
+system-commands@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/system-commands/-/system-commands-1.1.7.tgz#f100c0d7da5d489d065b43625fc9fef1c38b38f2"
+  integrity sha512-PfswB3P+qrSZcm7nIOJzKMe0qMp7wGVM7B+UYBkaduS6z2n+iM2sk4kw3G4+zY1aRI32+ZgKTUUAlhc3YSneJA==
+
 table@^6.0.9:
   version "6.7.1"
   resolved "https://registry.npmjs.org/table/-/table-6.7.1.tgz"
