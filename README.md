@@ -131,19 +131,25 @@ Método que retorna a contagem total de estações por país.
 				"Peru",
 				"Bolívia"
 			],
-			"y": [
-				5,
-				168,
-				201,
-				311,
-				330
+			"series": [
+				{
+				"id": "station",
+				"data": [
+					5,
+					168,
+					201,
+					311,
+					330,
+					2202
+				]
+				}
 			],
 			"position": [
-				0,
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			],
 			"pages": 2
 			}
@@ -200,19 +206,30 @@ Método que retorna a contagem total de estações por subbacia.
 				"14 - RIO SOLIMÕES,NEGRO,BRANCO,....",
 				"18 - RIO AMAZONAS,,XINGÚ,IRIRI,PARU"
 			],
-			"y": [
-				867,
-				474,
-				467,
-				301,
-				294
+			"series": [
+				{
+				"id": "station",
+				"data": [
+					867,
+					474,
+					467,
+					301,
+					294,
+					254,
+					186,
+					159,
+					139,
+					91,
+					1
+				]
+				}
 			],
 			"position": [
-				0,
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			],
 			"pages": 3
 			}
@@ -269,19 +286,24 @@ Método que retorna a contagem total de estações por responsável.
 				"CERR",
 				"CEBEL"
 			],
-			"y": [
-				1,
-				1,
-				1,
-				1,
-				1
+			"series": [
+				{
+				"id": "station",
+				"data": [
+					1,
+					1,
+					1,
+					1,
+					1
+				]
+				}
 			],
 			"position": [
-				0,
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			],
 			"pages": 23
 			}
