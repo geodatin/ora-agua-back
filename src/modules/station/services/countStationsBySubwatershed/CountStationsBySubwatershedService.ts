@@ -17,7 +17,7 @@ class CountStationsBySubwatershedService {
     const y: number[] = []
     const pos: number[] = []
     for (const [index, station] of stationsCount.entries()) {
-      x.push(station.name.replace(/[^a-zA-Z ]/g, '').trim())
+      x.push(station.name.replace(/[^ .,a-zA-Z]/g, '').trim())
       y.push(station.count)
       pos.push(index + 1)
     }
