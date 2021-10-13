@@ -13,7 +13,6 @@ class GetStationsPointsService {
   async execute() {
     const stations = await this.stationRepository.getAllStations()
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
-    console.log(parsed)
     return parsed
   }
 }
