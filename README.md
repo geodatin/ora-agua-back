@@ -460,7 +460,7 @@ Método que retorna a área total de superfície d'agua por ano em um país.
 
 * **Exemplo:**
 
-	/api/water/series/Colômbia
+	/api/water/series
 
 * **Resposta:**
 
