@@ -25,7 +25,7 @@ class VarianceRankingService {
     }
     return {
       x: x,
-      series: [{ id: 'station', data: y }],
+      series: [{ id: 'waterSurface', data: y }],
       position: pos,
     }
   }
