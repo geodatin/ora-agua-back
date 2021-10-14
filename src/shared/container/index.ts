@@ -1,3 +1,5 @@
+import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
+import { IWaterAreaRepository } from '@modules/water/repositories/IWaterAreaRepository'
 import { container } from 'tsyringe'
 
 import { ObservationRepository } from '../../modules/observation/repositories/implementations/ObservationRepository'
@@ -13,4 +15,9 @@ container.registerSingleton<IStationRepository>(
 container.registerSingleton<IObservationRepository>(
   'ObservationRepository',
   ObservationRepository
+)
+
+container.registerSingleton<IWaterAreaRepository>(
+  'WaterAreaRepository',
+  WaterAreaRepository
 )
