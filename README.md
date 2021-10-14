@@ -525,12 +525,12 @@ Método que retorna um ranking com a difereça entre os anos especificados da su
 
 	**Obrigatórios:**
 		
-	Nenhum
+		initialYear:[number] - Ano inicial para a filtragen
+		finalYear:[number] - Ano final para a filtragen
 
 	**Opcionais:**
 		
-		initialYear:[number] - Ano inicial para a filtragen
-		finalYear:[number] - Ano final para a filtragen
+
 		order?:[number] - Ordem do ranking
 		
 * **Parâmetros do Body:**
