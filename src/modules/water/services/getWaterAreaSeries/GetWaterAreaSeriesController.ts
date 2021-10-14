@@ -5,15 +5,10 @@ import { GetWaterAreaSeriesService } from './GetWaterAreaSeriesService'
 
 class GetWaterAreaSeriesController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { order } = request.query
-    const { country } = request.params
     const getWaterAreaSeriesService = container.resolve(
       GetWaterAreaSeriesService
     )
-    const data = await getWaterAreaSeriesService.execute({
-      country,
-      order: order ? String(order) : null,
-    })
+    const data = await getWaterAreaSeriesService.execute()
     return response.json(data)
   }
 }

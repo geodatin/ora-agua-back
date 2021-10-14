@@ -10,7 +10,7 @@ class VarianceRankingService {
   ) {}
 
   async execute({ order, initialYear, finalYear }: IVarianceRankingDTO) {
-    const result = await this.waterAreaRepository.varianceRanking({
+    const result = await this.waterAreaRepository.getVarianceRanking({
       initialYear,
       finalYear,
       order,
