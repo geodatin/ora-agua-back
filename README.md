@@ -438,7 +438,7 @@ Método que retorna a área total de superfície d'agua por ano em um país.
 
 * **URL:**
 
-	/api/water/series/:country
+	/api/water/series
 
 * **Método:**
 
@@ -452,7 +452,7 @@ Método que retorna a área total de superfície d'agua por ano em um país.
 
 	**Opcionais:**
 		
-		country:[string] - País sobre o qual se deseja obter informações, caso esse parâmetro não seja informado, será retornada a área de todos os países juntos
+	Nenhum
 		
 * **Parâmetros do Body:**
 
@@ -482,7 +482,7 @@ Método que retorna a área total de superfície d'agua por ano em um país.
 		],
 		"series": [
 			{
-			"id": "waterSurface",
+			"id": "Brasil",
 			"data": [
 				116309.25,
 				148140.38,
@@ -497,6 +497,7 @@ Método que retorna a área total de superfície d'agua por ano em um país.
 			...
 			]
 			}
+			...
 		]
 		}
 	  ```
@@ -587,3 +588,124 @@ Método que retorna um ranking com a difereça entre os anos especificados da su
 			message: 'Internal Server Error'
 		}
 	  ```
+
+**Área da bacia amazônica**
+----
+Método que retorna a área total da bacia amazônica.
+
+* **URL:**
+
+	/api/water/amazonic/area
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Opcionais:**
+		
+		country:[string] - País sobre o qual se deseja obter informações, caso esse parâmetro não seja informado, será retornada a área de todos os países juntos
+		year:[number] - Ano sobre o qual se deseja obter informações
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/water/amazonic/area
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+			{
+			"count": 7707474.6
+			}
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
+**Área da bacia amazônica por país**
+----
+Método que retorna a área total da bacia amazônica por país.
+
+* **URL:**
+
+	/api/water/amazonic/area/country
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Opcionais:**
+		
+		year:[number] - Ano sobre o qual se deseja obter informações
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/water/amazonic/area/country
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+		[
+		{
+			"id": "Colômbia",
+			"y": 340799.13
+		},
+		{
+			"id": "Guiana",
+			"y": 12336.53
+		},
+		{
+			"id": "Venezuela",
+			"y": 52279.32
+		},
+		{
+			"id": "Peru",
+			"y": 961677.29
+		},
+		{
+			"id": "Equador",
+			"y": 130509.95
+		},
+		{
+			"id": "Brasil",
+			"y": 3703566.36
+		},
+		{
+			"id": "Bolívia",
+			"y": 714723.63
+		}
+		]
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
