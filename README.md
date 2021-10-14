@@ -1,4 +1,4 @@
-# Ora-agua API
+# Ora-redes API
 
 **Contagem de estações**
 ----
@@ -374,6 +374,211 @@ Método que retorna o shape das estações.
 				"type": "Pluviométrica"
 			}
 			},...
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+# Ora-hidricos API
+
+**Área de superfície d'agua**
+----
+Método que retorna a área total de superfície d'agua.
+
+* **URL:**
+
+	/api/water/area
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Opcionais:**
+		
+		country:[string] - País sobre o qual se deseja obter informações, caso esse parâmetro não seja informado, será retornada a área de todos os países juntos
+		year:[number] - Ano sobre o qual se deseja obter informações
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/water/area?country=Brasil&year=2020
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+			{
+			"count": 7707474.6
+			}
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
+**Série de superfície d'agua por ano**
+----
+Método que retorna a área total de superfície d'agua por ano em um país.
+
+* **URL:**
+
+	/api/water/series/:country
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Opcionais:**
+		
+		country:[string] - País sobre o qual se deseja obter informações, caso esse parâmetro não seja informado, será retornada a área de todos os países juntos
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/water/series/Colômbia
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+		"x": [
+			1984,
+			1985,
+			1986,
+			1987,
+			1988,
+			1989,
+			1990,
+			1991,
+			1992,
+			...
+		],
+		"series": [
+			{
+			"id": "waterSurface",
+			"data": [
+				116309.25,
+				148140.38,
+				270006.13,
+				194197.53,
+				231518.94,
+				216977.89,
+				248530.48,
+				249187.21,
+				165780.73,
+				193065,
+			...
+			]
+			}
+		]
+		}
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
+**Ranking de variação da superfície d'agua**
+----
+Método que retorna um ranking com a difereça entre os anos especificados da superfície d'agua em cada país'.
+
+* **URL:**
+
+	/api/water/variance/ranking/:initialYear/:finalYear
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Opcionais:**
+		
+		initialYear:[number] - Ano inicial para a filtragen
+		finalYear:[number] - Ano final para a filtragen
+		order?:[number] - Ordem do ranking
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/water/variance/ranking/1984/2020
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+			{
+			"x": [
+				"Bolívia",
+				"Guiana",
+				"Venezuela",
+				"Equador",
+				"Colômbia",
+				"Peru",
+				"Brasil"
+			],
+			"series": [
+				{
+				"id": "station",
+				"data": [
+					-15149.05,
+					8310.34,
+					12784.68,
+					74638.45,
+					178161.65,
+					527437.82,
+					1516129.94
+				]
+				}
+			],
+			"position": [
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+			}
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**
