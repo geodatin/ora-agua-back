@@ -643,7 +643,7 @@ Método que retorna a área total da bacia amazônica por país.
 
 * **URL:**
 
-	/api/water/amazonic/area/country
+	/api/water/area/country
 
 * **Método:**
 
@@ -665,7 +665,7 @@ Método que retorna a área total da bacia amazônica por país.
 
 * **Exemplo:**
 
-	/api/water/amazonic/area/country
+	/api/water/area/country
 
 * **Resposta:**
 
