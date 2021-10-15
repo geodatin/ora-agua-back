@@ -33,7 +33,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
       .select('SUM(area)', 'area')
       .from((qb) => {
         qb.select('water.country_name', 'name')
-          .addSelect('water.km2_amaz/100', 'area')
+          .addSelect('water.km2_amaz', 'area')
           .from(WaterArea, 'water')
           .groupBy('name')
           .addGroupBy('area')
