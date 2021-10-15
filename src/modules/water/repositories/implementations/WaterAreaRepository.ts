@@ -17,7 +17,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
     const query = await this.repository
       .createQueryBuilder('water')
       .select('water.country_name', 'name')
-      .addSelect('water.km2_amaz', 'sum')
+      .addSelect('water.km2_amaz/100', 'sum')
       .groupBy('name')
       .addGroupBy('sum')
     if (year) {
@@ -33,7 +33,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
       .select('SUM(area)', 'area')
       .from((qb) => {
         qb.select('water.country_name', 'name')
-          .addSelect('water.km2_amaz', 'area')
+          .addSelect('water.km2_amaz/100', 'area')
           .from(WaterArea, 'water')
           .groupBy('name')
           .addGroupBy('area')
@@ -58,7 +58,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
   }: IVarianceRankingDTO): Promise<{ sum: number; name: string }[]> {
     const series = await getConnection()
       .createQueryBuilder()
-      .select('final.area - initial.area', 'sum')
+      .select('(final.area - initial.area)/100', 'sum')
       .addSelect('initial.name', 'name')
       .from((qb) => {
         qb.select('water.country_name', 'name')
@@ -92,7 +92,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
   > {
     const series = await this.repository
       .createQueryBuilder('water')
-      .select('SUM(water_area)', 'sum')
+      .select('SUM(water_area)/100', 'sum')
       .addSelect('year', 'year')
       .addSelect('country_name', 'name')
       .orderBy('year', 'ASC')
@@ -105,7 +105,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
   async getWaterArea({ country, year }: IWaterAreaDTO): Promise<number> {
     const query = this.repository
       .createQueryBuilder('water')
-      .select('SUM(water_area)', 'area')
+      .select('SUM(water_area)/100', 'area')
 
     if (country) {
       query.andWhere('water.country_name = :country', { country })
