@@ -17,7 +17,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
     const query = await this.repository
       .createQueryBuilder('water')
       .select('water.country_name', 'name')
-      .addSelect('water.km2_amaz/100', 'sum')
+      .addSelect('water.km2_amaz', 'sum')
       .groupBy('name')
       .addGroupBy('sum')
     if (year) {
