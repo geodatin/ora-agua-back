@@ -19,6 +19,7 @@ class WaterAreaRepository implements IWaterAreaRepository {
       .select('water.country_name', 'name')
       .addSelect('water.km2_amaz', 'sum')
       .groupBy('name')
+      .orderBy('sum', 'DESC')
       .addGroupBy('sum')
     if (year) {
       query.andWhere('water.year = :year', { year })
