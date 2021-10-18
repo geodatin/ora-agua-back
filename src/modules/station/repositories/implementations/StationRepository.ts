@@ -64,7 +64,14 @@ class StationRepository implements IStationRepository {
     return this.repository.count()
   }
 
-  async getAllStations(): Promise<Station[]> {
+  async getAllStations(telemetric?: boolean): Promise<Station[]> {
+    const where: any = {
+      country: Not(IsNull()),
+    }
+    if (telemetric) {
+      where.telemetric = telemetric
+      where.id = Not(IsNull())
+    }
     const stations = await this.repository.find({
       select: [
         'country',
@@ -77,9 +84,7 @@ class StationRepository implements IStationRepository {
         'responsible',
         'operator',
       ],
-      where: {
-        country: Not(IsNull()),
-      },
+      where: where,
     })
     return stations
   }

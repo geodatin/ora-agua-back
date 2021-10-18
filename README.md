@@ -335,8 +335,7 @@ Método que retorna o shape das estações.
 	Nenhum
 
 	**Não Obrigatórios:**
-
-	Nenhum
+		telemetric:[boolean] - Determina se deve trazer somente as estações que são telemétricas
 		
 * **Parâmetros do Body:**
 
