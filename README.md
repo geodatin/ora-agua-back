@@ -708,3 +708,95 @@ Método que retorna a área total da bacia amazônica por país.
 		{
 			message: 'Internal Server Error'
 		}
+		```
+
+**Ultima atualização por estação**
+----
+Método que retorna a última atualização para cada estação
+
+* **URL:**
+
+	/api/observation/last
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Opcionais:**
+		
+		page:[number] - Número da página a ser retornada
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/observation/last?page=2
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+			[
+			{
+				"name": "ARIQUEMES",
+				"type": "Fluviométrica",
+				"rain": 0,
+				"flowRate": null,
+				"code": 15430000,
+				"level": 91,
+				"timestamp": "2021-10-08T04:45:00.000Z"
+			},
+			{
+				"name": "ARUMÃ - JUSANTE",
+				"type": "Fluviométrica",
+				"rain": 0,
+				"flowRate": null,
+				"code": 13962000,
+				"level": null,
+				"timestamp": "2021-10-07T02:45:00.000Z"
+			},
+			{
+				"name": "ASSIS BRASIL",
+				"type": "Fluviométrica",
+				"rain": 0,
+				"flowRate": null,
+				"code": 13450000,
+				"level": 133,
+				"timestamp": "2021-10-07T02:00:00.000Z"
+			},
+			{
+				"name": "ASSIS BRASIL - CPRM",
+				"type": "Fluviométrica",
+				"rain": 0,
+				"flowRate": null,
+				"code": 13450010,
+				"level": null,
+				"timestamp": "2017-12-16T12:15:00.000Z"
+			},
+			{
+				"name": "BARCELOS",
+				"type": "Fluviométrica",
+				"rain": 0,
+				"flowRate": null,
+				"code": 14480002,
+				"level": null,
+				"timestamp": "2021-10-07T07:45:00.000Z"
+			}
+			]
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
