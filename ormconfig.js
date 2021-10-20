@@ -27,8 +27,8 @@ const development = {
   entities: ['./src/modules/**/models/*.ts'],
   migrations: ['./src/database/migrations/*.ts'],
   cli: {
-    entitiesDir: './src/modules/**/models/*.ts',
-    migrationsDir: './src/database/migrations/*.ts',
+    entitiesDir: './src/modules/**/models',
+    migrationsDir: './src/database/migrations',
   },
 }
 
