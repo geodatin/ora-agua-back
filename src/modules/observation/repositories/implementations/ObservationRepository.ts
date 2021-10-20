@@ -14,7 +14,7 @@ class ObservationRepository implements IObservationRepository {
     const result = await getRepository(ObservationStationView)
       .createQueryBuilder('view')
       .select('*')
-      .orderBy('timestamp', 'ASC')
+      .orderBy('timestamp', 'DESC')
       .getRawMany()
     return result
   }
