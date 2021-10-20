@@ -731,6 +731,7 @@ Método que retorna a última atualização para cada estação
 	**Opcionais:**
 		
 		page:[number] - Número da página a ser retornada
+		pageSize:[number] - Número de registros por página
 		
 * **Parâmetros do Body:**
 
@@ -738,7 +739,7 @@ Método que retorna a última atualização para cada estação
 
 * **Exemplo:**
 
-	/api/observation/last?page=2
+	/api/observation/last?page=2pageSize
 
 * **Resposta:**
 
