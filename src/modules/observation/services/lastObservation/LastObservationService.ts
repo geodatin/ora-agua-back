@@ -10,11 +10,11 @@ class LastObservationService {
     private observationRepository: IObservationRepository
   ) {}
 
-  async execute({ page }: ILastObservationDTO) {
+  async execute({ page, pageSize }: ILastObservationDTO) {
     const response = await this.observationRepository.getLastObservation()
     return {
-      values: paginate(response, page, 5),
-      pages: countPages(response, 5),
+      values: paginate(response, page, pageSize),
+      pages: countPages(response, pageSize),
     }
   }
 }
