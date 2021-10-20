@@ -1,3 +1,4 @@
+import { ObservationStationView } from '@modules/observation/models/ObservationStationView'
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateObservationDTO } from '../../dtos/ICreateObservationDTO'
@@ -8,6 +9,14 @@ class ObservationRepository implements IObservationRepository {
   private repository: Repository<Observation>
   constructor() {
     this.repository = getRepository(Observation)
+  }
+  async getLastObservation(): Promise<any[]> {
+    const result = await getRepository(ObservationStationView)
+      .createQueryBuilder('view')
+      .select('*')
+      .orderBy('timestamp', 'ASC')
+      .getRawMany()
+    return result
   }
   async getStationMaxDate(stationCode: number): Promise<string> {
     const { date } = await this.repository

@@ -4,5 +4,6 @@ interface IObservationRepository {
   create(data: ICreateObservationDTO): Promise<void>
   createMany(data: ICreateObservationDTO[]): Promise<void>
   getStationMaxDate(stationCode: number): Promise<string>
+  getLastObservation(): Promise<any[]>
 }
 export { IObservationRepository }
