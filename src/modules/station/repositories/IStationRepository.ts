@@ -5,7 +5,7 @@ import { Station } from '../models/Station'
 interface IStationRepository {
   create(data: ICreateStationDTO): Promise<void>
   getTelemetricStations(): Promise<Station[]>
-  getAllStations(telemetric?: boolean): Promise<Station[]>
+  getAllStations(networkType?: string): Promise<Station[]>
   countAllStations(): Promise<number>
   countStationsByType(): Promise<{ count: number; name: string }[]>
   countStationsByCountry({

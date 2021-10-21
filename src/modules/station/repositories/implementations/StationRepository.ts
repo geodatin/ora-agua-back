@@ -1,5 +1,5 @@
 import { ICountRequestDTO } from '@modules/station/dtos/ICountRequestDTO'
-import { getRepository, IsNull, Not, Repository } from 'typeorm'
+import { getRepository, Repository } from 'typeorm'
 
 import { ICreateStationDTO } from '../../dtos/ICreateStationDTO'
 import { Station } from '../../models/Station'
@@ -64,13 +64,10 @@ class StationRepository implements IStationRepository {
     return this.repository.count()
   }
 
-  async getAllStations(telemetric?: boolean): Promise<Station[]> {
-    const where: any = {
-      country: Not(IsNull()),
-    }
-    if (telemetric) {
-      where.telemetric = telemetric
-      where.id = Not(IsNull())
+  async getAllStations(networkType?: string): Promise<Station[]> {
+    const where: any = {}
+    if (networkType) {
+      where.networkType = networkType
     }
     const stations = await this.repository.find({
       select: [
