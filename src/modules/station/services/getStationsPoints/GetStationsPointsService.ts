@@ -10,8 +10,8 @@ class GetStationsPointsService {
     private stationRepository: IStationRepository
   ) {}
 
-  async execute(telemetric?: boolean) {
-    const stations = await this.stationRepository.getAllStations(telemetric)
+  async execute(networkType?: string) {
+    const stations = await this.stationRepository.getAllStations(networkType)
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
     return parsed
   }
