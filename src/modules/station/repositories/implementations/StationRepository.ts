@@ -80,7 +80,7 @@ class StationRepository implements IStationRepository {
       select: [
         'country',
         'location',
-        'type',
+        'networkType',
         'name',
         'subwatershed',
         'river',
