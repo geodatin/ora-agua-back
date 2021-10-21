@@ -10,6 +10,13 @@ class StationRepository implements IStationRepository {
   constructor() {
     this.repository = getRepository(Station)
   }
+  async countCountries(): Promise<number> {
+    const { count } = await this.repository
+      .createQueryBuilder('station')
+      .select('COUNT(DISTINCT country)', 'count')
+      .getRawOne()
+    return count
+  }
   async countStationsByResponsible({
     order,
   }: ICountRequestDTO): Promise<{ count: number; name: string }[]> {
