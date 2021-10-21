@@ -1,6 +1,8 @@
+import { ITimeSeriesEntryDTO } from '@modules/observation/dtos/ITimeSeriesDTO'
 import { ObservationStationView } from '@modules/observation/models/ObservationStationView'
 import { getRepository, Repository } from 'typeorm'
 
+import { AppError } from '../../../../errors/AppError'
 import { ICreateObservationDTO } from '../../dtos/ICreateObservationDTO'
 import { Observation } from '../../models/Observation'
 import { IObservationRepository } from '../IObservationRepository'
@@ -37,6 +39,35 @@ class ObservationRepository implements IObservationRepository {
       .insert()
       .values(data)
       .execute()
+  }
+
+  async getStationObservations(
+    stationCode: number,
+    dataType: string
+  ): Promise<ITimeSeriesEntryDTO[]> {
+    const column = this.getColumnByDataType(dataType)
+    if (!column) {
+      throw new AppError(`Invalid dataType: ${dataType}`)
+    }
+    const observations = await this.repository
+      .createQueryBuilder('observation')
+      .select('DATE(timestamp)', 'x')
+      .addSelect(column, 'y')
+      .where('station_code = :code', { code: stationCode })
+      .groupBy('DATE(timestamp)')
+      .orderBy('x')
+      .getRawMany()
+
+    return observations
+  }
+
+  private getColumnByDataType(dataType: string): string {
+    const columns = {
+      rain: 'SUM(COALESCE(rain, 0))',
+      flowRate: 'AVG(COALESCE(flow_rate, 0))',
+      adoptedLevel: 'AVG(COALESCE(adopted_level, 0))',
+    }
+    return columns[dataType]
   }
 }
 
