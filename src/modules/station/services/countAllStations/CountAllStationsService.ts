@@ -9,7 +9,9 @@ class CountAllStationsService {
   ) {}
 
   async execute() {
-    return this.stationRepository.countAllStations()
+    const countStation = await this.stationRepository.countAllStations()
+    const countCountry = await this.stationRepository.countCountries()
+    return { countStation: countStation, countCountry: countCountry }
   }
 }
 

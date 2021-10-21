@@ -1,6 +1,6 @@
 import { ILastObservationDTO } from '@modules/observation/dtos/ILastObservationDTO'
 import { IObservationRepository } from '@modules/observation/repositories/IObservationRepository'
-import { paginate } from '@utils/paginate'
+import { countPages, paginate } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -10,9 +10,12 @@ class LastObservationService {
     private observationRepository: IObservationRepository
   ) {}
 
-  async execute({ page }: ILastObservationDTO) {
+  async execute({ page, pageSize }: ILastObservationDTO) {
     const response = await this.observationRepository.getLastObservation()
-    return paginate(response, page, 5)
+    return {
+      values: paginate(response, page, pageSize),
+      pages: countPages(response, pageSize),
+    }
   }
 }
 

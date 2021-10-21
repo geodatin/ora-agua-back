@@ -148,6 +148,9 @@ class Station {
 
   @OneToMany(() => Observation, (observation) => observation.stationCode)
   observations: Observation[]
+
+  @Column({ name: 'network_type', nullable: true })
+  networkType: string
 }
 
 export { Station }

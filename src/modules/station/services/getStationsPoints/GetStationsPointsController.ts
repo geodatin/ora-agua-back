@@ -5,12 +5,13 @@ import { GetStationsPointsService } from './GetStationsPointsService'
 
 class GetStationsPointsController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { telemetric } = request.query
-    const isTelemetric = telemetric === 'true'
+    const { networkType } = request.query
     const countStationsByTypeService = container.resolve(
       GetStationsPointsService
     )
-    const stations = await countStationsByTypeService.execute(isTelemetric)
+    const stations = await countStationsByTypeService.execute(
+      networkType === undefined ? null : String(networkType)
+    )
     return response.json(stations)
   }
 }

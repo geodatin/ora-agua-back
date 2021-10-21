@@ -1,5 +1,5 @@
 import { ICountRequestDTO } from '@modules/station/dtos/ICountRequestDTO'
-import { getRepository, IsNull, Not, Repository } from 'typeorm'
+import { getRepository, Repository } from 'typeorm'
 
 import { ICreateStationDTO } from '../../dtos/ICreateStationDTO'
 import { Station } from '../../models/Station'
@@ -9,6 +9,13 @@ class StationRepository implements IStationRepository {
   private repository: Repository<Station>
   constructor() {
     this.repository = getRepository(Station)
+  }
+  async countCountries(): Promise<number> {
+    const { count } = await this.repository
+      .createQueryBuilder('station')
+      .select('COUNT(DISTINCT country)', 'count')
+      .getRawOne()
+    return count
   }
   async countStationsByResponsible({
     order,
@@ -64,19 +71,16 @@ class StationRepository implements IStationRepository {
     return this.repository.count()
   }
 
-  async getAllStations(telemetric?: boolean): Promise<Station[]> {
-    const where: any = {
-      country: Not(IsNull()),
-    }
-    if (telemetric) {
-      where.telemetric = telemetric
-      where.id = Not(IsNull())
+  async getAllStations(networkType?: string): Promise<Station[]> {
+    const where: any = {}
+    if (networkType) {
+      where.networkType = networkType
     }
     const stations = await this.repository.find({
       select: [
         'country',
         'location',
-        'type',
+        'networkType',
         'name',
         'subwatershed',
         'river',

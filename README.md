@@ -335,7 +335,7 @@ Método que retorna o shape das estações.
 	Nenhum
 
 	**Não Obrigatórios:**
-		telemetric:[boolean] - Determina se deve trazer somente as estações que são telemétricas
+		networkType:[string] - Tipo de estação a ser retornada. "RQA" para Rede Amazônica de Monitoramento de QA e "RHA" para Rede Hidrológica Amazônica. Para que todas as estações sejam retornadas a propriedade não deve ser enviada
 		
 * **Parâmetros do Body:**
 
@@ -793,6 +793,7 @@ Método que retorna a última atualização para cada estação
 	**Opcionais:**
 		
 		page:[number] - Número da página a ser retornada
+		pageSize:[number] - Número de registros por página
 		
 * **Parâmetros do Body:**
 
@@ -800,7 +801,7 @@ Método que retorna a última atualização para cada estação
 
 * **Exemplo:**
 
-	/api/observation/last?page=2
+	/api/observation/last?page=2pageSize
 
 * **Resposta:**
 
