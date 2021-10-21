@@ -67,7 +67,7 @@ Método que retorna a contagem total de estações pelo tipo.
 
 * **Exemplo:**
 
-	/station/count/type
+	/api/station/count/type
 
 * **Resposta:**
 
@@ -381,6 +381,68 @@ Método que retorna o shape das estações.
 			message: 'Internal Server Error'
 		}
 	  ```
+
+**Série Temporal de Observações de uma Estação**
+----
+Uma série temporal de observações (chuva, vazão ou nível) de uma determinada estação.
+
+* **URL:**
+
+	/api/observation/timeSeries/:stationCode/:dataType
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+	
+    stationCode:[number] - Código da estação
+    
+    dataType:[number] - Tipo de dado (rain, flowRate, adoptedLevel)
+
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/observation/timeSeries/351004/rain
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+      {
+        "x": [
+          "2015-12-22",
+          "2015-12-23",
+          "2016-01-01",
+          "2016-01-02",
+          "2016-01-03"
+          ...
+        ],
+        "y": [
+          4,
+          6,
+          10,
+          0,
+          0,
+          ...
+        ]
+      }
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
 # Ora-hidricos API
 
 **Área de superfície d'agua**
