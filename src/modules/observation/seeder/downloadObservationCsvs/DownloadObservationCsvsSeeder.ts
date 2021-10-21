@@ -1,6 +1,4 @@
-import Zipper from 'adm-zip'
 import download from 'async-get-file'
-import fs from 'fs'
 import path from 'path'
 import queryString from 'query-string'
 import { inject, injectable } from 'tsyringe'
@@ -9,7 +7,7 @@ import { IStationRepository } from '../../../station/repositories/IStationReposi
 import { IDownloadOptionsDTO } from '../../dtos/IDownloadOptionsDTO'
 
 @injectable()
-class DownloadObservationCsvs {
+class DownloadObservationCsvsSeeder {
   constructor(
     @inject('StationRepository')
     private stationRepository: IStationRepository
@@ -33,9 +31,10 @@ class DownloadObservationCsvs {
         '..',
         '..',
         '..',
-        'assets'
+        'assets',
+        'zipped'
       ),
-      filename: 'download.zip',
+      filename: `${stationCode}.zip`,
     }
     const query = {
       documentos: stationCode,
@@ -44,7 +43,7 @@ class DownloadObservationCsvs {
     await download(baseUrl.concat(queryString.stringify(query)), options)
   }
 
-  async unzipDocument(options: IDownloadOptionsDTO): Promise<void> {
+  /*  async unzipDocument(options: IDownloadOptionsDTO): Promise<void> {
     const zip = new Zipper(path.join(options.directory, options.filename))
     zip.extractAllTo(path.join(options.directory, 'tmp'))
     const directory = await fs.promises.opendir(
@@ -54,7 +53,7 @@ class DownloadObservationCsvs {
       const zip = new Zipper(path.join(options.directory, 'tmp', file.name))
       zip.extractAllTo(path.join(options.directory, 'csvs'))
     }
-  }
+  } */
 }
 
-export { DownloadObservationCsvs }
+export { DownloadObservationCsvsSeeder }

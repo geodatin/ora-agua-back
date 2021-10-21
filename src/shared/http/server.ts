@@ -3,9 +3,9 @@ import express from 'express'
 import 'express-async-errors'
 
 import '@utils/formatPgResponse'
-import './database'
-import './shared/container'
-import { checkError } from './errors/checkError'
+import '../database'
+import '../container'
+import { checkError } from '../../errors/checkError'
 import { routes } from './routes/index.routes'
 
 const app = express()
