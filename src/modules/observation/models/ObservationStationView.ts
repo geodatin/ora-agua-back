@@ -1,7 +1,7 @@
 import { ViewColumn, ViewEntity } from 'typeorm'
 
 @ViewEntity({
-  expression: `SELECT name, type, o1.rain, o1.flow_rate "flowRate", o1.station_code AS code, 
+  expression: `SELECT ST_AsGeoJSON(location)::json, name, type, o1.rain, o1.flow_rate "flowRate", o1.station_code AS code, 
   o1.adopted_level AS level, o1.timestamp
   FROM observation o1 INNER JOIN (
   SELECT MAX(timestamp) as timestamp, station_code FROM observation
@@ -12,6 +12,9 @@ import { ViewColumn, ViewEntity } from 'typeorm'
   name: 'observation_station_view',
 })
 class ObservationStationView {
+  @ViewColumn()
+  location: string
+
   @ViewColumn()
   name: string
 
