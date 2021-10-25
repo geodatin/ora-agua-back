@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/http/server.ts",
-    "seed": "ts-node -r tsconfig-paths/register src/seed.ts",
+    "seed": "ts-node -r tsconfig-paths/register src/shared/seed/seed.ts",
     "seed-dev": "ts-node --inspect --transpile-only --ignore-watch node_modules --respawn src/seed.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
   },
