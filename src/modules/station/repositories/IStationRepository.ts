@@ -1,11 +1,12 @@
 import { ICountRequestDTO } from '../dtos/ICountRequestDTO'
 import { ICreateStationDTO } from '../dtos/ICreateStationDTO'
 import { Station } from '../models/Station'
+import { StationAll } from '../models/StationAll'
 
 interface IStationRepository {
   countCountries(): Promise<number>
   create(data: ICreateStationDTO): Promise<void>
-  getTelemetricStations(): Promise<Station[]>
+  getTelemetricStations(): Promise<StationAll[]>
   getAllStations(networkType?: string): Promise<Station[]>
   countAllStations(): Promise<number>
   countStationsByType(): Promise<{ count: number; name: string }[]>
