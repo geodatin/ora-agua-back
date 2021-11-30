@@ -12,6 +12,11 @@ class ObservationRepository implements IObservationRepository {
   constructor() {
     this.repository = getRepository(Observation)
   }
+  async refreshLastObservationView(): Promise<void> {
+    await this.repository.query(
+      'REFRESH MATERIALIZED VIEW observation_station_view WITH DATA'
+    )
+  }
   async getLastObservation(): Promise<any[]> {
     const result = await getRepository(ObservationStationView)
       .createQueryBuilder('view')
