@@ -1,3 +1,5 @@
+import { IWaterQualityObservationRepository } from '@modules/observation/repositories/IWaterQualityObservationRepository'
+import { WaterQualityObservationRepository } from '@modules/observation/repositories/typeorm/WaterQualityObservationRepository'
 import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
 import { IWaterAreaRepository } from '@modules/water/repositories/IWaterAreaRepository'
 import { container } from 'tsyringe'
@@ -20,4 +22,9 @@ container.registerSingleton<IObservationRepository>(
 container.registerSingleton<IWaterAreaRepository>(
   'WaterAreaRepository',
   WaterAreaRepository
+)
+
+container.registerSingleton<IWaterQualityObservationRepository>(
+  'WaterQualityObservationRepository',
+  WaterQualityObservationRepository
 )
