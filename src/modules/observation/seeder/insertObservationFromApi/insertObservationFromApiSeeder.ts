@@ -35,18 +35,18 @@ class InsertObservationFromApiSeeder {
           const endDate = moment(finalDate)
           console.log(station.code, startDate)
           while (startDate.isSameOrBefore(endDate)) {
-            try {
-              const observations = await this.getObservationFromPeriod(
-                startDate.toDate(),
-                station.id
-              )
-              startDate.add(2, 'days')
-              await this.observationRepository.createMany(observations)
-            } catch (err) {}
+            const observations = await this.getObservationFromPeriod(
+              startDate.toDate(),
+              station.id
+            )
+            startDate.add(2, 'days')
+            await this.observationRepository.createMany(observations)
           }
         }
       }
     }
+    await this.observationRepository.refreshLastObservationView()
+    await this.updateLastStation(0)
   }
 
   async getObservationFromPeriod(
