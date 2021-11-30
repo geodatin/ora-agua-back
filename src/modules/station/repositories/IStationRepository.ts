@@ -8,6 +8,7 @@ interface IStationRepository {
   create(data: ICreateStationDTO): Promise<void>
   getTelemetricStations(): Promise<StationAll[]>
   getAllStations(networkType?: string): Promise<Station[]>
+  getAllStationsFullTable(): Promise<StationAll[]>
   countAllStations(): Promise<number>
   countStationsByType(): Promise<{ count: number; name: string }[]>
   countStationsByCountry({

@@ -13,6 +13,10 @@ class StationRepository implements IStationRepository {
     this.repository = getRepository(Station)
     this.repositoryAll = getRepository(StationAll)
   }
+  async getAllStationsFullTable(): Promise<StationAll[]> {
+    const stations = await this.repositoryAll.find()
+    return stations
+  }
   async countCountries(): Promise<number> {
     const { count } = await this.repository
       .createQueryBuilder('station')
@@ -94,6 +98,7 @@ class StationRepository implements IStationRepository {
       ],
       where: where,
     })
+    console.log(stations.length)
     return stations
   }
 
