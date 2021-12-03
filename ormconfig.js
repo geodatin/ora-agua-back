@@ -25,10 +25,10 @@ const development = {
   synchronize: false,
   logging: true,
   entities: ['./src/modules/**/models/*.ts'],
-  migrations: ['./src/database/migrations/*.ts'],
+  migrations: ['./src/shared/database/migrations/*.ts'],
   cli: {
     entitiesDir: './src/modules/**/models',
-    migrationsDir: './src/database/migrations',
+    migrationsDir: './src/shared/database/migrations',
   },
 }
 

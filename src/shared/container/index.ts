@@ -1,3 +1,5 @@
+import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
+import { StationHybamRepository } from '@modules/station/repositories/typeorm/StationHybamRepository'
 import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
 import { IWaterAreaRepository } from '@modules/water/repositories/IWaterAreaRepository'
 import { container } from 'tsyringe'
@@ -20,4 +22,9 @@ container.registerSingleton<IObservationRepository>(
 container.registerSingleton<IWaterAreaRepository>(
   'WaterAreaRepository',
   WaterAreaRepository
+)
+
+container.registerSingleton<IStationHybamRepository>(
+  'StationHybamRepository',
+  StationHybamRepository
 )
