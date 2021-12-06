@@ -81,23 +81,23 @@ class DownloadWaterLevelsHybamSeeder {
     }
 
     console.log('Deleting values from hybam daily levels table...')
-    // await this.dailyWaterLevelHybamRepository.deleteAll()
+    await this.dailyWaterLevelHybamRepository.deleteAll()
 
     console.log('Inserting hybam daily levels...')
-    // await this.dailyWaterLevelHybamRepository.insertFromCSV(
-    //   dailyFilePath,
-    //   header
-    // )
+    await this.dailyWaterLevelHybamRepository.insertFromCSV(
+      dailyFilePath,
+      header
+    )
     console.log('Hybam daily levels insertion finished.')
 
     console.log('Deleting values from hybam monthly levels table...')
-    // await this.monthlyWaterLevelHybamRepository.deleteAll()
+    await this.monthlyWaterLevelHybamRepository.deleteAll()
 
     console.log('Inserting hybam monthly levels...')
-    // await this.monthlyWaterLevelHybamRepository.insertFromCSV(
-    //   monthlyFilePath,
-    //   header
-    // )
+    await this.monthlyWaterLevelHybamRepository.insertFromCSV(
+      monthlyFilePath,
+      header
+    )
     console.log('Hybam monthly levels insertion finished.')
     fs.unlinkSync(dailyFilePath)
     fs.unlinkSync(monthlyFilePath)

@@ -1,6 +1,10 @@
+import { IDailyDischargeHybamRepository } from '@modules/observation/repositories/IDailyDischargeHybamRepository'
 import { IDailyWaterLevelHybamRepository } from '@modules/observation/repositories/IDailyWaterLevelHybamRepository'
+import { IMonthlyDischargeHybamRepository } from '@modules/observation/repositories/IMonthlyDischargeHybamRepository'
 import { IMonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/IMonthlyWaterLevelHybamRepository'
+import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
+import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import { StationHybamRepository } from '@modules/station/repositories/typeorm/StationHybamRepository'
@@ -41,4 +45,14 @@ container.registerSingleton<IDailyWaterLevelHybamRepository>(
 container.registerSingleton<IMonthlyWaterLevelHybamRepository>(
   'MonthlyWaterLevelHybamRepository',
   MonthlyWaterLevelHybamRepository
+)
+
+container.registerSingleton<IDailyDischargeHybamRepository>(
+  'DailyDischargeHybamRepository',
+  DailyDischargeHybamRepository
+)
+
+container.registerSingleton<IMonthlyDischargeHybamRepository>(
+  'MonthlyDischargeHybamRepository',
+  MonthlyDischargeHybamRepository
 )

@@ -1,4 +1,6 @@
+import { DailyDischargeHybam } from '@modules/observation/models/DailyDischargeHybam'
 import { DailyWaterLevelHybam } from '@modules/observation/models/DailyWaterLevelHybam'
+import { MonthlyDischargeHybam } from '@modules/observation/models/MonthlyDischargeHybam'
 import { MonthlyWaterLevelHybam } from '@modules/observation/models/MonthlyWaterLevelHybam'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
@@ -36,6 +38,18 @@ class StationHybam {
     (monthlyLevel) => monthlyLevel.station
   )
   monthlyWaterLevel: MonthlyWaterLevelHybam[]
+
+  @OneToMany(
+    () => DailyDischargeHybam,
+    (dailyDischarge) => dailyDischarge.station
+  )
+  dailyDischarge: DailyDischargeHybam[]
+
+  @OneToMany(
+    () => MonthlyDischargeHybam,
+    (monthlyDischarge) => monthlyDischarge.station
+  )
+  monthlyDischarge: MonthlyDischargeHybam[]
 }
 
 export { StationHybam }
