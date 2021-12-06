@@ -1,3 +1,7 @@
+import { IDailyWaterLevelHybamRepository } from '@modules/observation/repositories/IDailyWaterLevelHybamRepository'
+import { IMonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/IMonthlyWaterLevelHybamRepository'
+import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
+import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import { StationHybamRepository } from '@modules/station/repositories/typeorm/StationHybamRepository'
 import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
@@ -27,4 +31,14 @@ container.registerSingleton<IWaterAreaRepository>(
 container.registerSingleton<IStationHybamRepository>(
   'StationHybamRepository',
   StationHybamRepository
+)
+
+container.registerSingleton<IDailyWaterLevelHybamRepository>(
+  'DailyWaterLevelHybamRepository',
+  DailyWaterLevelHybamRepository
+)
+
+container.registerSingleton<IMonthlyWaterLevelHybamRepository>(
+  'MonthlyWaterLevelHybamRepository',
+  MonthlyWaterLevelHybamRepository
 )

@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { DailyWaterLevelHybam } from '@modules/observation/models/DailyWaterLevelHybam'
+import { MonthlyWaterLevelHybam } from '@modules/observation/models/MonthlyWaterLevelHybam'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity({ name: 'station_hybam' })
 class StationHybam {
@@ -25,6 +27,15 @@ class StationHybam {
 
   @Column({ type: 'float' })
   longitude: number
+
+  @OneToMany(() => DailyWaterLevelHybam, (dailyLevel) => dailyLevel.station)
+  dailyWaterLevel: DailyWaterLevelHybam[]
+
+  @OneToMany(
+    () => MonthlyWaterLevelHybam,
+    (monthlyLevel) => monthlyLevel.station
+  )
+  monthlyWaterLevel: MonthlyWaterLevelHybam[]
 }
 
 export { StationHybam }

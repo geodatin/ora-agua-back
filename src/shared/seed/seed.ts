@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import '../container'
 import downloadObservationCsvsController from '@modules/observation/seeder/downloadObservationCsvs/DownloadObservationCsvsController'
+import downloadWaterLevelsHybamController from '@modules/observation/seeder/downloadWaterLevelsHybam/DownloadWaterLevelsHybamController'
 import insertObservationFromApiController from '@modules/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
 import insertStationController from '@modules/station/seeders/insertStation/InsertStationController'
 import insertStationsHybamController from '@modules/station/seeders/insertStationsHybam/InsertStationsHybamController'
@@ -15,5 +16,6 @@ createConnection().then(async () => {
   // await insertWaterAreaFromCsvController.start()
   // await downloadObservationCsvsController.start()
 
-  await insertStationsHybamController.start()
+  // await insertStationsHybamController.start()
+  await downloadWaterLevelsHybamController.start()
 })

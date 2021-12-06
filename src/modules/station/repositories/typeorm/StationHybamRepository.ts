@@ -11,6 +11,11 @@ class StationHybamRepository implements IStationHybamRepository {
     this.repository = getRepository(StationHybam)
   }
 
+  async getStationsType(): Promise<{ code: string; type: string }[]> {
+    const stations = await this.repository.find({ select: ['code', 'type'] })
+    return stations
+  }
+
   async createMany(stations: ICreateStationHybamDTO[]): Promise<void> {
     const entities: StationHybam[] = stations.map((station) => {
       const entity = new StationHybam()
