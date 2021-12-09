@@ -51,6 +51,7 @@ class DownloadWaterLevelsHybamSeeder {
 
     const stations = await this.stationHybamRepository.getStationsType()
 
+    console.log('Downloading hybam water level data...')
     for (const { code, type } of stations) {
       const { dailyLevels, monthlyLevels } = await this.fetchWaterLevels(code)
 

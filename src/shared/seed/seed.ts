@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import '../container'
 import downloadDischargesHybamController from '@modules/observation/seeder/downloadDischargesHybam/DownloadDischargesHybamController'
+import downloadGeochemistryHybamController from '@modules/observation/seeder/downloadGeochemistryHybam/DownloadGeochemistryHybamController'
 import downloadObservationCsvsController from '@modules/observation/seeder/downloadObservationCsvs/DownloadObservationCsvsController'
 import downloadPhysicalChemistryHybamController from '@modules/observation/seeder/downloadPhysicalChemistryHybam/DownloadPhysicalChemistryHybamController'
 import downloadSedimentsHybamController from '@modules/observation/seeder/downloadSedimentsHybam/DownloadSedimentsHybamController'
@@ -19,9 +20,10 @@ createConnection().then(async () => {
   // await insertWaterAreaFromCsvController.start()
   // await downloadObservationCsvsController.start()
 
-  // await insertStationsHybamController.start()
-  // await downloadWaterLevelsHybamController.start()
-  // await downloadDischargesHybamController.start()
-  // await downloadSedimentsHybamController.start()
+  await insertStationsHybamController.start()
+  await downloadWaterLevelsHybamController.start()
+  await downloadDischargesHybamController.start()
+  await downloadSedimentsHybamController.start()
   await downloadPhysicalChemistryHybamController.start()
+  await downloadGeochemistryHybamController.start()
 })

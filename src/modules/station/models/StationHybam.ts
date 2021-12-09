@@ -1,5 +1,6 @@
 import { DailyDischargeHybam } from '@modules/observation/models/DailyDischargeHybam'
 import { DailyWaterLevelHybam } from '@modules/observation/models/DailyWaterLevelHybam'
+import { GeochemistryHybam } from '@modules/observation/models/GeochemistryHybam'
 import { MonthlyDischargeHybam } from '@modules/observation/models/MonthlyDischargeHybam'
 import { MonthlyWaterLevelHybam } from '@modules/observation/models/MonthlyWaterLevelHybam'
 import { PhysicalChemistryHybam } from '@modules/observation/models/PhysicalChemistryHybam'
@@ -65,9 +66,12 @@ class StationHybam {
 
   @OneToMany(
     () => PhysicalChemistryHybam,
-    (satelliteSediment) => satelliteSediment.station
+    (physicalChemistry) => physicalChemistry.station
   )
   physicalChemistry: PhysicalChemistryHybam[]
+
+  @OneToMany(() => GeochemistryHybam, (geochemistry) => geochemistry.station)
+  geochemistry: GeochemistryHybam[]
 }
 
 export { StationHybam }

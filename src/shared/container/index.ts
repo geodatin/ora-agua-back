@@ -1,6 +1,7 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
+import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
@@ -70,4 +71,9 @@ container.registerSingleton<IObservationHybamRepository>(
 container.registerSingleton<IObservationHybamRepository>(
   'PhysicalChemistryHybamRepository',
   PhysicalChemistryHybamRepository
+)
+
+container.registerSingleton<IObservationHybamRepository>(
+  'GeochemistryHybamRepository',
+  GeochemistryHybamRepository
 )

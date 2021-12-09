@@ -51,6 +51,7 @@ class DownloadDischargesHybamSeeder {
 
     const stations = await this.stationHybamRepository.getStationsType()
 
+    console.log('Downloading hybam discharges data...')
     for (const { code } of stations) {
       const { dailyDischarges, monthlyDischarges } = await this.fetchDischarges(
         code
