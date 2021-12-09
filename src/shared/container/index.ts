@@ -1,4 +1,5 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
+import { IWaterQualityObservationRepository } from '@modules/observation/repositories/IWaterQualityObservationRepository'
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
@@ -7,6 +8,7 @@ import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositor
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
 import { SatelliteDerivedSedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SatelliteDerivedSedimentsHybamRepository'
 import { SedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SedimentsHybamRepository'
+import { WaterQualityObservationRepository } from '@modules/observation/repositories/typeorm/WaterQualityObservationRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import { StationHybamRepository } from '@modules/station/repositories/typeorm/StationHybamRepository'
 import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
@@ -76,4 +78,9 @@ container.registerSingleton<IObservationHybamRepository>(
 container.registerSingleton<IObservationHybamRepository>(
   'GeochemistryHybamRepository',
   GeochemistryHybamRepository
+)
+
+container.registerSingleton<IWaterQualityObservationRepository>(
+  'WaterQualityObservationRepository',
+  WaterQualityObservationRepository
 )
