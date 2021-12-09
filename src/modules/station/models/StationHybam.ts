@@ -2,6 +2,8 @@ import { DailyDischargeHybam } from '@modules/observation/models/DailyDischargeH
 import { DailyWaterLevelHybam } from '@modules/observation/models/DailyWaterLevelHybam'
 import { MonthlyDischargeHybam } from '@modules/observation/models/MonthlyDischargeHybam'
 import { MonthlyWaterLevelHybam } from '@modules/observation/models/MonthlyWaterLevelHybam'
+import { SatelliteDerivedSedimentsHybam } from '@modules/observation/models/SatelliteDerivedSedimentsHybam'
+import { SedimentsHybam } from '@modules/observation/models/SedimentsHybam'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity({ name: 'station_hybam' })
@@ -50,6 +52,15 @@ class StationHybam {
     (monthlyDischarge) => monthlyDischarge.station
   )
   monthlyDischarge: MonthlyDischargeHybam[]
+
+  @OneToMany(() => SedimentsHybam, (sediment) => sediment.station)
+  sediments: SedimentsHybam[]
+
+  @OneToMany(
+    () => SatelliteDerivedSedimentsHybam,
+    (satelliteSediment) => satelliteSediment.station
+  )
+  satelliteSediments: SatelliteDerivedSedimentsHybam[]
 }
 
 export { StationHybam }
