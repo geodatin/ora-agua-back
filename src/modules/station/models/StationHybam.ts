@@ -2,6 +2,7 @@ import { DailyDischargeHybam } from '@modules/observation/models/DailyDischargeH
 import { DailyWaterLevelHybam } from '@modules/observation/models/DailyWaterLevelHybam'
 import { MonthlyDischargeHybam } from '@modules/observation/models/MonthlyDischargeHybam'
 import { MonthlyWaterLevelHybam } from '@modules/observation/models/MonthlyWaterLevelHybam'
+import { PhysicalChemistryHybam } from '@modules/observation/models/PhysicalChemistryHybam'
 import { SatelliteDerivedSedimentsHybam } from '@modules/observation/models/SatelliteDerivedSedimentsHybam'
 import { SedimentsHybam } from '@modules/observation/models/SedimentsHybam'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
@@ -61,6 +62,12 @@ class StationHybam {
     (satelliteSediment) => satelliteSediment.station
   )
   satelliteSediments: SatelliteDerivedSedimentsHybam[]
+
+  @OneToMany(
+    () => PhysicalChemistryHybam,
+    (satelliteSediment) => satelliteSediment.station
+  )
+  physicalChemistry: PhysicalChemistryHybam[]
 }
 
 export { StationHybam }

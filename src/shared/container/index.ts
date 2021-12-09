@@ -3,6 +3,7 @@ import { DailyDischargeHybamRepository } from '@modules/observation/repositories
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
+import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
 import { SatelliteDerivedSedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SatelliteDerivedSedimentsHybamRepository'
 import { SedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SedimentsHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
@@ -64,4 +65,9 @@ container.registerSingleton<IObservationHybamRepository>(
 container.registerSingleton<IObservationHybamRepository>(
   'SatelliteDerivedSedimentsHybamRepository',
   SatelliteDerivedSedimentsHybamRepository
+)
+
+container.registerSingleton<IObservationHybamRepository>(
+  'PhysicalChemistryHybamRepository',
+  PhysicalChemistryHybamRepository
 )
