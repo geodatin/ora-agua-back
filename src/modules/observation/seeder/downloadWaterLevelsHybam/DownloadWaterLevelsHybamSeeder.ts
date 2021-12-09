@@ -1,5 +1,4 @@
-import { IDailyWaterLevelHybamRepository } from '@modules/observation/repositories/IDailyWaterLevelHybamRepository'
-import { IMonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/IMonthlyWaterLevelHybamRepository'
+import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import axios from 'axios'
 import cheerio from 'cheerio'
@@ -11,10 +10,10 @@ import { inject, injectable } from 'tsyringe'
 class DownloadWaterLevelsHybamSeeder {
   constructor(
     @inject('DailyWaterLevelHybamRepository')
-    private dailyWaterLevelHybamRepository: IDailyWaterLevelHybamRepository,
+    private dailyWaterLevelHybamRepository: IObservationHybamRepository,
 
     @inject('MonthlyWaterLevelHybamRepository')
-    private monthlyWaterLevelHybamRepository: IMonthlyWaterLevelHybamRepository,
+    private monthlyWaterLevelHybamRepository: IObservationHybamRepository,
 
     @inject('StationHybamRepository')
     private stationHybamRepository: IStationHybamRepository

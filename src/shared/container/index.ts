@@ -1,9 +1,4 @@
-import { IDailyDischargeHybamRepository } from '@modules/observation/repositories/IDailyDischargeHybamRepository'
-import { IDailyWaterLevelHybamRepository } from '@modules/observation/repositories/IDailyWaterLevelHybamRepository'
-import { IMonthlyDischargeHybamRepository } from '@modules/observation/repositories/IMonthlyDischargeHybamRepository'
-import { IMonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/IMonthlyWaterLevelHybamRepository'
-import { ISatelliteDerivedSedimentsHybamRepository } from '@modules/observation/repositories/ISatelliteDerivedSedimentsHybamRepository'
-import { ISedimentsHybamRepository } from '@modules/observation/repositories/ISedimentsHybamRepository'
+import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
@@ -41,32 +36,32 @@ container.registerSingleton<IStationHybamRepository>(
   StationHybamRepository
 )
 
-container.registerSingleton<IDailyWaterLevelHybamRepository>(
+container.registerSingleton<IObservationHybamRepository>(
   'DailyWaterLevelHybamRepository',
   DailyWaterLevelHybamRepository
 )
 
-container.registerSingleton<IMonthlyWaterLevelHybamRepository>(
+container.registerSingleton<IObservationHybamRepository>(
   'MonthlyWaterLevelHybamRepository',
   MonthlyWaterLevelHybamRepository
 )
 
-container.registerSingleton<IDailyDischargeHybamRepository>(
+container.registerSingleton<IObservationHybamRepository>(
   'DailyDischargeHybamRepository',
   DailyDischargeHybamRepository
 )
 
-container.registerSingleton<IMonthlyDischargeHybamRepository>(
+container.registerSingleton<IObservationHybamRepository>(
   'MonthlyDischargeHybamRepository',
   MonthlyDischargeHybamRepository
 )
 
-container.registerSingleton<ISedimentsHybamRepository>(
+container.registerSingleton<IObservationHybamRepository>(
   'SedimentsHybamRepository',
   SedimentsHybamRepository
 )
 
-container.registerSingleton<ISatelliteDerivedSedimentsHybamRepository>(
+container.registerSingleton<IObservationHybamRepository>(
   'SatelliteDerivedSedimentsHybamRepository',
   SatelliteDerivedSedimentsHybamRepository
 )

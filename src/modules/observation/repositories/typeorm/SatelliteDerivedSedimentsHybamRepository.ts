@@ -2,10 +2,10 @@ import { SatelliteDerivedSedimentsHybam } from '@modules/observation/models/Sate
 import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
-import { ISatelliteDerivedSedimentsHybamRepository } from '../ISatelliteDerivedSedimentsHybamRepository'
+import { IObservationHybamRepository } from '../IObservationHybamRepository'
 
 class SatelliteDerivedSedimentsHybamRepository
-  implements ISatelliteDerivedSedimentsHybamRepository
+  implements IObservationHybamRepository
 {
   private repository: Repository<SatelliteDerivedSedimentsHybam>
 

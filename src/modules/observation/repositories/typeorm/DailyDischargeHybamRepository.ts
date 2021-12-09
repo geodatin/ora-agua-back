@@ -4,9 +4,9 @@ import { Pool } from 'pg'
 import { from as copyFrom } from 'pg-copy-streams'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
-import { IDailyDischargeHybamRepository } from '../IDailyDischargeHybamRepository'
+import { IObservationHybamRepository } from '../IObservationHybamRepository'
 
-class DailyDischargeHybamRepository implements IDailyDischargeHybamRepository {
+class DailyDischargeHybamRepository implements IObservationHybamRepository {
   private repository: Repository<DailyDischargeHybam>
 
   constructor() {

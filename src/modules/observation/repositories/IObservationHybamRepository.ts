@@ -1,6 +1,6 @@
-interface IDailyDischargeHybamRepository {
+interface IObservationHybamRepository {
   deleteAll(): Promise<void>
   insertFromCSV(filePath: string, header: string): Promise<void>
 }
 
-export { IDailyDischargeHybamRepository }
+export { IObservationHybamRepository }

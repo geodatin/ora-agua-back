@@ -4,11 +4,9 @@ import { Pool } from 'pg'
 import { from as copyFrom } from 'pg-copy-streams'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
-import { IDailyWaterLevelHybamRepository } from '../IDailyWaterLevelHybamRepository'
+import { IObservationHybamRepository } from '../IObservationHybamRepository'
 
-class DailyWaterLevelHybamRepository
-  implements IDailyWaterLevelHybamRepository
-{
+class DailyWaterLevelHybamRepository implements IObservationHybamRepository {
   private repository: Repository<DailyWaterLevelHybam>
 
   constructor() {

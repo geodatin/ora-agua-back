@@ -1,5 +1,4 @@
-import { IDailyDischargeHybamRepository } from '@modules/observation/repositories/IDailyDischargeHybamRepository'
-import { IMonthlyDischargeHybamRepository } from '@modules/observation/repositories/IMonthlyDischargeHybamRepository'
+import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import axios from 'axios'
 import cheerio from 'cheerio'
@@ -11,10 +10,10 @@ import { inject, injectable } from 'tsyringe'
 class DownloadDischargesHybamSeeder {
   constructor(
     @inject('DailyDischargeHybamRepository')
-    private dailyDischargeHybamRepository: IDailyDischargeHybamRepository,
+    private dailyDischargeHybamRepository: IObservationHybamRepository,
 
     @inject('MonthlyDischargeHybamRepository')
-    private monthlyDischargeHybamRepository: IMonthlyDischargeHybamRepository,
+    private monthlyDischargeHybamRepository: IObservationHybamRepository,
 
     @inject('StationHybamRepository')
     private stationHybamRepository: IStationHybamRepository
