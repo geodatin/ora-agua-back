@@ -53,16 +53,41 @@ class DownloadSedimentsHybamSeeder {
 
     const stations = await this.stationHybamRepository.getStationsType()
 
+    const lastObservations =
+      await this.sedimentsHybamRepository.getLastObservation()
+
+    let sedimentsCount = 0
+
+    const satelliteLastObservations =
+      await this.satelliteDerivedSedimentsHybamRepository.getLastObservation()
+
+    let satelliteCount = 0
+
     console.log('Downloading hybam sediments data...')
     for (const { code } of stations) {
       const { sediments, satelliteRanges, satelliteAvgs } =
         await this.fetchSediments(code)
 
+      const lastObservation = lastObservations.find(
+        (element) => element.code === code
+      )
+      const lastObservationDate = lastObservation?.date
+
+      const satelliteLastObservation = satelliteLastObservations.find(
+        (element) => element.code === code
+      )
+      const satelliteLastObservationDate = satelliteLastObservation?.date
+
       if (sediments) {
         for (const [timestamp, value] of sediments) {
           if (value !== null) {
-            const date = new Date(timestamp).toISOString()
-            sedimentsWriteStream.write(`${code},${date},${value}\n`)
+            const date = new Date(timestamp)
+            if (!lastObservationDate || date > lastObservationDate) {
+              sedimentsCount++
+              sedimentsWriteStream.write(
+                `${code},${date.toISOString()},${value}\n`
+              )
+            }
           }
         }
       }
@@ -73,36 +98,43 @@ class DownloadSedimentsHybamSeeder {
           const value = satelliteAvgs[index][1]
           index = index + 1
           if (value !== null) {
-            const date = new Date(timestamp).toISOString()
-            satelliteWriteStream.write(
-              `${code},${date},${value},${min},${max}\n`
-            )
+            const date = new Date(timestamp)
+            if (
+              !satelliteLastObservationDate ||
+              date > satelliteLastObservationDate
+            ) {
+              satelliteCount++
+              satelliteWriteStream.write(
+                `${code},${date.toISOString()},${value},${min},${max}\n`
+              )
+            }
           }
         }
       }
     }
 
-    console.log('Deleting values from hybam sediments table...')
-    await this.sedimentsHybamRepository.deleteAll()
+    if (sedimentsCount > 0) {
+      console.log('Inserting hybam sediments...')
+      await this.sedimentsHybamRepository.insertFromCSV(
+        sedimentsFilePath,
+        sedimentsHeader
+      )
+      console.log('Hybam sediments insertion finished.')
+    } else {
+      console.log('No new sediments data.')
+    }
 
-    console.log('Inserting hybam sediments...')
-    await this.sedimentsHybamRepository.insertFromCSV(
-      sedimentsFilePath,
-      sedimentsHeader
-    )
-    console.log('Hybam sediments insertion finished.')
+    if (satelliteCount > 0) {
+      console.log('Inserting hybam satellite derived sediments...')
+      await this.satelliteDerivedSedimentsHybamRepository.insertFromCSV(
+        satelliteFilePath,
+        satelliteHeader
+      )
+      console.log('Hybam satellite derived sediments insertion finished.')
+    } else {
+      console.log('No new satellite derived sediments data.')
+    }
 
-    console.log(
-      'Deleting values from hybam satellite derived sediments table...'
-    )
-    await this.satelliteDerivedSedimentsHybamRepository.deleteAll()
-
-    console.log('Inserting hybam satellite derived sediments...')
-    await this.satelliteDerivedSedimentsHybamRepository.insertFromCSV(
-      satelliteFilePath,
-      satelliteHeader
-    )
-    console.log('Hybam satellite derived sediments insertion finished.')
     fs.unlinkSync(sedimentsFilePath)
     fs.unlinkSync(satelliteFilePath)
   }

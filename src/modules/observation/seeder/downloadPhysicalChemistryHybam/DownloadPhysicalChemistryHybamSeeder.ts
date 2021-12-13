@@ -35,15 +35,25 @@ class DownloadPhysicalChemistryHybamSeeder {
 
     const stations = await this.stationHybamRepository.getStationsType()
 
+    const lastObservations =
+      await this.physicalChemistryHybamRepository.getLastObservation()
+
+    let count = 0
+
     console.log('Downloading hybam physical chemistry data...')
     for (const { code } of stations) {
       const map = new Map()
       const { temperature, conductivity, ph } =
         await this.fetchPhysicalChemistryData(code)
 
+      const lastObservation = lastObservations.find(
+        (element) => element.code === code
+      )
+      const lastObservationDate = lastObservation?.date
+
       if (temperature) {
         for (const [timestamp, value] of temperature) {
-          const date = new Date(timestamp).toISOString()
+          const date = new Date(timestamp)
           map.set(timestamp, {
             date: date,
             temperature: value,
@@ -60,7 +70,7 @@ class DownloadPhysicalChemistryHybamSeeder {
             entry.conductivity = value
             map.set(timestamp, entry)
           } else {
-            const date = new Date(timestamp).toISOString()
+            const date = new Date(timestamp)
             map.set(timestamp, {
               date: date,
               conductivity: value,
@@ -78,7 +88,7 @@ class DownloadPhysicalChemistryHybamSeeder {
             entry.ph = value
             map.set(timestamp, entry)
           } else {
-            const date = new Date(timestamp).toISOString()
+            const date = new Date(timestamp)
             map.set(timestamp, {
               date: date,
               ph: value,
@@ -93,19 +103,26 @@ class DownloadPhysicalChemistryHybamSeeder {
         if (!temperature && !conductivity && !ph) {
           continue
         }
-        writeStream.write(
-          // eslint-disable-next-line prettier/prettier
-          `${code},${date},${avoidNull(temperature)},${avoidNull(conductivity)},${avoidNull(ph)}\n`
-        )
+        if (!lastObservationDate || date > lastObservationDate) {
+          count++
+          writeStream.write(
+            // eslint-disable-next-line prettier/prettier
+            `${code},${date.toISOString()},${avoidNull(temperature)},${avoidNull(conductivity)},${avoidNull(ph)}\n`
+          )
+        }
       }
     }
 
-    console.log('Deleting values from hybam physical chemistry table...')
-    await this.physicalChemistryHybamRepository.deleteAll()
-
-    console.log('Inserting hybam physical chemistry...')
-    await this.physicalChemistryHybamRepository.insertFromCSV(filePath, header)
-    console.log('Hybam physical chemistry insertion finished.')
+    if (count > 0) {
+      console.log('Inserting hybam physical chemistry...')
+      await this.physicalChemistryHybamRepository.insertFromCSV(
+        filePath,
+        header
+      )
+      console.log('Hybam physical chemistry insertion finished.')
+    } else {
+      console.log('No new physical chemistry data.')
+    }
 
     fs.unlinkSync(filePath)
   }

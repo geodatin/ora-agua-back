@@ -51,54 +51,87 @@ class DownloadWaterLevelsHybamSeeder {
 
     const stations = await this.stationHybamRepository.getStationsType()
 
+    const dailyLastObservations =
+      await this.dailyWaterLevelHybamRepository.getLastObservation()
+
+    const monthlyLastObservations =
+      await this.monthlyWaterLevelHybamRepository.getLastObservation()
+
+    let dailyCount = 0
+    let monthlyCount = 0
+
     console.log('Downloading hybam water level data...')
     for (const { code, type } of stations) {
       const { dailyLevels, monthlyLevels } = await this.fetchWaterLevels(code)
 
+      const dailyLastObservation = dailyLastObservations.find(
+        (element) => element.code === code
+      )
+      const dailyLastObservationDate = dailyLastObservation?.date
+
       if (dailyLevels) {
         for (let [timestamp, level] of dailyLevels) {
           if (level !== null) {
-            const date = new Date(timestamp).toISOString()
-            if (type === 'altimetric') {
-              level = level * 100 // Convert m to cm
+            const date = new Date(timestamp)
+            if (!dailyLastObservationDate || date > dailyLastObservationDate) {
+              if (type === 'altimetric') {
+                level = level * 100 // Convert m to cm
+              }
+              dailyCount++
+              dailyWriteStream.write(`${code},${date.toISOString()},${level}\n`)
             }
-            dailyWriteStream.write(`${code},${date},${level}\n`)
           }
         }
       }
 
+      const monthlyLastObservation = monthlyLastObservations.find(
+        (element) => element.code === code
+      )
+      const monthlyLastObservationDate = monthlyLastObservation?.date
+
       if (monthlyLevels) {
         for (let [timestamp, level] of monthlyLevels) {
           if (level !== null) {
-            const date = new Date(timestamp).toISOString()
-            if (type === 'altimetric') {
-              level = level * 100 // Convert m to cm
+            const date = new Date(timestamp)
+            if (
+              !monthlyLastObservationDate ||
+              date > monthlyLastObservationDate
+            ) {
+              if (type === 'altimetric') {
+                level = level * 100 // Convert m to cm
+              }
+              monthlyCount++
+              monthlyWriteStream.write(
+                `${code},${date.toISOString()},${level}\n`
+              )
             }
-            monthlyWriteStream.write(`${code},${date},${level}\n`)
           }
         }
       }
     }
 
-    console.log('Deleting values from hybam daily levels table...')
-    await this.dailyWaterLevelHybamRepository.deleteAll()
+    if (dailyCount > 0) {
+      console.log('Inserting hybam daily levels...')
+      await this.dailyWaterLevelHybamRepository.insertFromCSV(
+        dailyFilePath,
+        header
+      )
+      console.log('Hybam daily levels insertion finished.')
+    } else {
+      console.log('No new daily levels data.')
+    }
 
-    console.log('Inserting hybam daily levels...')
-    await this.dailyWaterLevelHybamRepository.insertFromCSV(
-      dailyFilePath,
-      header
-    )
-    console.log('Hybam daily levels insertion finished.')
+    if (monthlyCount > 0) {
+      console.log('Inserting hybam monthly levels...')
+      await this.monthlyWaterLevelHybamRepository.insertFromCSV(
+        monthlyFilePath,
+        header
+      )
+      console.log('Hybam monthly levels insertion finished.')
+    } else {
+      console.log('No new monthly levels data.')
+    }
 
-    console.log('Deleting values from hybam monthly levels table...')
-    await this.monthlyWaterLevelHybamRepository.deleteAll()
-
-    console.log('Inserting hybam monthly levels...')
-    await this.monthlyWaterLevelHybamRepository.insertFromCSV(
-      monthlyFilePath,
-      header
-    )
-    console.log('Hybam monthly levels insertion finished.')
     fs.unlinkSync(dailyFilePath)
     fs.unlinkSync(monthlyFilePath)
   }
