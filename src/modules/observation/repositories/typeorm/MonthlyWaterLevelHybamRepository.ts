@@ -10,6 +10,17 @@ class MonthlyWaterLevelHybamRepository implements IObservationHybamRepository {
   constructor() {
     this.repository = getRepository(MonthlyWaterLevelHybam)
   }
+
+  async getLastObservation(): Promise<{ code: string; date: Date }[]> {
+    const lastObservations = await this.repository
+      .createQueryBuilder()
+      .select('station_code', 'code')
+      .addSelect('MAX(timestamp)', 'date')
+      .groupBy('station_code')
+      .getRawMany()
+    return lastObservations
+  }
+
   async deleteAll(): Promise<void> {
     await getConnection()
       .createQueryBuilder()

@@ -50,9 +50,26 @@ class DownloadDischargesHybamSeeder {
     monthlyWriteStream.write(header + '\n')
 
     const stations = await this.stationHybamRepository.getStationsType()
+    const dailyLastObservations =
+      await this.dailyDischargeHybamRepository.getLastObservation()
+    const monthlyLastObservations =
+      await this.monthlyDischargeHybamRepository.getLastObservation()
+
+    let monthlyCount = 0
+    let dailyCount = 0
 
     console.log('Downloading hybam discharges data...')
     for (const { code } of stations) {
+      const lastStationDailyObservation = dailyLastObservations.find(
+        (element) => element.code === code
+      )
+      const lastDailyObservation = lastStationDailyObservation?.date
+
+      const lastStationMonthlyObservation = monthlyLastObservations.find(
+        (element) => element.code === code
+      )
+      const lastMonthlyObservation = lastStationMonthlyObservation?.date
+
       const { dailyDischarges, monthlyDischarges } = await this.fetchDischarges(
         code
       )
@@ -60,8 +77,11 @@ class DownloadDischargesHybamSeeder {
       if (dailyDischarges) {
         for (const [timestamp, level] of dailyDischarges) {
           if (level !== null) {
-            const date = new Date(timestamp).toISOString()
-            dailyWriteStream.write(`${code},${date},${level}\n`)
+            const date = new Date(timestamp)
+            if (!lastDailyObservation || date > lastDailyObservation) {
+              dailyCount++
+              dailyWriteStream.write(`${code},${date.toISOString()},${level}\n`)
+            }
           }
         }
       }
@@ -69,32 +89,40 @@ class DownloadDischargesHybamSeeder {
       if (monthlyDischarges) {
         for (const [timestamp, level] of monthlyDischarges) {
           if (level !== null) {
-            const date = new Date(timestamp).toISOString()
-            monthlyWriteStream.write(`${code},${date},${level}\n`)
+            const date = new Date(timestamp)
+            if (!lastMonthlyObservation || date > lastMonthlyObservation) {
+              monthlyCount++
+              monthlyWriteStream.write(
+                `${code},${date.toISOString()},${level}\n`
+              )
+            }
           }
         }
       }
     }
 
-    console.log('Deleting values from hybam daily discharges table...')
-    await this.dailyDischargeHybamRepository.deleteAll()
+    if (dailyCount > 0) {
+      console.log('Inserting hybam daily discharges...')
+      await this.dailyDischargeHybamRepository.insertFromCSV(
+        dailyFilePath,
+        header
+      )
+      console.log('Hybam daily discharges insertion finished.')
+    } else {
+      console.log('No new daily discharges.')
+    }
 
-    console.log('Inserting hybam daily discharges...')
-    await this.dailyDischargeHybamRepository.insertFromCSV(
-      dailyFilePath,
-      header
-    )
-    console.log('Hybam daily discharges insertion finished.')
+    if (monthlyCount > 0) {
+      console.log('Inserting hybam monthly discharges...')
+      await this.monthlyDischargeHybamRepository.insertFromCSV(
+        monthlyFilePath,
+        header
+      )
+      console.log('Hybam monthly discharges insertion finished.')
+    } else {
+      console.log('No new monthly discharges.')
+    }
 
-    console.log('Deleting values from hybam monthly discharges table...')
-    await this.monthlyDischargeHybamRepository.deleteAll()
-
-    console.log('Inserting hybam monthly discharges...')
-    await this.monthlyDischargeHybamRepository.insertFromCSV(
-      monthlyFilePath,
-      header
-    )
-    console.log('Hybam monthly discharges insertion finished.')
     fs.unlinkSync(dailyFilePath)
     fs.unlinkSync(monthlyFilePath)
   }

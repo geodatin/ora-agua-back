@@ -11,6 +11,16 @@ class PhysicalChemistryHybamRepository implements IObservationHybamRepository {
     this.repository = getRepository(PhysicalChemistryHybam)
   }
 
+  async getLastObservation(): Promise<{ code: string; date: Date }[]> {
+    const lastObservations = await this.repository
+      .createQueryBuilder()
+      .select('station_code', 'code')
+      .addSelect('MAX(timestamp)', 'date')
+      .groupBy('station_code')
+      .getRawMany()
+    return lastObservations
+  }
+
   async insertFromCSV(filePath: string, header: string): Promise<void> {
     await insertFromCsvPg(filePath, header, 'physical_chemistry_hybam')
   }

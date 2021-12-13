@@ -91,26 +91,39 @@ class DownloadGeochemistryHybamSeeder {
 
     const stations = await this.stationHybamRepository.getStationsType()
 
+    const lastObservations =
+      await this.geochemistryHybamRepository.getLastObservation()
+
+    let count = 0
+
     console.log('Downloading hybam geochemistry data...')
     for (const { code } of stations) {
       const map = new Map<number, IGeochemistryDTO>()
       const data = await this.fetchGeochemistryData(code)
 
+      const lastObservation = lastObservations.find(
+        (element) => element.code === code
+      )
+      const lastObservationDate = lastObservation?.date
+
       for (const element of Object.keys(data)) {
         const measurements = data[element]
         for (const [timestamp, value] of measurements) {
-          if (map.has(timestamp)) {
-            const entry = map.get(timestamp)
-            entry[element] = value
-            map.set(timestamp, entry)
-          } else {
-            const entry: IGeochemistryDTO = {
-              // eslint-disable-next-line camelcase
-              station_code: code,
-              timestamp: new Date(timestamp).toISOString(),
+          const date = new Date(timestamp)
+          if (!lastObservationDate || date > lastObservationDate) {
+            if (map.has(timestamp)) {
+              const entry = map.get(timestamp)
+              entry[element] = value
+              map.set(timestamp, entry)
+            } else {
+              const entry: IGeochemistryDTO = {
+                // eslint-disable-next-line camelcase
+                station_code: code,
+                timestamp: date.toISOString(),
+              }
+              entry[element] = value
+              map.set(timestamp, entry)
             }
-            entry[element] = value
-            map.set(timestamp, entry)
           }
         }
       }
@@ -173,17 +186,19 @@ class DownloadGeochemistryHybamSeeder {
               'tm_ug_l',
             ],
           })
+          count++
           writeStream.write(line)
         }
       }
     }
 
-    console.log('Deleting values from hybam geochemistry table...')
-    await this.geochemistryHybamRepository.deleteAll()
-
-    console.log('Inserting hybam geochemistry...')
-    await this.geochemistryHybamRepository.insertFromCSV(filePath, header)
-    console.log('Hybam geochemistry insertion finished.')
+    if (count > 0) {
+      console.log('Inserting hybam geochemistry data...')
+      await this.geochemistryHybamRepository.insertFromCSV(filePath, header)
+      console.log('Hybam geochemistry insertion finished.')
+    } else {
+      console.log('No new geochemistry data.')
+    }
 
     fs.unlinkSync(filePath)
   }

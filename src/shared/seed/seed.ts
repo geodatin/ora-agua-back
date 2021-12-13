@@ -20,7 +20,7 @@ createConnection().then(async () => {
   // await insertWaterAreaFromCsvController.start()
   // await downloadObservationCsvsController.start()
 
-  await insertStationsHybamController.start()
+  // await insertStationsHybamController.start()
   await downloadWaterLevelsHybamController.start()
   await downloadDischargesHybamController.start()
   await downloadSedimentsHybamController.start()
