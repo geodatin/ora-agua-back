@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { ObservationSinca } from '@modules/observation/models/ObservationSinca'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity('station_sinca')
 class StationSinca {
@@ -11,14 +12,17 @@ class StationSinca {
   @Column()
   reference: string
 
-  @Column()
+  @Column({ type: 'float' })
   latitude: number
 
-  @Column()
+  @Column({ type: 'float' })
   longitude: number
 
   @Column()
   height: number
+
+  @OneToMany(() => ObservationSinca, (observation) => observation.station)
+  observations: ObservationSinca[]
 }
 
 export { StationSinca }
