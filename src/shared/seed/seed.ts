@@ -9,6 +9,7 @@ import downloadWaterLevelsHybamController from '@modules/observation/seeder/down
 import insertObservationFromApiController from '@modules/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
 import insertStationController from '@modules/station/seeders/insertStation/InsertStationController'
 import insertStationsHybamController from '@modules/station/seeders/insertStationsHybam/InsertStationsHybamController'
+import insertStationsSincaController from '@modules/station/seeders/insertStationsSinca/InsertStationsSincaController'
 import insertWaterAreaFromCsvController from '@modules/water/seeders/insertWaterAreaFromCsv/InsertWaterAreaFromCsvController'
 import env from 'dotenv-safe'
 import { createConnection } from 'typeorm'
@@ -21,9 +22,11 @@ createConnection().then(async () => {
   // await downloadObservationCsvsController.start()
 
   // await insertStationsHybamController.start()
-  await downloadWaterLevelsHybamController.start()
-  await downloadDischargesHybamController.start()
-  await downloadSedimentsHybamController.start()
-  await downloadPhysicalChemistryHybamController.start()
-  await downloadGeochemistryHybamController.start()
+  // await downloadWaterLevelsHybamController.start()
+  // await downloadDischargesHybamController.start()
+  // await downloadSedimentsHybamController.start()
+  // await downloadPhysicalChemistryHybamController.start()
+  // await downloadGeochemistryHybamController.start()
+
+  await insertStationsSincaController.start()
 })
