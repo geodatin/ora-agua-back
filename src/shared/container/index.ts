@@ -1,10 +1,12 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
+import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
 import { IWaterQualityObservationRepository } from '@modules/observation/repositories/IWaterQualityObservationRepository'
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
+import { ObservationSincaRepository } from '@modules/observation/repositories/typeorm/ObservationSincaRepository'
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
 import { SatelliteDerivedSedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SatelliteDerivedSedimentsHybamRepository'
 import { SedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SedimentsHybamRepository'
@@ -90,4 +92,9 @@ container.registerSingleton<IWaterQualityObservationRepository>(
 container.registerSingleton<IStationSincaRepository>(
   'StationSincaRepository',
   StationSincaRepository
+)
+
+container.registerSingleton<IObservationSincaRepository>(
+  'ObservationSincaRepository',
+  ObservationSincaRepository
 )

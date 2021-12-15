@@ -21,15 +21,6 @@ class ObservationSinca {
   @Column({ type: 'float' })
   value: number
 
-  @Column()
-  alert: string
-
-  @Column()
-  trend: string
-
-  @Column()
-  class: string
-
   @ManyToOne(() => StationSinca, (station) => station.observations)
   @JoinColumn({ name: 'station_code', referencedColumnName: 'code' })
   station: StationSinca
