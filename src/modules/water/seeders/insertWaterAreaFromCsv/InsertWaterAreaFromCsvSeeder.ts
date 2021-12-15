@@ -13,7 +13,7 @@ class InsertWaterAreaFromCsvSeeder {
       '..',
       '..',
       '..',
-      'assets',
+      'tmp',
       'water-area.csv'
     )
     const table = 'water_area'
