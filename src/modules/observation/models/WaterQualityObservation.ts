@@ -18,13 +18,13 @@ class WaterQualityObservation {
   @Column({ name: 'depth', type: 'float', nullable: true })
   depth: number
 
-  @Column({ name: 'temp_amostra', type: 'float', nullable: true })
-  tempAmostra: number
+  @Column({ name: 'sample_temperature', type: 'float', nullable: true })
+  sampleTemperature: number
 
   @Column({ name: 'ph', type: 'float', nullable: true })
   ph: number
 
-  @Column({ name: 'haze', type: 'float', nullable: true })
+  @Column({ name: 'turbidity', type: 'float', nullable: true })
   haze: number
 
   @Column({ name: 'electric_conductivity', type: 'float', nullable: true })
