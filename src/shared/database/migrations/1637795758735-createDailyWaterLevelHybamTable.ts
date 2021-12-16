@@ -3,6 +3,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 export class createDailyWaterLevelHybamTable1637795758735
   implements MigrationInterface
 {
+  name = 'createDailyWaterLevelHybamTable1637795758735'
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE IF NOT EXISTS daily_water_level_hybam (

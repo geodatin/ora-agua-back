@@ -32,20 +32,40 @@ export class createObservationSincaTable1639494137218
             type: 'float',
           },
           {
-            name: 'value',
+            name: 'OD',
             type: 'float',
           },
           {
-            name: 'alert',
-            type: 'varchar',
+            name: 'electric_conductivity',
+            type: 'float',
           },
           {
-            name: 'trend',
-            type: 'varchar',
+            name: 'turbidity',
+            type: 'float',
           },
           {
-            name: 'class',
-            type: 'varchar',
+            name: 'ph',
+            type: 'float',
+          },
+          {
+            name: 'sample_temperature',
+            type: 'float',
+          },
+          {
+            name: 'total_dissolved_solid',
+            type: 'float',
+          },
+          {
+            name: 'total_nitrogen',
+            type: 'float',
+          },
+          {
+            name: 'total_ortophosphate',
+            type: 'float',
+          },
+          {
+            name: 'total_suspension_solid',
+            type: 'float',
           },
         ],
         foreignKeys: [
