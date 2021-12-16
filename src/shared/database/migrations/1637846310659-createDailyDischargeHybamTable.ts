@@ -3,6 +3,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 export class createDailyDischargeHybamTable1637846310659
   implements MigrationInterface
 {
+  name = 'createDailyDischargeHybamTable1637846310659'
+
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE IF NOT EXISTS daily_discharge_hybam (

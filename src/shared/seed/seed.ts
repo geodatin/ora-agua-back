@@ -3,6 +3,7 @@ import '../container'
 import downloadDischargesHybamController from '@modules/observation/seeder/downloadDischargesHybam/DownloadDischargesHybamController'
 import downloadGeochemistryHybamController from '@modules/observation/seeder/downloadGeochemistryHybam/DownloadGeochemistryHybamController'
 import downloadObservationCsvsController from '@modules/observation/seeder/downloadObservationCsvs/DownloadObservationCsvsController'
+import downloadObservationSincaController from '@modules/observation/seeder/downloadObservationSinca/DownloadObservationSincaController'
 import downloadPhysicalChemistryHybamController from '@modules/observation/seeder/downloadPhysicalChemistryHybam/DownloadPhysicalChemistryHybamController'
 import downloadSedimentsHybamController from '@modules/observation/seeder/downloadSedimentsHybam/DownloadSedimentsHybamController'
 import downloadWaterLevelsHybamController from '@modules/observation/seeder/downloadWaterLevelsHybam/DownloadWaterLevelsHybamController'
@@ -28,5 +29,6 @@ createConnection().then(async () => {
   // await downloadPhysicalChemistryHybamController.start()
   // await downloadGeochemistryHybamController.start()
 
-  await insertStationsSincaController.start()
+  // await insertStationsSincaController.start()
+  await downloadObservationSincaController.start()
 })
