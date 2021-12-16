@@ -1,10 +1,17 @@
 interface ICreateObservationSincaDTO {
   stationCode: string
-  timestamp: Date
-  parameterId: number
+  timestamp: string
   latitude: number
   longitude: number
-  value: number
+  OD?: number
+  electricConductivity?: number
+  turbidity?: number
+  ph?: number
+  sampleTemperature?: number
+  totalDissolvedSolid?: number
+  totalNitrogen?: number
+  totalOrtophosphate?: number
+  totalSuspensionSolid?: number
 }
 
 export { ICreateObservationSincaDTO }
