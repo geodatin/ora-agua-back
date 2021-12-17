@@ -10,6 +10,7 @@ import downloadWaterLevelsHybamController from '@modules/observation/seeder/down
 import insertObservationFromApiController from '@modules/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
 import insertStationController from '@modules/station/seeders/insertStation/InsertStationController'
 import insertStationsHybamController from '@modules/station/seeders/insertStationsHybam/InsertStationsHybamController'
+import insertStationsIdeamController from '@modules/station/seeders/insertStationsIdeam/InsertStationsIdeamController'
 import insertStationsSincaController from '@modules/station/seeders/insertStationsSinca/InsertStationsSincaController'
 import insertWaterAreaFromCsvController from '@modules/water/seeders/insertWaterAreaFromCsv/InsertWaterAreaFromCsvController'
 import env from 'dotenv-safe'
@@ -30,5 +31,7 @@ createConnection().then(async () => {
   // await downloadGeochemistryHybamController.start()
 
   // await insertStationsSincaController.start()
-  await downloadObservationSincaController.start()
+  // await downloadObservationSincaController.start()
+
+  await insertStationsIdeamController.start()
 })
