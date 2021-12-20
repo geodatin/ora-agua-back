@@ -28,6 +28,11 @@ class StationIdeamRepository implements IStationIdeamRepository {
       .values(entities)
       .execute()
   }
+
+  async getStationsCode(): Promise<{ code: string }[]> {
+    const stationsCode = await this.repository.find({ select: ['code'] })
+    return stationsCode
+  }
 }
 
 export { StationIdeamRepository }
