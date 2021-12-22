@@ -1,7 +1,7 @@
 import { Point } from 'geojson'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
-import { Observation } from '../../observation/models/Observation'
+import { ObservationAna } from '../../observation/models/ObservationAna'
 
 @Entity({ name: 'station_all' })
 class StationAll {
@@ -146,8 +146,8 @@ class StationAll {
   })
   waterQualityPeriodStart: Date
 
-  @OneToMany(() => Observation, (observation) => observation.stationCode)
-  observations: Observation[]
+  @OneToMany(() => ObservationAna, (observation) => observation.stationCode)
+  observations: ObservationAna[]
 }
 
 export { StationAll }

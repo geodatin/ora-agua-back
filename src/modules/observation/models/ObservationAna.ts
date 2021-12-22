@@ -1,11 +1,11 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 
-import { Station } from '../../station/models/Station'
+import { StationAna } from '../../station/models/StationAna'
 
-@Entity()
-class Observation {
+@Entity({ name: 'observation_ana' })
+class ObservationAna {
   @PrimaryColumn({ name: 'station_code' })
-  @ManyToOne((type) => Station)
+  @ManyToOne((type) => StationAna)
   @JoinColumn({ name: 'station_code', referencedColumnName: 'code' })
   stationCode: number
 
@@ -31,4 +31,4 @@ class Observation {
   qAdoptedLevel: number
 }
 
-export { Observation }
+export { ObservationAna }
