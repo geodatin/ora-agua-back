@@ -1,4 +1,5 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
+import { IObservationSenhamiRepository } from '@modules/observation/repositories/IObservationSenhamiRepository'
 import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
 import { IWaterQualityObservationRepository } from '@modules/observation/repositories/IWaterQualityObservationRepository'
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
@@ -6,15 +7,18 @@ import { DailyWaterLevelHybamRepository } from '@modules/observation/repositorie
 import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
+import { ObservationSenhamiRepository } from '@modules/observation/repositories/typeorm/ObservationSenhamiRepository'
 import { ObservationSincaRepository } from '@modules/observation/repositories/typeorm/ObservationSincaRepository'
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
 import { SatelliteDerivedSedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SatelliteDerivedSedimentsHybamRepository'
 import { SedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SedimentsHybamRepository'
 import { WaterQualityObservationRepository } from '@modules/observation/repositories/typeorm/WaterQualityObservationRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
+import { IStationSenhamiPeRepository } from '@modules/station/repositories/IStationSenhamiPeRepository'
 import { IStationSenhamiRepository } from '@modules/station/repositories/IStationSenhamiRepository'
 import { IStationSincaRepository } from '@modules/station/repositories/IStationSincaRepository'
 import { StationHybamRepository } from '@modules/station/repositories/typeorm/StationHybamRepository'
+import { StationSenhamiPeRepository } from '@modules/station/repositories/typeorm/StationSenhamiPeRepository'
 import { StationSenhamiRepository } from '@modules/station/repositories/typeorm/StationSenhamiRepository'
 import { StationSincaRepository } from '@modules/station/repositories/typeorm/StationSincaRepository'
 import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
@@ -100,7 +104,18 @@ container.registerSingleton<IStationSenhamiRepository>(
   'StationSenhamiRepository',
   StationSenhamiRepository
 )
+
 container.registerSingleton<IObservationSincaRepository>(
   'ObservationSincaRepository',
   ObservationSincaRepository
+)
+
+container.registerSingleton<IObservationSenhamiRepository>(
+  'ObservationSenhamiRepository',
+  ObservationSenhamiRepository
+)
+
+container.registerSingleton<IStationSenhamiPeRepository>(
+  'StationSenhamiPeRepository',
+  StationSenhamiPeRepository
 )
