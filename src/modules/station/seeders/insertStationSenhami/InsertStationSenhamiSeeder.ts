@@ -1,11 +1,11 @@
-import { StationSenhamiRepository } from '@modules/station/repositories/typeorm/StationSenhamiRepository'
+import { IStationSenhamiRepository } from '@modules/station/repositories/IStationSenhamiRepository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class InsertStationSenhamiSeeder {
   constructor(
     @inject('StationSenhamiRepository')
-    private stationSenhamiRepository: StationSenhamiRepository
+    private stationSenhamiRepository: IStationSenhamiRepository
   ) {}
 
   async execute() {
