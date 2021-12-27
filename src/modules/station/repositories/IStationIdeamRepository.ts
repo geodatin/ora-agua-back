@@ -1,8 +1,9 @@
 import { ICreateStationIdeamDTO } from '../dtos/ICreateStationIdeamDTO'
+import { StationIdeam } from '../models/StationIdeam'
 
 interface IStationIdeamRepository {
   createMany(stations: ICreateStationIdeamDTO[]): Promise<void>
-  getStationsCode(): Promise<{ code: string }[]>
+  getStations(): Promise<StationIdeam[]>
 }
 
 export { IStationIdeamRepository }

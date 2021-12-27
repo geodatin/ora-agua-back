@@ -1,6 +1,7 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IObservationIdeamRepository } from '@modules/observation/repositories/IObservationIdeamRepository'
 import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
+import { IWaterQualityIdeamRepository } from '@modules/observation/repositories/IWaterQualityIdeamRepository'
 import { IWaterQualityObservationRepository } from '@modules/observation/repositories/IWaterQualityObservationRepository'
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
@@ -12,6 +13,7 @@ import { ObservationSincaRepository } from '@modules/observation/repositories/ty
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
 import { SatelliteDerivedSedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SatelliteDerivedSedimentsHybamRepository'
 import { SedimentsHybamRepository } from '@modules/observation/repositories/typeorm/SedimentsHybamRepository'
+import { WaterQualityIdeamRepository } from '@modules/observation/repositories/typeorm/WaterQualityIdeamRepository'
 import { WaterQualityObservationRepository } from '@modules/observation/repositories/typeorm/WaterQualityObservationRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import { IStationIdeamRepository } from '@modules/station/repositories/IStationIdeamRepository'
@@ -118,4 +120,9 @@ container.registerSingleton<IStationIdeamRepository>(
 container.registerSingleton<IObservationIdeamRepository>(
   'ObservationIdeamRepository',
   ObservationIdeamRepository
+)
+
+container.registerSingleton<IWaterQualityIdeamRepository>(
+  'WaterQualityIdeamRepository',
+  WaterQualityIdeamRepository
 )

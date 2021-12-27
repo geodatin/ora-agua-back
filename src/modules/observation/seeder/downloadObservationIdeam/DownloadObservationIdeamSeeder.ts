@@ -1,5 +1,6 @@
 import { ICreateObservationIdeamDTO } from '@modules/observation/dtos/ICreateObservationIdeamDTO'
 import { IObservationIdeamRepository } from '@modules/observation/repositories/IObservationIdeamRepository'
+import { StationIdeam } from '@modules/station/models/StationIdeam'
 import { IStationIdeamRepository } from '@modules/station/repositories/IStationIdeamRepository'
 import { avoidNull } from '@utils/avoidNull'
 import axios from 'axios'
@@ -18,7 +19,7 @@ class DownloadObservationIdeamSeeder {
   ) {}
 
   async execute(): Promise<void> {
-    const stations = await this.stationIdeamRepository.getStationsCode()
+    const stations = await this.stationIdeamRepository.getStations()
     console.log('Downloading data from ideam...')
     const observations = await this.fetchData(stations)
     if (observations.length > 0) {
@@ -60,7 +61,7 @@ class DownloadObservationIdeamSeeder {
   }
 
   async fetchData(
-    stations: Array<{ code: string }>
+    stations: StationIdeam[]
   ): Promise<ICreateObservationIdeamDTO[]> {
     let observations: ICreateObservationIdeamDTO[] = []
     for (const { code } of stations) {

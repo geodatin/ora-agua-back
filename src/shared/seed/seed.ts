@@ -8,6 +8,7 @@ import downloadObservationSincaController from '@modules/observation/seeder/down
 import downloadPhysicalChemistryHybamController from '@modules/observation/seeder/downloadPhysicalChemistryHybam/DownloadPhysicalChemistryHybamController'
 import downloadSedimentsHybamController from '@modules/observation/seeder/downloadSedimentsHybam/DownloadSedimentsHybamController'
 import downloadWaterLevelsHybamController from '@modules/observation/seeder/downloadWaterLevelsHybam/DownloadWaterLevelsHybamController'
+import downloadWaterQualityIdeamController from '@modules/observation/seeder/downloadWaterQualityIdeam/DownloadWaterQualityIdeamController'
 import insertObservationFromApiController from '@modules/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
 import insertStationController from '@modules/station/seeders/insertStation/InsertStationController'
 import insertStationsHybamController from '@modules/station/seeders/insertStationsHybam/InsertStationsHybamController'
@@ -24,16 +25,17 @@ createConnection().then(async () => {
   // await insertWaterAreaFromCsvController.start()
   // await downloadObservationCsvsController.start()
 
-  // await insertStationsHybamController.start()
-  // await downloadWaterLevelsHybamController.start()
-  // await downloadDischargesHybamController.start()
-  // await downloadSedimentsHybamController.start()
-  // await downloadPhysicalChemistryHybamController.start()
-  // await downloadGeochemistryHybamController.start()
-
   // await insertStationsSincaController.start()
-  // await downloadObservationSincaController.start()
+  await downloadObservationSincaController.start()
 
   // await insertStationsIdeamController.start()
   await downloadObservationIdeamController.start()
+  await downloadWaterQualityIdeamController.start()
+
+  // await insertStationsHybamController.start()
+  await downloadWaterLevelsHybamController.start()
+  await downloadDischargesHybamController.start()
+  await downloadSedimentsHybamController.start()
+  await downloadPhysicalChemistryHybamController.start()
+  await downloadGeochemistryHybamController.start()
 })

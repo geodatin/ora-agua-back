@@ -29,9 +29,9 @@ class StationIdeamRepository implements IStationIdeamRepository {
       .execute()
   }
 
-  async getStationsCode(): Promise<{ code: string }[]> {
-    const stationsCode = await this.repository.find({ select: ['code'] })
-    return stationsCode
+  async getStations(): Promise<StationIdeam[]> {
+    const stations = await this.repository.find()
+    return stations
   }
 }
 
