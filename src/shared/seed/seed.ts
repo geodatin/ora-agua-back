@@ -23,34 +23,35 @@ import { createConnection } from 'typeorm'
 const hoursInterval = 12
 
 env.config()
-createConnection().then(async () => {
-  log(`Running seeders every ${hoursInterval} hours`)
-  const task = cron.schedule(
-    `0 */${hoursInterval} * * *`,
-    async () => {
-      // await insertStationController.start()
-      // await insertObservationFromApiController.start()
-      // await insertWaterAreaFromCsvController.start()
-      // await downloadObservationCsvsController.start()
+log(`Running seeders every ${hoursInterval} hours`)
+const task = cron.schedule(
+  `0 */${hoursInterval} * * *`,
+  async () => {
+    const connection = await createConnection()
+    // await insertStationController.start()
+    // await insertObservationFromApiController.start()
+    // await insertWaterAreaFromCsvController.start()
+    // await downloadObservationCsvsController.start()
 
-      // await insertStationsSincaController.start()
-      await downloadObservationSincaController.start()
+    // await insertStationsSincaController.start()
+    await downloadObservationSincaController.start()
 
-      // await insertStationsIdeamController.start()
-      await downloadObservationIdeamController.start()
-      await downloadWaterQualityIdeamController.start()
+    // await insertStationsIdeamController.start()
+    await downloadObservationIdeamController.start()
+    await downloadWaterQualityIdeamController.start()
 
-      // await insertStationsHybamController.start()
-      await downloadWaterLevelsHybamController.start()
-      await downloadDischargesHybamController.start()
-      await downloadSedimentsHybamController.start()
-      await downloadPhysicalChemistryHybamController.start()
-      await downloadGeochemistryHybamController.start()
-    },
-    {
-      scheduled: true,
-      timezone: 'America/Sao_Paulo',
-    }
-  )
-  task.start()
-})
+    // await insertStationsHybamController.start()
+    await downloadWaterLevelsHybamController.start()
+    await downloadDischargesHybamController.start()
+    await downloadSedimentsHybamController.start()
+    await downloadPhysicalChemistryHybamController.start()
+    await downloadGeochemistryHybamController.start()
+
+    connection.close()
+  },
+  {
+    scheduled: true,
+    timezone: 'America/Sao_Paulo',
+  }
+)
+task.start()
