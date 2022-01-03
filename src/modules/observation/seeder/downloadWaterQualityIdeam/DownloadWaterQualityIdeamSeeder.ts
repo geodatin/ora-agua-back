@@ -2,6 +2,7 @@ import { ICreateWaterQualityIdeamDTO } from '@modules/observation/dtos/ICreateWa
 import { IWaterQualityIdeamRepository } from '@modules/observation/repositories/IWaterQualityIdeamRepository'
 import { StationIdeam } from '@modules/station/models/StationIdeam'
 import { IStationIdeamRepository } from '@modules/station/repositories/IStationIdeamRepository'
+import { log } from '@utils/log'
 import axios from 'axios'
 import { inject, injectable } from 'tsyringe'
 
@@ -24,6 +25,7 @@ class DownloadWaterQualityIdeamSeeder {
   ) {}
 
   async execute(): Promise<void> {
+    log('Downloading water quality data from ideam...')
     const nitrogenValues = await this.fetchData(url.totalNitrogen)
     const odValues = await this.fetchData(url.od)
     const suspensionSolidValues = await this.fetchData(url.totalSuspensionSolid)
@@ -87,6 +89,7 @@ class DownloadWaterQualityIdeamSeeder {
     }
 
     await this.waterQualityIdeamRepository.createMany(Array.from(map.values()))
+    log('Insertion finished.')
   }
 
   private findStation(

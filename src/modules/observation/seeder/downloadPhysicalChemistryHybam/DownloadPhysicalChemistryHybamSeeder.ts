@@ -1,6 +1,7 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
 import { avoidNull } from '@utils/avoidNull'
+import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import fs from 'fs'
@@ -40,7 +41,7 @@ class DownloadPhysicalChemistryHybamSeeder {
 
     let count = 0
 
-    console.log('Downloading hybam physical chemistry data...')
+    log('Downloading hybam physical chemistry data...')
     for (const { code } of stations) {
       const map = new Map()
       const { temperature, conductivity, ph } =
@@ -114,14 +115,14 @@ class DownloadPhysicalChemistryHybamSeeder {
     }
 
     if (count > 0) {
-      console.log('Inserting hybam physical chemistry...')
+      log('Inserting hybam physical chemistry...')
       await this.physicalChemistryHybamRepository.insertFromCSV(
         filePath,
         header
       )
-      console.log('Hybam physical chemistry insertion finished.')
+      log('Hybam physical chemistry insertion finished.')
     } else {
-      console.log('No new physical chemistry data.')
+      log('No new physical chemistry data.')
     }
 
     fs.unlinkSync(filePath)

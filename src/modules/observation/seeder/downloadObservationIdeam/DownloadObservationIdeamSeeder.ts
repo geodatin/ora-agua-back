@@ -3,6 +3,7 @@ import { IObservationIdeamRepository } from '@modules/observation/repositories/I
 import { StationIdeam } from '@modules/station/models/StationIdeam'
 import { IStationIdeamRepository } from '@modules/station/repositories/IStationIdeamRepository'
 import { avoidNull } from '@utils/avoidNull'
+import { log } from '@utils/log'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
@@ -20,7 +21,7 @@ class DownloadObservationIdeamSeeder {
 
   async execute(): Promise<void> {
     const stations = await this.stationIdeamRepository.getStations()
-    console.log('Downloading data from ideam...')
+    log('Downloading data from ideam...')
     const observations = await this.fetchData(stations)
     if (observations.length > 0) {
       const filePath = path.join(
@@ -51,12 +52,12 @@ class DownloadObservationIdeamSeeder {
           )},${avoidNull(rain)}\n`
         )
       }
-      console.log(`Inserting ${observations.length} new observations...`)
+      log(`Inserting ${observations.length} new observations...`)
       await this.observationIdeamRepository.insertFromCSV(filePath, header)
-      console.log('Insertions finished.')
+      log('Insertions finished.')
       fs.unlinkSync(filePath)
     } else {
-      console.log('No new observations.')
+      log('No new observations.')
     }
   }
 
@@ -64,9 +65,12 @@ class DownloadObservationIdeamSeeder {
     stations: StationIdeam[]
   ): Promise<ICreateObservationIdeamDTO[]> {
     let observations: ICreateObservationIdeamDTO[] = []
+    const lastObservations =
+      await this.observationIdeamRepository.getLastObservation()
     for (const { code } of stations) {
-      const lastObservation =
-        await this.observationIdeamRepository.getLastObservation(code)
+      const lastObservation = lastObservations.find(
+        (observation) => observation.code === code
+      )?.date
 
       const map = new Map<string, ICreateObservationIdeamDTO>()
 

@@ -15,13 +15,14 @@ class ObservationIdeamRepository implements IObservationIdeamRepository {
     await insertFromCsvPg(filePath, header, 'observation_ideam')
   }
 
-  async getLastObservation(stationCode: string): Promise<Date> {
-    const { date } = await this.repository
+  async getLastObservation(): Promise<Array<{ code: string; date: Date }>> {
+    const dates = await this.repository
       .createQueryBuilder()
       .select('MAX(timestamp)', 'date')
-      .where('station_code = :code', { code: stationCode })
-      .getRawOne()
-    return date
+      .addSelect('station_code', 'code')
+      .groupBy('station_code')
+      .getRawMany()
+    return dates
   }
 }
 

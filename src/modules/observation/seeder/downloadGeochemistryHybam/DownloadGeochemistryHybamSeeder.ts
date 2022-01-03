@@ -4,6 +4,7 @@ import {
 } from '@modules/observation/dtos/IGeochemistryDTO'
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
+import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 // eslint-disable-next-line import/no-unresolved
@@ -96,7 +97,7 @@ class DownloadGeochemistryHybamSeeder {
 
     let count = 0
 
-    console.log('Downloading hybam geochemistry data...')
+    log('Downloading hybam geochemistry data...')
     for (const { code } of stations) {
       const map = new Map<number, IGeochemistryDTO>()
       const data = await this.fetchGeochemistryData(code)
@@ -193,11 +194,11 @@ class DownloadGeochemistryHybamSeeder {
     }
 
     if (count > 0) {
-      console.log('Inserting hybam geochemistry data...')
+      log('Inserting hybam geochemistry data...')
       await this.geochemistryHybamRepository.insertFromCSV(filePath, header)
-      console.log('Hybam geochemistry insertion finished.')
+      log('Hybam geochemistry insertion finished.')
     } else {
-      console.log('No new geochemistry data.')
+      log('No new geochemistry data.')
     }
 
     fs.unlinkSync(filePath)

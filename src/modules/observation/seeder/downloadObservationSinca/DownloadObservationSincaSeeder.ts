@@ -1,6 +1,7 @@
 import { ICreateObservationSincaDTO } from '@modules/observation/dtos/ICreateObservationSincaDTO'
 import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
 import { avoidNull } from '@utils/avoidNull'
+import { log } from '@utils/log'
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
@@ -35,7 +36,7 @@ class DownloadObservationSincaSeeder {
     const lastUpdateTotalFeatures = this.getLastUpdateTotalFeatures()
 
     if (totalFeatures > lastUpdateTotalFeatures) {
-      console.log('Downloading data from sinca...')
+      log('Downloading data from sinca...')
       const observationsMap = new Map<string, ICreateObservationSincaDTO>()
 
       const maxFeatures = 1000
@@ -105,18 +106,18 @@ class DownloadObservationSincaSeeder {
         )
       }
 
-      console.log('Deleting data from observation_sinca table...')
+      log('Deleting data from observation_sinca table...')
       await this.observationSincaRepository.deleteAll()
 
-      console.log('Inserting new data into table...')
+      log('Inserting new data into table...')
       await this.observationSincaRepository.insertFromCSV(filePath, header)
-      console.log('Insertion finished.')
+      log('Insertion finished.')
 
       fs.unlinkSync(filePath)
 
       this.updateFile(totalFeatures)
     } else {
-      console.log('There is no new data from sinca.')
+      log('There is no new data from sinca.')
     }
   }
 
