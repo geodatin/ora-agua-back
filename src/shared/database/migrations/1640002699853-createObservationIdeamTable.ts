@@ -40,6 +40,7 @@ export class createObservationIdeamTable1640002699853
             columnNames: ['station_code'],
             referencedColumnNames: ['code'],
             referencedTableName: 'station_ideam',
+            onDelete: 'cascade',
           },
         ],
       }),

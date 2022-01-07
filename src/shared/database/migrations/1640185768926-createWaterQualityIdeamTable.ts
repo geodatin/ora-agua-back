@@ -80,6 +80,7 @@ export class createWaterQualityIdeamTable1640185768926
             columnNames: ['station_code'],
             referencedColumnNames: ['code'],
             referencedTableName: 'station_ideam',
+            onDelete: 'cascade',
           },
         ],
       })

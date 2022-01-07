@@ -37,6 +37,7 @@ class InsertStationsIdeamSeeder {
     )
 
     await this.stationIdeamRepository.createMany(stations)
+    await this.stationIdeamRepository.deleteStationsOutOfBasin()
   }
 }
 
