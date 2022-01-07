@@ -46,6 +46,7 @@ class InsertStationsHybamSeeder {
       })
       await this.stationHybamRepository.createMany(stations)
     }
+    await this.stationHybamRepository.deleteStationsOutOfBasin()
   }
 }
 

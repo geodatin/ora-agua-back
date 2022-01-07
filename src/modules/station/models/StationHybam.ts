@@ -6,6 +6,7 @@ import { MonthlyWaterLevelHybam } from '@modules/observation/models/MonthlyWater
 import { PhysicalChemistryHybam } from '@modules/observation/models/PhysicalChemistryHybam'
 import { SatelliteDerivedSedimentsHybam } from '@modules/observation/models/SatelliteDerivedSedimentsHybam'
 import { SedimentsHybam } from '@modules/observation/models/SedimentsHybam'
+import { Point } from 'geojson'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity({ name: 'station_hybam' })
@@ -33,6 +34,9 @@ class StationHybam {
 
   @Column({ type: 'float' })
   longitude: number
+
+  @Column({ type: 'geometry', srid: 4326, nullable: true })
+  location: Point
 
   @OneToMany(() => DailyWaterLevelHybam, (dailyLevel) => dailyLevel.station)
   dailyWaterLevel: DailyWaterLevelHybam[]

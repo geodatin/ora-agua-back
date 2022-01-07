@@ -12,7 +12,7 @@ export class createSatelliteDerivedSedmentsHybamTable1637853770701
         range_concentration_max float,
         range_concentration_min float,
         PRIMARY KEY (station_code, timestamp),
-        FOREIGN KEY (station_code) REFERENCES station_hybam(code)
+        FOREIGN KEY (station_code) REFERENCES station_hybam(code) ON DELETE CASCADE
       )
     `)
   }

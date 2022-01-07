@@ -10,7 +10,7 @@ export class createSedmentsHybamTable1637849770665
         timestamp timestamp with time zone,
         concentration_mg_l float,
         PRIMARY KEY (station_code, timestamp),
-        FOREIGN KEY (station_code) REFERENCES station_hybam(code)
+        FOREIGN KEY (station_code) REFERENCES station_hybam(code) ON DELETE CASCADE
       )
     `)
   }

@@ -12,7 +12,7 @@ export class createDailyDischargeHybamTable1637846310659
         timestamp timestamp with time zone,
         discharge_m3_s float,
         PRIMARY KEY (station_code, timestamp),
-        FOREIGN KEY (station_code) REFERENCES station_hybam(code)
+        FOREIGN KEY (station_code) REFERENCES station_hybam(code) ON DELETE CASCADE
       )
     `)
   }

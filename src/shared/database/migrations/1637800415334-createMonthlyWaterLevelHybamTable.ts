@@ -12,7 +12,7 @@ export class createMonthlyWaterLevelHybamTable1637795758735
         timestamp timestamp with time zone,
         quota_cm float,
         PRIMARY KEY (station_code, timestamp),
-        FOREIGN KEY (station_code) REFERENCES station_hybam(code)
+        FOREIGN KEY (station_code) REFERENCES station_hybam(code) ON DELETE CASCADE
       )
     `)
   }
