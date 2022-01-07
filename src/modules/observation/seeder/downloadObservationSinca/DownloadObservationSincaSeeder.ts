@@ -1,5 +1,6 @@
 import { ICreateObservationSincaDTO } from '@modules/observation/dtos/ICreateObservationSincaDTO'
 import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
+import { IStationSincaRepository } from '@modules/station/repositories/IStationSincaRepository'
 import { avoidNull } from '@utils/avoidNull'
 import { log } from '@utils/log'
 import axios from 'axios'
@@ -23,7 +24,10 @@ const parameterProperty = {
 class DownloadObservationSincaSeeder {
   constructor(
     @inject('ObservationSincaRepository')
-    private observationSincaRepository: IObservationSincaRepository
+    private observationSincaRepository: IObservationSincaRepository,
+
+    @inject('StationSincaRepository')
+    private stationSincaRepository: IStationSincaRepository
   ) {}
 
   async execute() {
@@ -36,6 +40,9 @@ class DownloadObservationSincaSeeder {
     const lastUpdateTotalFeatures = this.getLastUpdateTotalFeatures()
 
     if (totalFeatures > lastUpdateTotalFeatures) {
+      const stations = await this.stationSincaRepository.getStations()
+      const stationsCode = new Set(stations.map((station) => station.code))
+
       log('Downloading data from sinca...')
       const observationsMap = new Map<string, ICreateObservationSincaDTO>()
 
@@ -62,7 +69,7 @@ class DownloadObservationSincaSeeder {
 
           const value = feature.properties.valor_medicion
 
-          if (property) {
+          if (property && stationsCode.has(stationCode)) {
             if (observationsMap.has(key)) {
               const observation = observationsMap.get(key)
               observation[property] = value

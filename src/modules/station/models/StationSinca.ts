@@ -1,4 +1,5 @@
 import { ObservationSinca } from '@modules/observation/models/ObservationSinca'
+import { Point } from 'geojson'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity('station_sinca')
@@ -20,6 +21,9 @@ class StationSinca {
 
   @Column()
   height: number
+
+  @Column({ type: 'geometry' })
+  geometry: Point
 
   @OneToMany(() => ObservationSinca, (observation) => observation.station)
   observations: ObservationSinca[]
