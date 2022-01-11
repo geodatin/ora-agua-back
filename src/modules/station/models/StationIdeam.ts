@@ -9,6 +9,9 @@ class StationIdeam {
   @Column()
   name: string
 
+  @Column()
+  river: string
+
   @Column({ type: 'float' })
   latitude: number
 

@@ -13,6 +13,9 @@ class StationSinca {
   @Column()
   reference: string
 
+  @Column()
+  river: string
+
   @Column({ type: 'float' })
   latitude: number
 

@@ -33,14 +33,14 @@ const task = cron.schedule(
     // await insertWaterAreaFromCsvController.start()
     // await downloadObservationCsvsController.start()
 
-    // await insertStationsSincaController.start()
+    await insertStationsSincaController.start()
     await downloadObservationSincaController.start()
 
-    // await insertStationsIdeamController.start()
+    await insertStationsIdeamController.start()
     await downloadObservationIdeamController.start()
     await downloadWaterQualityIdeamController.start()
 
-    // await insertStationsHybamController.start()
+    await insertStationsHybamController.start()
     await downloadWaterLevelsHybamController.start()
     await downloadDischargesHybamController.start()
     await downloadSedimentsHybamController.start()

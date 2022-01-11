@@ -9,6 +9,9 @@ class StationSenhami {
   @Column()
   name: string
 
+  @Column()
+  river: string
+
   @Column({ type: 'geometry', srid: 4326, nullable: true })
   location: Point
 
