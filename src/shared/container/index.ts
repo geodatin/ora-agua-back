@@ -19,10 +19,12 @@ import { IStationHybamRepository } from '@modules/station/repositories/IStationH
 import { IStationIdeamRepository } from '@modules/station/repositories/IStationIdeamRepository'
 import { IStationSenhamiRepository } from '@modules/station/repositories/IStationSenhamiRepository'
 import { IStationSincaRepository } from '@modules/station/repositories/IStationSincaRepository'
+import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { StationHybamRepository } from '@modules/station/repositories/typeorm/StationHybamRepository'
 import { StationIdeamRepository } from '@modules/station/repositories/typeorm/StationIdeamRepository'
 import { StationSenhamiRepository } from '@modules/station/repositories/typeorm/StationSenhamiRepository'
 import { StationSincaRepository } from '@modules/station/repositories/typeorm/StationSincaRepository'
+import { StationViewRepository } from '@modules/station/repositories/typeorm/StationViewRepository'
 import { WaterAreaRepository } from '@modules/water/repositories/implementations/WaterAreaRepository'
 import { IWaterAreaRepository } from '@modules/water/repositories/IWaterAreaRepository'
 import { container } from 'tsyringe'
@@ -125,4 +127,9 @@ container.registerSingleton<IObservationIdeamRepository>(
 container.registerSingleton<IWaterQualityIdeamRepository>(
   'WaterQualityIdeamRepository',
   WaterQualityIdeamRepository
+)
+
+container.registerSingleton<IStationViewRepository>(
+  'StationViewRepository',
+  StationViewRepository
 )

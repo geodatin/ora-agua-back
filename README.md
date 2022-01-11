@@ -107,8 +107,7 @@ Método que retorna a contagem total de estações por país.
 
 	**Não Obrigatórios:**
 
-		page:[number] - Número da pagina de registros a ser retornada, em cada página ecistem 5 registros.
-		order:[string] - Ordem da contagem('asc' ou 'desc')
+	Nenhum
 		
 * **Parâmetros do Body:**
 
@@ -116,43 +115,39 @@ Método que retorna a contagem total de estações por país.
 
 * **Exemplo:**
 
-	/api/station/count/country?page=1&order=asc
+	/api/station/count/country
 
 * **Resposta:**
 
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-			{
-			"x": [
-				"Venezuela",
-				"Equador",
-				"Colômbia",
-				"Peru",
-				"Bolívia"
-			],
-			"series": [
-				{
-				"id": "station",
-				"data": [
-					5,
-					168,
-					201,
-					311,
-					330,
-					2202
-				]
-				}
-			],
-			"position": [
-				1,
-				2,
-				3,
-				4,
-				5
-			],
-			"pages": 2
-			}
+			[
+        {
+          "country": "Bolívia",
+          "count": 203
+        },
+        {
+          "country": "Brasil",
+          "count": 194
+        },
+        {
+          "country": "Colômbia",
+          "count": 37
+        },
+        {
+          "country": "Equador",
+          "count": 16
+        },
+        {
+          "country": "Peru",
+          "count": 444
+        },
+        {
+          "country": "Venezuela",
+          "count": 2
+        }
+      ]
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**
