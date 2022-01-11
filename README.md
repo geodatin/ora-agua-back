@@ -125,26 +125,32 @@ Método que retorna a contagem total de estações por país.
 			[
         {
           "country": "Bolívia",
+          "countryId": 6,
           "count": 203
         },
         {
           "country": "Brasil",
+          "countryId": 9,
           "count": 194
         },
         {
           "country": "Colômbia",
+          "countryId": 7,
           "count": 37
         },
         {
           "country": "Equador",
+          "countryId": 4,
           "count": 16
         },
         {
           "country": "Peru",
+          "countryId": 5,
           "count": 444
         },
         {
           "country": "Venezuela",
+          "countryId": 8,
           "count": 2
         }
       ]
