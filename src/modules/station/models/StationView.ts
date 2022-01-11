@@ -5,7 +5,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
   name: 'station_view',
   materialized: true,
   expression: `
-    select stations.*, countries.name as country
+    select stations.*, countries.name as country, countries.id as country_id
     from
     (
       (select code, name, type, river, location, 'hybam' as responsible from station_hybam)
@@ -45,6 +45,9 @@ class StationView {
 
   @ViewColumn()
   country: string
+
+  @ViewColumn({ name: 'country_id' })
+  countryId: number
 }
 
 export { StationView }

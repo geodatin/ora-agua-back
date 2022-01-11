@@ -5,7 +5,7 @@ export class createStationMaterializedView1641842498907
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`CREATE MATERIALIZED VIEW station_view AS (
-      select stations.*, countries.name as country
+      select stations.*, countries.name as country, countries.id as country_id
       from
       (
         (select code, name, type, river, location, 'hybam' as responsible from station_hybam)
@@ -26,6 +26,6 @@ export class createStationMaterializedView1641842498907
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropView('station_view')
+    await queryRunner.query('DROP MATERIALIZED VIEW station_view')
   }
 }
