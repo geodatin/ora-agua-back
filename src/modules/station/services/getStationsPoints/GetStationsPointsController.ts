@@ -5,13 +5,8 @@ import { GetStationsPointsService } from './GetStationsPointsService'
 
 class GetStationsPointsController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { networkType } = request.query
-    const countStationsByTypeService = container.resolve(
-      GetStationsPointsService
-    )
-    const stations = await countStationsByTypeService.execute(
-      networkType === undefined ? null : String(networkType)
-    )
+    const getStationsPointsService = container.resolve(GetStationsPointsService)
+    const stations = await getStationsPointsService.execute()
     return response.json(stations)
   }
 }

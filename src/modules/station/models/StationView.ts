@@ -1,5 +1,5 @@
 import { Point } from 'geojson'
-import { ViewColumn, ViewEntity } from 'typeorm'
+import { Column, ViewEntity } from 'typeorm'
 
 @ViewEntity({
   name: 'station_view',
@@ -25,28 +25,28 @@ import { ViewColumn, ViewEntity } from 'typeorm'
   `,
 })
 class StationView {
-  @ViewColumn()
+  @Column()
   code: string
 
-  @ViewColumn()
+  @Column()
   name: string
 
-  @ViewColumn()
+  @Column({ type: 'geometry', srid: 4326 })
   location: Point
 
-  @ViewColumn()
+  @Column()
   type: string
 
-  @ViewColumn()
+  @Column()
   river: string
 
-  @ViewColumn()
+  @Column()
   responsible: string
 
-  @ViewColumn()
+  @Column()
   country: string
 
-  @ViewColumn({ name: 'country_id' })
+  @Column({ name: 'country_id' })
   countryId: number
 }
 

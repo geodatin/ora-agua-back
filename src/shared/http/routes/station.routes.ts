@@ -24,6 +24,6 @@ stationRoutes.get(
   '/count/responsible',
   countStationsByResponsibleController.handle
 )
-stationRoutes.get('/shape', getStationsPointsController.handle)
+stationRoutes.get('/location', getStationsPointsController.handle)
 
 export { stationRoutes }
