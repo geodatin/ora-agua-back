@@ -1,8 +1,8 @@
 import { StationSinca } from '@modules/station/models/StationSinca'
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 
-@Entity('observation_sinca')
-class ObservationSinca {
+@Entity('water_quality_sinca')
+class WaterQualitySinca {
   @PrimaryColumn({ name: 'station_code' })
   stationCode: string
 
@@ -45,9 +45,9 @@ class ObservationSinca {
   @Column({ type: 'float', name: 'total_suspension_solid' })
   totalSuspensionSolid: number
 
-  @ManyToOne(() => StationSinca, (station) => station.observations)
+  @ManyToOne(() => StationSinca, (station) => station.quality)
   @JoinColumn({ name: 'station_code', referencedColumnName: 'code' })
   station: StationSinca
 }
 
-export { ObservationSinca }
+export { WaterQualitySinca }

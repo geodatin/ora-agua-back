@@ -1,4 +1,4 @@
-import { ObservationSinca } from '@modules/observation/models/ObservationSinca'
+import { WaterQualitySinca } from '@modules/observation/models/WaterQualitySinca'
 import { Point } from 'geojson'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
@@ -28,8 +28,8 @@ class StationSinca {
   @Column({ type: 'geometry' })
   geometry: Point
 
-  @OneToMany(() => ObservationSinca, (observation) => observation.station)
-  observations: ObservationSinca[]
+  @OneToMany(() => WaterQualitySinca, (quality) => quality.station)
+  quality: WaterQualitySinca[]
 }
 
 export { StationSinca }

@@ -1,5 +1,5 @@
-import { ICreateObservationSincaDTO } from '@modules/observation/dtos/ICreateObservationSincaDTO'
-import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
+import { ICreateWaterQualitySincaDTO } from '@modules/observation/dtos/ICreateWaterQualitySincaDTO'
+import { IWaterQualitySincaRepository } from '@modules/observation/repositories/IWaterQualitySincaRepository'
 import { IStationSincaRepository } from '@modules/station/repositories/IStationSincaRepository'
 import { avoidNull } from '@utils/avoidNull'
 import { log } from '@utils/log'
@@ -21,10 +21,10 @@ const parameterProperty = {
 }
 
 @injectable()
-class DownloadObservationSincaSeeder {
+class DownloadWaterQualitySincaSeeder {
   constructor(
-    @inject('ObservationSincaRepository')
-    private observationSincaRepository: IObservationSincaRepository,
+    @inject('WaterQualitySincaRepository')
+    private waterQualitySincaRepository: IWaterQualitySincaRepository,
 
     @inject('StationSincaRepository')
     private stationSincaRepository: IStationSincaRepository
@@ -44,7 +44,7 @@ class DownloadObservationSincaSeeder {
       const stationsCode = new Set(stations.map((station) => station.code))
 
       log('Downloading data from sinca...')
-      const observationsMap = new Map<string, ICreateObservationSincaDTO>()
+      const observationsMap = new Map<string, ICreateWaterQualitySincaDTO>()
 
       const maxFeatures = 1000
       let startIndex = 0
@@ -75,7 +75,7 @@ class DownloadObservationSincaSeeder {
               observation[property] = value
               observationsMap.set(key, observation)
             } else {
-              const observation: ICreateObservationSincaDTO = {
+              const observation: ICreateWaterQualitySincaDTO = {
                 stationCode,
                 timestamp,
                 latitude: feature.properties.medicion_lat,
@@ -96,7 +96,7 @@ class DownloadObservationSincaSeeder {
         '..',
         '..',
         'tmp',
-        `observation_sinca.csv`
+        `water_quality_sinca.csv`
       )
       const writeStream = fs.createWriteStream(filePath, {
         encoding: 'utf8',
@@ -113,11 +113,11 @@ class DownloadObservationSincaSeeder {
         )
       }
 
-      log('Deleting data from observation_sinca table...')
-      await this.observationSincaRepository.deleteAll()
+      log('Deleting data from water_quality_sinca table...')
+      await this.waterQualitySincaRepository.deleteAll()
 
       log('Inserting new data into table...')
-      await this.observationSincaRepository.insertFromCSV(filePath, header)
+      await this.waterQualitySincaRepository.insertFromCSV(filePath, header)
       log('Insertion finished.')
 
       fs.unlinkSync(filePath)
@@ -147,4 +147,4 @@ class DownloadObservationSincaSeeder {
   }
 }
 
-export { DownloadObservationSincaSeeder }
+export { DownloadWaterQualitySincaSeeder }

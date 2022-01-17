@@ -1,4 +1,4 @@
-interface ICreateObservationSincaDTO {
+interface ICreateWaterQualitySincaDTO {
   stationCode: string
   timestamp: string
   latitude: number
@@ -14,4 +14,4 @@ interface ICreateObservationSincaDTO {
   totalSuspensionSolid?: number
 }
 
-export { ICreateObservationSincaDTO }
+export { ICreateWaterQualitySincaDTO }
