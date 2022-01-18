@@ -1,6 +1,7 @@
 import { StationView } from '../models/StationView'
 
 interface IStationViewRepository {
+  countAllStations(): Promise<number>
   countStationsByCountry(): Promise<
     { count: number; country: string; countryId: number }[]
   >

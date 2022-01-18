@@ -31,16 +31,16 @@ Método que retorna o total de estações.
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-            {
-            "count": 3233
-            }
+      {
+        "count": 896
+      }
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**
 	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
+      {
+        "message": 'Internal Server Error'
+      }
 	  ```
 
 **Contagem de estações por tipo**
@@ -337,7 +337,7 @@ Método que retorna a um ranking dos rios por quantidade de estações.
 	**Não Obrigatórios:**
 
 	page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
-  
+
 	order:[string] - Ordenação dos elementos ('asc' ou 'desc')
 		
 * **Exemplo:**

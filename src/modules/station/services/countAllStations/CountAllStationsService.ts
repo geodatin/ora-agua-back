@@ -1,17 +1,16 @@
-import { IStationRepository } from '@modules/station/repositories/IStationRepository'
+import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class CountAllStationsService {
   constructor(
-    @inject('StationRepository')
-    private stationRepository: IStationRepository
+    @inject('StationViewRepository')
+    private stationViewRepository: IStationViewRepository
   ) {}
 
   async execute() {
-    const countStation = await this.stationRepository.countAllStations()
-    const countCountry = await this.stationRepository.countCountries()
-    return { countStation: countStation, countCountry: countCountry }
+    const count = await this.stationViewRepository.countAllStations()
+    return { count }
   }
 }
 

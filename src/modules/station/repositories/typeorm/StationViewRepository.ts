@@ -10,6 +10,15 @@ class StationViewRepository implements IStationViewRepository {
     this.repository = getRepository(StationView)
   }
 
+  async countAllStations(): Promise<number> {
+    const { count } = await this.repository
+      .createQueryBuilder()
+      .select('count(code)', 'count')
+      .getRawOne()
+
+    return count
+  }
+
   async countStationsByCountry(): Promise<
     { count: number; country: string; countryId: number }[]
   > {
