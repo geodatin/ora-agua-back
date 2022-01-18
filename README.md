@@ -183,7 +183,7 @@ Método que retorna a contagem total de estações por subbacia.
 
 	**Não Obrigatórios:**
 
-		page:[number] - Número da pagina de registros a ser retornada, em cada página ecistem 5 registros.
+		page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
 		order:[string] - Ordem da contagem('asc' ou 'desc')
 		
 * **Parâmetros do Body:**
@@ -306,6 +306,77 @@ Método que retorna a contagem total de estações por responsável.
           }
         ],
         "total": 896
+      }
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
+**Ranking de Rios por quantidade de estações**
+----
+Método que retorna a um ranking dos rios por quantidade de estações.
+
+* **URL:**
+
+	/api/station/ranking/river
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Não Obrigatórios:**
+
+	page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
+  
+	order:[string] - Ordenação dos elementos ('asc' ou 'desc')
+		
+* **Exemplo:**
+
+	/api/station/ranking/river?order=desc&page=1
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+      {
+        "x": [
+          null,
+          "Madeira",
+          "Rio Maranon",
+          "Rio Solimoes",
+          "Rio Napo"
+        ],
+        "series": [
+          {
+            "id": "station",
+            "data": [
+              718,
+              21,
+              11,
+              7,
+              6
+            ]
+          }
+        ],
+        "position": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "pages": 16
       }
 	  ```
 	* **Código:** 500 <br />

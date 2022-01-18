@@ -1,5 +1,5 @@
 import { StationView } from '@modules/station/models/StationView'
-import { getRepository, Repository } from 'typeorm'
+import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { IStationViewRepository } from '../IStationViewRepository'
 
@@ -38,17 +38,25 @@ class StationViewRepository implements IStationViewRepository {
   async rankingRiversByStations(
     order: string
   ): Promise<{ position: number; river: string; count: number }[]> {
-    order = order === 'asc' ? 'ASC' : 'DESC'
-    const ranking = await this.repository
+    const connection = getConnection()
+    const ranking = await connection
       .createQueryBuilder()
-      .select('river')
-      .addSelect('count(code)', 'count')
+      .select('counting.river', 'river')
+      .addSelect('count')
       .addSelect(
-        `DENSE_RANK() OVER(ORDER BY count ${order} NULLS LAST)::INTEGER`,
+        `DENSE_RANK() OVER(ORDER BY count ${
+          order === 'asc' ? 'ASC' : 'DESC'
+        } NULLS LAST)::INTEGER`,
         'position'
       )
-      .groupBy('river')
-      .orderBy('count', order === 'asc' ? 'ASC' : 'DESC')
+      .from((subQuery) => {
+        return subQuery
+          .select('stations.river', 'river')
+          .addSelect('count(code)', 'count')
+          .from(StationView, 'stations')
+          .groupBy('stations.river')
+          .orderBy('count', order === 'asc' ? 'ASC' : 'DESC', 'NULLS LAST')
+      }, 'counting')
       .getRawMany()
     return ranking
   }
