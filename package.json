@@ -42,6 +42,7 @@
     "adm-zip": "^0.5.9",
     "async-get-file": "^1.0.4",
     "axios": "^0.24.0",
+    "build-url": "^6.0.1",
     "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
     "dotenv-safe": "^8.2.0",
@@ -51,9 +52,11 @@
     "moment": "^2.29.1",
     "pg": "^8.7.1",
     "pg-copy-streams": "^6.0.2",
+    "puppeteer": "^13.0.1",
     "query-string": "^7.0.1",
     "reflect-metadata": "^0.1.13",
     "system-commands": "^1.1.7",
+    "table-scraper": "^1.0.3",
     "typeorm": "^0.2.37",
     "unzipper": "^0.10.11"
   }
