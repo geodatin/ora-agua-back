@@ -1,16 +1,16 @@
 import { ICountRequestDTO } from '@modules/station/dtos/ICountRequestDTO'
 import { StationAll } from '@modules/station/models/StationAll'
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, IsNull, Repository } from 'typeorm'
 
 import { ICreateStationDTO } from '../../dtos/ICreateStationDTO'
-import { Station } from '../../models/Station'
+import { StationAna } from '../../models/StationAna'
 import { IStationRepository } from '../IStationRepository'
 
 class StationRepository implements IStationRepository {
-  private repository: Repository<Station>
+  private repository: Repository<StationAna>
   private repositoryAll: Repository<StationAll>
   constructor() {
-    this.repository = getRepository(Station)
+    this.repository = getRepository(StationAna)
     this.repositoryAll = getRepository(StationAll)
   }
   async getAllStationsFullTable(): Promise<StationAll[]> {
@@ -78,7 +78,7 @@ class StationRepository implements IStationRepository {
     return this.repository.count()
   }
 
-  async getAllStations(networkType?: string): Promise<Station[]> {
+  async getAllStations(networkType?: string): Promise<StationAna[]> {
     const where: any = {}
     if (networkType) {
       where.networkType = networkType
@@ -103,7 +103,7 @@ class StationRepository implements IStationRepository {
   }
 
   async getTelemetricStations(): Promise<StationAll[]> {
-    const stations = await this.repositoryAll.find({ telemetric: true })
+    const stations = await this.repositoryAll.find({ id: IsNull() })
     return stations
   }
 

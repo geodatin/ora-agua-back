@@ -1,16 +1,16 @@
+import { ICreateObservationDTO } from '@modules/observation/dtos/ICreateObservationDTO'
 import { ITimeSeriesEntryDTO } from '@modules/observation/dtos/ITimeSeriesDTO'
 import { ObservationStationView } from '@modules/observation/models/ObservationStationView'
 import { getRepository, Repository } from 'typeorm'
 
 import { AppError } from '../../../../errors/AppError'
-import { ICreateObservationDTO } from '../../dtos/ICreateObservationDTO'
-import { Observation } from '../../models/Observation'
+import { ObservationAna } from '../../models/ObservationAna'
 import { IObservationRepository } from '../IObservationRepository'
 
 class ObservationRepository implements IObservationRepository {
-  private repository: Repository<Observation>
+  private repository: Repository<ObservationAna>
   constructor() {
-    this.repository = getRepository(Observation)
+    this.repository = getRepository(ObservationAna)
   }
   async refreshLastObservationView(): Promise<void> {
     await this.repository.query(

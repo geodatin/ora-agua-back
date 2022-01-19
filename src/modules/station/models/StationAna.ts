@@ -1,10 +1,10 @@
 import { Point } from 'geojson'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
-import { Observation } from '../../observation/models/Observation'
+import { ObservationAna } from '../../observation/models/ObservationAna'
 
-@Entity({ name: 'station' })
-class Station {
+@Entity({ name: 'station_ana' })
+class StationAna {
   @PrimaryColumn()
   code: number
 
@@ -146,11 +146,11 @@ class Station {
   })
   waterQualityPeriodStart: Date
 
-  @OneToMany(() => Observation, (observation) => observation.stationCode)
-  observations: Observation[]
+  @OneToMany(() => ObservationAna, (observation) => observation.stationCode)
+  observations: ObservationAna[]
 
   @Column({ name: 'network_type', nullable: true })
   networkType: string
 }
 
-export { Station }
+export { StationAna }

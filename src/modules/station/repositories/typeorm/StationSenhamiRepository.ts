@@ -9,6 +9,7 @@ class StationSenhamiRepository implements IStationSenhamiRepository {
   constructor() {
     this.repository = getRepository(StationSenhami)
   }
+
   async create(data: ICreateStationSenhamiDTO): Promise<void> {
     const location = () =>
       `ST_SetSRID(ST_MakePoint(${data.longitude}, ${data.latitude}), 4326)`
@@ -23,6 +24,11 @@ class StationSenhamiRepository implements IStationSenhamiRepository {
       .insert()
       .values(station)
       .execute()
+  }
+
+  async listStations(): Promise<StationSenhami[]> {
+    const stations = await this.repository.find()
+    return stations
   }
 }
 
