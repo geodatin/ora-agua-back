@@ -16,10 +16,13 @@ class StationSenhamiPe {
   oldCode: string
 
   @Column()
-  type: string
+  state: string
 
   @Column()
   cate: string
+
+  @Column()
+  type: string
 }
 
 export { StationSenhamiPe }
