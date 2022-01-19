@@ -8,7 +8,10 @@ import downloadPhysicalChemistryHybamController from '@modules/observation/seede
 import downloadSedimentsHybamController from '@modules/observation/seeder/downloadSedimentsHybam/DownloadSedimentsHybamController'
 import downloadWaterLevelsHybamController from '@modules/observation/seeder/downloadWaterLevelsHybam/DownloadWaterLevelsHybamController'
 import insertObservationFromApiController from '@modules/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
+import insertObservationSenhamiPeController from '@modules/observation/seeder/insertObservationSenhamiPe/InsertObservationSenhamiPeController'
 import insertStationController from '@modules/station/seeders/insertStation/InsertStationController'
+import insertStationSenhamiController from '@modules/station/seeders/insertStationSenhami/InsertStationSenhamiController'
+import insertStationSenhamiPeController from '@modules/station/seeders/insertStationSenhamiPe/InsertStationSenhamiPeController'
 import insertStationsHybamController from '@modules/station/seeders/insertStationsHybam/InsertStationsHybamController'
 import insertStationsSincaController from '@modules/station/seeders/insertStationsSinca/InsertStationsSincaController'
 import insertWaterAreaFromCsvController from '@modules/water/seeders/insertWaterAreaFromCsv/InsertWaterAreaFromCsvController'
@@ -21,14 +24,16 @@ createConnection().then(async () => {
   // await insertObservationFromApiController.start()
   // await insertWaterAreaFromCsvController.start()
   // await downloadObservationCsvsController.start()
-
   // await insertStationsHybamController.start()
   // await downloadWaterLevelsHybamController.start()
   // await downloadDischargesHybamController.start()
   // await downloadSedimentsHybamController.start()
   // await downloadPhysicalChemistryHybamController.start()
   // await downloadGeochemistryHybamController.start()
-
   // await insertStationsSincaController.start()
-  await downloadObservationSincaController.start()
+  // await downloadObservationSincaController.start()
+  // await insertStationSenhamiPeController.start()
+  // await insertStationSenhamiController.start()
+  // await insertObservationSenhamiController.start()
+  await insertObservationSenhamiPeController.start()
 })
