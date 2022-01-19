@@ -5,7 +5,7 @@ import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-class InsertStationSenhamiPeSeeder {
+export class InsertStationSenhamiPeSeeder {
   constructor(
     @inject('StationSenhamiPeRepository')
     private stationSenhamiPeRepository: IStationSenhamiPeRepository
@@ -26,11 +26,10 @@ class InsertStationSenhamiPeSeeder {
         longitude: station.lon,
         code: station.cod,
         oldCode: station.cod_old ? station.cod_old : null,
-        type: station.estado,
+        state: station.estado,
+        type: station.ico,
       }
       await this.stationSenhamiPeRepository.create(newStation)
     }
   }
 }
-
-export { InsertStationSenhamiPeSeeder }
