@@ -25,11 +25,15 @@ export class CreateSenhamiPeStation1640181304825 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'type',
+            name: 'state',
             type: 'varchar',
           },
           {
             name: 'cate',
+            type: 'varchar',
+          },
+          {
+            name: 'type',
             type: 'varchar',
           },
         ],
