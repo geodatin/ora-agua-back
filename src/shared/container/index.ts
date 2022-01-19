@@ -1,4 +1,5 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
+import { IObservationSenhamiPeRepository } from '@modules/observation/repositories/IObservationSenhamiPeRespository'
 import { IObservationSenhamiRepository } from '@modules/observation/repositories/IObservationSenhamiRepository'
 import { IObservationSincaRepository } from '@modules/observation/repositories/IObservationSincaRepository'
 import { IWaterQualityObservationRepository } from '@modules/observation/repositories/IWaterQualityObservationRepository'
@@ -7,6 +8,7 @@ import { DailyWaterLevelHybamRepository } from '@modules/observation/repositorie
 import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
+import { ObservationSenhamiPeRepository } from '@modules/observation/repositories/typeorm/ObservationSenhamiPeRepository'
 import { ObservationSenhamiRepository } from '@modules/observation/repositories/typeorm/ObservationSenhamiRepository'
 import { ObservationSincaRepository } from '@modules/observation/repositories/typeorm/ObservationSincaRepository'
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
@@ -118,4 +120,9 @@ container.registerSingleton<IObservationSenhamiRepository>(
 container.registerSingleton<IStationSenhamiPeRepository>(
   'StationSenhamiPeRepository',
   StationSenhamiPeRepository
+)
+
+container.registerSingleton<IObservationSenhamiPeRepository>(
+  'ObservationSenhamiPeRepository',
+  ObservationSenhamiPeRepository
 )
