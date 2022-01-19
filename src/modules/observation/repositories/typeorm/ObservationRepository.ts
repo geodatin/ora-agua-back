@@ -1,9 +1,9 @@
+import { ICreateObservationDTO } from '@modules/observation/dtos/ICreateObservationDTO'
 import { ITimeSeriesEntryDTO } from '@modules/observation/dtos/ITimeSeriesDTO'
 import { ObservationStationView } from '@modules/observation/models/ObservationStationView'
 import { getRepository, Repository } from 'typeorm'
 
 import { AppError } from '../../../../errors/AppError'
-import { ICreateObservationDTO } from '../../dtos/ICreateObservationDTO'
 import { ObservationAna } from '../../models/ObservationAna'
 import { IObservationRepository } from '../IObservationRepository'
 
