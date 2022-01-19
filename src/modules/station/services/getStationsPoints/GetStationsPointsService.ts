@@ -1,4 +1,4 @@
-import { IStationRepository } from '@modules/station/repositories/IStationRepository'
+import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { inject, injectable } from 'tsyringe'
 
 const geojson: any = require('geojson')
@@ -6,12 +6,12 @@ const geojson: any = require('geojson')
 @injectable()
 class GetStationsPointsService {
   constructor(
-    @inject('StationRepository')
-    private stationRepository: IStationRepository
+    @inject('StationViewRepository')
+    private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute(networkType?: string) {
-    const stations = await this.stationRepository.getAllStations(networkType)
+  async execute() {
+    const stations = await this.stationViewRepository.getStations()
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
     return parsed
   }

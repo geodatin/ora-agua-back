@@ -56,7 +56,7 @@ export class createGeochemistryHybamTable1637937708009
         er_ug_l float,
         tm_ug_l float,
         PRIMARY KEY (station_code, timestamp),
-        FOREIGN KEY (station_code) REFERENCES station_hybam(code)
+        FOREIGN KEY (station_code) REFERENCES station_hybam(code) ON DELETE CASCADE
       )
     `)
   }

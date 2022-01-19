@@ -1,5 +1,6 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
+import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import fs from 'fs'
@@ -58,7 +59,7 @@ class DownloadDischargesHybamSeeder {
     let monthlyCount = 0
     let dailyCount = 0
 
-    console.log('Downloading hybam discharges data...')
+    log('Downloading hybam discharges data...')
     for (const { code } of stations) {
       const lastStationDailyObservation = dailyLastObservations.find(
         (element) => element.code === code
@@ -102,25 +103,25 @@ class DownloadDischargesHybamSeeder {
     }
 
     if (dailyCount > 0) {
-      console.log('Inserting hybam daily discharges...')
+      log('Inserting hybam daily discharges...')
       await this.dailyDischargeHybamRepository.insertFromCSV(
         dailyFilePath,
         header
       )
-      console.log('Hybam daily discharges insertion finished.')
+      log('Hybam daily discharges insertion finished.')
     } else {
-      console.log('No new daily discharges.')
+      log('No new daily discharges.')
     }
 
     if (monthlyCount > 0) {
-      console.log('Inserting hybam monthly discharges...')
+      log('Inserting hybam monthly discharges...')
       await this.monthlyDischargeHybamRepository.insertFromCSV(
         monthlyFilePath,
         header
       )
-      console.log('Hybam monthly discharges insertion finished.')
+      log('Hybam monthly discharges insertion finished.')
     } else {
-      console.log('No new monthly discharges.')
+      log('No new monthly discharges.')
     }
 
     fs.unlinkSync(dailyFilePath)

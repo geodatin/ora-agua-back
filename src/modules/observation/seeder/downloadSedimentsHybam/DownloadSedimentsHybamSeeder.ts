@@ -1,5 +1,6 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
+import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import fs from 'fs'
@@ -63,7 +64,7 @@ class DownloadSedimentsHybamSeeder {
 
     let satelliteCount = 0
 
-    console.log('Downloading hybam sediments data...')
+    log('Downloading hybam sediments data...')
     for (const { code } of stations) {
       const { sediments, satelliteRanges, satelliteAvgs } =
         await this.fetchSediments(code)
@@ -114,25 +115,25 @@ class DownloadSedimentsHybamSeeder {
     }
 
     if (sedimentsCount > 0) {
-      console.log('Inserting hybam sediments...')
+      log('Inserting hybam sediments...')
       await this.sedimentsHybamRepository.insertFromCSV(
         sedimentsFilePath,
         sedimentsHeader
       )
-      console.log('Hybam sediments insertion finished.')
+      log('Hybam sediments insertion finished.')
     } else {
-      console.log('No new sediments data.')
+      log('No new sediments data.')
     }
 
     if (satelliteCount > 0) {
-      console.log('Inserting hybam satellite derived sediments...')
+      log('Inserting hybam satellite derived sediments...')
       await this.satelliteDerivedSedimentsHybamRepository.insertFromCSV(
         satelliteFilePath,
         satelliteHeader
       )
-      console.log('Hybam satellite derived sediments insertion finished.')
+      log('Hybam satellite derived sediments insertion finished.')
     } else {
-      console.log('No new satellite derived sediments data.')
+      log('No new satellite derived sediments data.')
     }
 
     fs.unlinkSync(sedimentsFilePath)

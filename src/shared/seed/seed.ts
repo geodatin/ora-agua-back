@@ -3,20 +3,27 @@ import '../container'
 import downloadDischargesHybamController from '@modules/observation/seeder/downloadDischargesHybam/DownloadDischargesHybamController'
 import downloadGeochemistryHybamController from '@modules/observation/seeder/downloadGeochemistryHybam/DownloadGeochemistryHybamController'
 import downloadObservationCsvsController from '@modules/observation/seeder/downloadObservationCsvs/DownloadObservationCsvsController'
-import downloadObservationSincaController from '@modules/observation/seeder/downloadObservationSinca/DownloadObservationSincaController'
+import downloadObservationIdeamController from '@modules/observation/seeder/downloadObservationIdeam/DownloadObservationIdeamController'
 import downloadPhysicalChemistryHybamController from '@modules/observation/seeder/downloadPhysicalChemistryHybam/DownloadPhysicalChemistryHybamController'
 import downloadSedimentsHybamController from '@modules/observation/seeder/downloadSedimentsHybam/DownloadSedimentsHybamController'
 import downloadWaterLevelsHybamController from '@modules/observation/seeder/downloadWaterLevelsHybam/DownloadWaterLevelsHybamController'
+import downloadWaterQualityIdeamController from '@modules/observation/seeder/downloadWaterQualityIdeam/DownloadWaterQualityIdeamController'
+import downloadWaterQualitySincaController from '@modules/observation/seeder/downloadWaterQualitySinca/DownloadWaterQualitySincaController'
 import insertObservationFromApiController from '@modules/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
 import insertObservationSenhamiPeController from '@modules/observation/seeder/insertObservationSenhamiPe/InsertObservationSenhamiPeController'
 import insertStationController from '@modules/station/seeders/insertStation/InsertStationController'
 import insertStationSenhamiController from '@modules/station/seeders/insertStationSenhami/InsertStationSenhamiController'
 import insertStationSenhamiPeController from '@modules/station/seeders/insertStationSenhamiPe/InsertStationSenhamiPeController'
 import insertStationsHybamController from '@modules/station/seeders/insertStationsHybam/InsertStationsHybamController'
+import insertStationsIdeamController from '@modules/station/seeders/insertStationsIdeam/InsertStationsIdeamController'
 import insertStationsSincaController from '@modules/station/seeders/insertStationsSinca/InsertStationsSincaController'
 import insertWaterAreaFromCsvController from '@modules/water/seeders/insertWaterAreaFromCsv/InsertWaterAreaFromCsvController'
+import { log } from '@utils/log'
 import env from 'dotenv-safe'
+import cron from 'node-cron'
 import { createConnection } from 'typeorm'
+
+const hoursInterval = 12
 
 env.config()
 createConnection().then(async () => {

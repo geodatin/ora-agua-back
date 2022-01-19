@@ -1,26 +1,26 @@
-import { ObservationSinca } from '@modules/observation/models/ObservationSinca'
+import { WaterQualitySinca } from '@modules/observation/models/WaterQualitySinca'
 import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getRepository, Repository } from 'typeorm'
 
-import { IObservationSincaRepository } from '../IObservationSincaRepository'
+import { IWaterQualitySincaRepository } from '../IWaterQualitySincaRepository'
 
-class ObservationSincaRepository implements IObservationSincaRepository {
-  private repository: Repository<ObservationSinca>
+class WaterQualitySincaRepository implements IWaterQualitySincaRepository {
+  private repository: Repository<WaterQualitySinca>
 
   constructor() {
-    this.repository = getRepository(ObservationSinca)
+    this.repository = getRepository(WaterQualitySinca)
   }
 
   async deleteAll(): Promise<void> {
     await this.repository
       .createQueryBuilder()
       .delete()
-      .from(ObservationSinca)
+      .from(WaterQualitySinca)
       .execute()
   }
 
   async insertFromCSV(filePath: string, header: string): Promise<void> {
-    await insertFromCsvPg(filePath, header, 'observation_sinca')
+    await insertFromCsvPg(filePath, header, 'water_quality_sinca')
   }
 
   async getCount(): Promise<number> {
@@ -33,4 +33,4 @@ class ObservationSincaRepository implements IObservationSincaRepository {
   }
 }
 
-export { ObservationSincaRepository }
+export { WaterQualitySincaRepository }

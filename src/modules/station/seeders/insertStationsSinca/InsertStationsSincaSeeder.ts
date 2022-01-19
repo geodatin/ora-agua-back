@@ -27,6 +27,7 @@ class InsertStationsSincaSeeder {
       stations.push(station)
     }
     await this.stationSincaRepository.createMany(stations)
+    await this.stationSincaRepository.deleteStationsOutOfBasin()
   }
 }
 

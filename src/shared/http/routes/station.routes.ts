@@ -4,6 +4,7 @@ import { CountStationsByResponsibleController } from '@modules/station/services/
 import { CountStationsBySubwatershedController } from '@modules/station/services/countStationsBySubwatershed/CountStationsBySubwatershedController'
 import { CountStationsByTypeController } from '@modules/station/services/countStationsByType/CountStationsByTypeController'
 import { GetStationsPointsController } from '@modules/station/services/getStationsPoints/GetStationsPointsController'
+import { RankingRiversByStationsController } from '@modules/station/services/rankingRiversByStations/RankingRiversByStationsController'
 import { Router } from 'express'
 
 const stationRoutes = Router()
@@ -15,6 +16,8 @@ const countStationsBySubwatershed = new CountStationsBySubwatershedController()
 const countStationsByResponsibleController =
   new CountStationsByResponsibleController()
 const getStationsPointsController = new GetStationsPointsController()
+const rankingRiversByStationsController =
+  new RankingRiversByStationsController()
 
 stationRoutes.get('/count', countAllStationsContoller.handle)
 stationRoutes.get('/count/type', countStationsByType.handle)
@@ -24,6 +27,7 @@ stationRoutes.get(
   '/count/responsible',
   countStationsByResponsibleController.handle
 )
-stationRoutes.get('/shape', getStationsPointsController.handle)
+stationRoutes.get('/location', getStationsPointsController.handle)
+stationRoutes.get('/ranking/river', rankingRiversByStationsController.handle)
 
 export { stationRoutes }

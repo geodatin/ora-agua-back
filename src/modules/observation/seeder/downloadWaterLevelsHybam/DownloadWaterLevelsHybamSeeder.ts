@@ -1,5 +1,6 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IStationHybamRepository } from '@modules/station/repositories/IStationHybamRepository'
+import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import fs from 'fs'
@@ -60,7 +61,7 @@ class DownloadWaterLevelsHybamSeeder {
     let dailyCount = 0
     let monthlyCount = 0
 
-    console.log('Downloading hybam water level data...')
+    log('Downloading hybam water level data...')
     for (const { code, type } of stations) {
       const { dailyLevels, monthlyLevels } = await this.fetchWaterLevels(code)
 
@@ -111,25 +112,25 @@ class DownloadWaterLevelsHybamSeeder {
     }
 
     if (dailyCount > 0) {
-      console.log('Inserting hybam daily levels...')
+      log('Inserting hybam daily levels...')
       await this.dailyWaterLevelHybamRepository.insertFromCSV(
         dailyFilePath,
         header
       )
-      console.log('Hybam daily levels insertion finished.')
+      log('Hybam daily levels insertion finished.')
     } else {
-      console.log('No new daily levels data.')
+      log('No new daily levels data.')
     }
 
     if (monthlyCount > 0) {
-      console.log('Inserting hybam monthly levels...')
+      log('Inserting hybam monthly levels...')
       await this.monthlyWaterLevelHybamRepository.insertFromCSV(
         monthlyFilePath,
         header
       )
-      console.log('Hybam monthly levels insertion finished.')
+      log('Hybam monthly levels insertion finished.')
     } else {
-      console.log('No new monthly levels data.')
+      log('No new monthly levels data.')
     }
 
     fs.unlinkSync(dailyFilePath)

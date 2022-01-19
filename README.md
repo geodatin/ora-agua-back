@@ -31,16 +31,16 @@ Método que retorna o total de estações.
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-            {
-            "count": 3233
-            }
+      {
+        "count": 896
+      }
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**
 	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
+      {
+        "message": 'Internal Server Error'
+      }
 	  ```
 
 **Contagem de estações por tipo**
@@ -107,8 +107,7 @@ Método que retorna a contagem total de estações por país.
 
 	**Não Obrigatórios:**
 
-		page:[number] - Número da pagina de registros a ser retornada, em cada página ecistem 5 registros.
-		order:[string] - Ordem da contagem('asc' ou 'desc')
+	Nenhum
 		
 * **Parâmetros do Body:**
 
@@ -116,43 +115,45 @@ Método que retorna a contagem total de estações por país.
 
 * **Exemplo:**
 
-	/api/station/count/country?page=1&order=asc
+	/api/station/count/country
 
 * **Resposta:**
 
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-			{
-			"x": [
-				"Venezuela",
-				"Equador",
-				"Colômbia",
-				"Peru",
-				"Bolívia"
-			],
-			"series": [
-				{
-				"id": "station",
-				"data": [
-					5,
-					168,
-					201,
-					311,
-					330,
-					2202
-				]
-				}
-			],
-			"position": [
-				1,
-				2,
-				3,
-				4,
-				5
-			],
-			"pages": 2
-			}
+			[
+        {
+          "country": "Bolívia",
+          "countryId": 6,
+          "count": 203
+        },
+        {
+          "country": "Brasil",
+          "countryId": 9,
+          "count": 194
+        },
+        {
+          "country": "Colômbia",
+          "countryId": 7,
+          "count": 37
+        },
+        {
+          "country": "Equador",
+          "countryId": 4,
+          "count": 16
+        },
+        {
+          "country": "Peru",
+          "countryId": 5,
+          "count": 444
+        },
+        {
+          "country": "Venezuela",
+          "countryId": 8,
+          "count": 2
+        }
+      ]
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**
@@ -182,7 +183,7 @@ Método que retorna a contagem total de estações por subbacia.
 
 	**Não Obrigatórios:**
 
-		page:[number] - Número da pagina de registros a ser retornada, em cada página ecistem 5 registros.
+		page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
 		order:[string] - Ordem da contagem('asc' ou 'desc')
 		
 * **Parâmetros do Body:**
@@ -262,51 +263,121 @@ Método que retorna a contagem total de estações por responsável.
 
 	**Não Obrigatórios:**
 
-		page:[number] - Número da pagina de registros a ser retornada, em cada página ecistem 5 registros.
-		order:[string] - Ordem da contagem('asc' ou 'desc')
-		
-* **Parâmetros do Body:**
-
 	Nenhum
-
+		
 * **Exemplo:**
 
-	/api/station/count/responsible?page=1&order=asc
+	/api/station/count/responsible
 
 * **Resposta:**
 
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-			{
-			"x": [
-				"UFAC",
-				"CEPLAC",
-				"APROVALE",
-				"CERR",
-				"CEBEL"
-			],
-			"series": [
-				{
-				"id": "station",
-				"data": [
-					1,
-					1,
-					1,
-					1,
-					1
-				]
-				}
-			],
-			"position": [
-				1,
-				2,
-				3,
-				4,
-				5
-			],
-			"pages": 23
-			}
+      {
+        "values": [
+          {
+            "responsible": "ANA",
+            "count": 99
+          },
+          {
+            "responsible": "JARI",
+            "count": 6
+          },
+          {
+            "responsible": "hybam",
+            "count": 91
+          },
+          {
+            "responsible": "ideam",
+            "count": 17
+          },
+          {
+            "responsible": "senhami",
+            "count": 393
+          },
+          {
+            "responsible": "sinca",
+            "count": 152
+          },
+          {
+            "responsible": null,
+            "count": 138
+          }
+        ],
+        "total": 896
+      }
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
+**Ranking de Rios por quantidade de estações**
+----
+Método que retorna a um ranking dos rios por quantidade de estações.
+
+* **URL:**
+
+	/api/station/ranking/river
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Não Obrigatórios:**
+
+	page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
+
+	order:[string] - Ordenação dos elementos ('asc' ou 'desc')
+		
+* **Exemplo:**
+
+	/api/station/ranking/river?order=desc&page=1
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+      {
+        "x": [
+          null,
+          "Madeira",
+          "Rio Maranon",
+          "Rio Solimoes",
+          "Rio Napo"
+        ],
+        "series": [
+          {
+            "id": "station",
+            "data": [
+              718,
+              21,
+              11,
+              7,
+              6
+            ]
+          }
+        ],
+        "position": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "pages": 16
+      }
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**
@@ -335,44 +406,43 @@ Método que retorna o shape das estações.
 	Nenhum
 
 	**Não Obrigatórios:**
-		networkType:[string] - Tipo de estação a ser retornada. "RQA" para Rede Amazônica de Monitoramento de QA e "RHA" para Rede Hidrológica Amazônica. Para que todas as estações sejam retornadas a propriedade não deve ser enviada
-		
-* **Parâmetros do Body:**
-
-	Nenhum
+	
+  Nenhum
 
 * **Exemplo:**
 
-	/api/station/shape
+	/api/station/location
 
 * **Resposta:**
 
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-		{
-		"type": "FeatureCollection",
-		"features": [
-			{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [
-				-58.6833,
-				-1.0333
-				]
-			},
-			"properties": {
-				"name": "KATUEMA",
-				"subwatershed": "16 - RIO AMAZONAS,TROMBETAS,OUTROS",
-				"river": null,
-				"city": "URUCARÁ",
-				"country": "Brasil",
-				"responsible": "ANA",
-				"operator": "ANA",
-				"type": "Pluviométrica"
-			}
-			},...
+		  {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -71.57258,
+                -14.02781
+              ]
+            },
+            "properties": {
+              "code": "114046",
+              "name": "POMACANCHI",
+              "type": "M",
+              "river": null,
+              "responsible": "senhami",
+              "country": "Peru",
+              "countryId": 5
+            }
+          },
+          ...
+        ]
+      }
 	  ```
 	* **Código:** 500 <br />
 	  **Conteúdo:**

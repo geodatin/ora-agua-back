@@ -1,4 +1,5 @@
-import { ObservationSinca } from '@modules/observation/models/ObservationSinca'
+import { WaterQualitySinca } from '@modules/observation/models/WaterQualitySinca'
+import { Point } from 'geojson'
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 @Entity('station_sinca')
@@ -12,6 +13,9 @@ class StationSinca {
   @Column()
   reference: string
 
+  @Column()
+  river: string
+
   @Column({ type: 'float' })
   latitude: number
 
@@ -21,8 +25,11 @@ class StationSinca {
   @Column()
   height: number
 
-  @OneToMany(() => ObservationSinca, (observation) => observation.station)
-  observations: ObservationSinca[]
+  @Column({ type: 'geometry' })
+  geometry: Point
+
+  @OneToMany(() => WaterQualitySinca, (quality) => quality.station)
+  quality: WaterQualitySinca[]
 }
 
 export { StationSinca }

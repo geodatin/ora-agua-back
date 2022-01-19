@@ -28,4 +28,5 @@ export async function insertFromCsvPg(
     fileStream.pipe(stream)
   })
   await copyPromise
+  client.release()
 }

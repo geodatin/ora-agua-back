@@ -1,31 +1,24 @@
-import { ICountRequestDTO } from '@modules/station/dtos/ICountRequestDTO'
-import { IStationRepository } from '@modules/station/repositories/IStationRepository'
-import { countPages, paginate } from '@utils/paginate'
+import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class CountStationsByResponsibleService {
   constructor(
-    @inject('StationRepository')
-    private stationRepository: IStationRepository
+    @inject('StationViewRepository')
+    private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute({ order, page }: ICountRequestDTO) {
+  async execute() {
     const stationsCount =
-      await this.stationRepository.countStationsByResponsible({ order })
-    const x: string[] = []
-    const y: number[] = []
-    const pos: number[] = []
-    for (const [index, station] of stationsCount.entries()) {
-      x.push(station.name)
-      y.push(station.count)
-      pos.push(index + 1)
-    }
+      await this.stationViewRepository.countStationsByResponsible()
+
+    const total = stationsCount
+      .map((value) => value.count)
+      .reduce((total, count) => total + count, 0)
+
     return {
-      x: paginate(x, page, 5),
-      series: [{ id: 'station', data: paginate(y, page, 5) }],
-      position: paginate(pos, page, 5),
-      pages: countPages(pos, 5),
+      values: stationsCount,
+      total: total,
     }
   }
 }
