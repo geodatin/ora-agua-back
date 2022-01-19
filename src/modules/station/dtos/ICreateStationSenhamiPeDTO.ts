@@ -4,8 +4,9 @@ interface ICreateStationSenhamiPeDTO {
   longitude: string
   latitude: string
   oldCode: string
-  type: string
+  state: string
   cate: string
+  type: string
 }
 
 export { ICreateStationSenhamiPeDTO }
