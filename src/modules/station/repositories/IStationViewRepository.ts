@@ -9,6 +9,7 @@ interface IStationViewRepository {
   countStationsByResponsible(): Promise<
     { count: number; responsible: string }[]
   >
+  countStationsByNetwork(): Promise<{ count: number; network: string }[]>
   rankingRiversByStations(
     order: string
   ): Promise<{ position: number; river: string; count: number }[]>

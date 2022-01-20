@@ -243,6 +243,63 @@ Método que retorna a contagem total de estações por subbacia.
 		}
 	  ```
 
+**Contagem de estações por rede**
+----
+Método que retorna a contagem total de estações por rede.
+
+* **URL:**
+
+	/api/station/count/network
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Não Obrigatórios:**
+
+	Nenhum
+		
+* **Exemplo:**
+
+	/api/station/count/network
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+      {
+        "values": [
+          {
+            "network": "HYBAM",
+            "count": 91
+          },
+          {
+            "network": "RHA",
+            "count": 134
+          },
+          {
+            "network": "RQA",
+            "count": 101
+          }
+        ],
+        "total": 326
+      }
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
 **Contagem de estações por responsável**
 ----
 Método que retorna a contagem total de estações por responsável.

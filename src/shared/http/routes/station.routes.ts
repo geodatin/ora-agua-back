@@ -1,5 +1,6 @@
 import { CountAllStationsController } from '@modules/station/services/countAllStations/CountAllStationsController'
 import { CountStationsByCountryController } from '@modules/station/services/countStationsByCountry/CountStationsByCountryController'
+import { CountStationsByNetworkController } from '@modules/station/services/countStationsByNetwork/CountStationsByNetworkController'
 import { CountStationsByResponsibleController } from '@modules/station/services/countStationsByResponsible/CountStationsByResponsibleController'
 import { CountStationsBySubwatershedController } from '@modules/station/services/countStationsBySubwatershed/CountStationsBySubwatershedController'
 import { CountStationsByTypeController } from '@modules/station/services/countStationsByType/CountStationsByTypeController'
@@ -16,6 +17,7 @@ const countStationsByCountry = new CountStationsByCountryController()
 const countStationsBySubwatershed = new CountStationsBySubwatershedController()
 const countStationsByResponsibleController =
   new CountStationsByResponsibleController()
+const countStationsByNetworkController = new CountStationsByNetworkController()
 const getStationsPointsController = new GetStationsPointsController()
 const rankingRiversByStationsController =
   new RankingRiversByStationsController()
@@ -29,6 +31,7 @@ stationRoutes.get(
   '/count/responsible',
   countStationsByResponsibleController.handle
 )
+stationRoutes.get('/count/network', countStationsByNetworkController.handle)
 stationRoutes.get('/location', getStationsPointsController.handle)
 stationRoutes.get('/ranking/river', rankingRiversByStationsController.handle)
 stationRoutes.get('/filter/:filterTerm', getFilterOptionsController.handle)
