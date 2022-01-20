@@ -1,4 +1,6 @@
+import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
 import { StationView } from '@modules/station/models/StationView'
+import { toSnakeCase } from '@utils/toSnakeCase'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { IStationViewRepository } from '../IStationViewRepository'
@@ -72,6 +74,23 @@ class StationViewRepository implements IStationViewRepository {
 
   async getStations(): Promise<StationView[]> {
     return this.repository.find()
+  }
+
+  async findFilterOptions(
+    column: string,
+    filterTerm: string
+  ): Promise<IGetFilterOptionsDTO[]> {
+    const columnName = toSnakeCase(column)
+    const options = await this.repository
+      .createQueryBuilder('station')
+      .select(`DISTINCT station.${columnName} AS value`)
+      .addSelect(`'${column}' AS type`)
+      .where(`station.${columnName} ILIKE :filterTerm`, {
+        filterTerm: `${filterTerm}%`,
+      })
+      .getRawMany()
+
+    return options
   }
 }
 

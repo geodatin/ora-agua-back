@@ -1,3 +1,4 @@
+import { IGetFilterOptionsDTO } from '../dtos/IGetFilterOptionsDTO'
 import { StationView } from '../models/StationView'
 
 interface IStationViewRepository {
@@ -12,6 +13,10 @@ interface IStationViewRepository {
     order: string
   ): Promise<{ position: number; river: string; count: number }[]>
   getStations(): Promise<StationView[]>
+  findFilterOptions(
+    column: string,
+    filterTerm: string
+  ): Promise<IGetFilterOptionsDTO[]>
 }
 
 export { IStationViewRepository }
