@@ -1,18 +1,25 @@
+import { IFiltersDTO } from '../dtos/IFiltersDTO'
 import { StationView } from '../models/StationView'
 
 interface IStationViewRepository {
-  countAllStations(): Promise<number>
-  countStationsByCountry(): Promise<
-    { count: number; country: string; countryId: number }[]
-  >
-  countStationsByResponsible(): Promise<
-    { count: number; responsible: string }[]
-  >
-  countStationsByNetwork(): Promise<{ count: number; network: string }[]>
+  countAllStations(filters: IFiltersDTO): Promise<number>
+  countStationsByCountry(
+    filters: IFiltersDTO
+  ): Promise<{ count: number; country: string; countryId: number }[]>
+  countStationsByResponsible(
+    filters: IFiltersDTO
+  ): Promise<{ count: number; responsible: string }[]>
+
+  countStationsByNetwork(
+    filters: IFiltersDTO
+  ): Promise<{ count: number; network: string }[]>
+
   rankingRiversByStations(
+    filters: IFiltersDTO,
     order: string
   ): Promise<{ position: number; river: string; count: number }[]>
-  getStations(): Promise<StationView[]>
+
+  getStations(filters: IFiltersDTO): Promise<StationView[]>
 }
 
 export { IStationViewRepository }

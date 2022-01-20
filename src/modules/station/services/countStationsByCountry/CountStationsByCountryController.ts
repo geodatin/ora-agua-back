@@ -5,6 +5,8 @@ import { CountStationsByCountryService } from './CountStationsByCountryService'
 
 class CountStationsByCountryController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { filters } = request.body
+
     const countStationsByCountry = container.resolve(
       CountStationsByCountryService
     )

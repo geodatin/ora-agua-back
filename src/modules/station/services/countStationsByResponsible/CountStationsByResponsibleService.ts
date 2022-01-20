@@ -1,3 +1,4 @@
+import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { inject, injectable } from 'tsyringe'
 
@@ -8,9 +9,9 @@ class CountStationsByResponsibleService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute() {
+  async execute(filters: IFiltersDTO) {
     const stationsCount =
-      await this.stationViewRepository.countStationsByResponsible()
+      await this.stationViewRepository.countStationsByResponsible(filters)
 
     const total = stationsCount
       .map((value) => value.count)

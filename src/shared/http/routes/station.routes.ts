@@ -21,16 +21,16 @@ const getStationsPointsController = new GetStationsPointsController()
 const rankingRiversByStationsController =
   new RankingRiversByStationsController()
 
-stationRoutes.get('/count', countAllStationsContoller.handle)
-stationRoutes.get('/count/type', countStationsByType.handle)
-stationRoutes.get('/count/country', countStationsByCountry.handle)
-stationRoutes.get('/count/subwatershed', countStationsBySubwatershed.handle)
-stationRoutes.get(
+stationRoutes.post('/count', countAllStationsContoller.handle)
+stationRoutes.post('/count/type', countStationsByType.handle)
+stationRoutes.post('/count/country', countStationsByCountry.handle)
+stationRoutes.post('/count/subwatershed', countStationsBySubwatershed.handle)
+stationRoutes.post(
   '/count/responsible',
   countStationsByResponsibleController.handle
 )
-stationRoutes.get('/count/network', countStationsByNetworkController.handle)
-stationRoutes.get('/location', getStationsPointsController.handle)
-stationRoutes.get('/ranking/river', rankingRiversByStationsController.handle)
+stationRoutes.post('/count/network', countStationsByNetworkController.handle)
+stationRoutes.post('/location', getStationsPointsController.handle)
+stationRoutes.post('/ranking/river', rankingRiversByStationsController.handle)
 
 export { stationRoutes }
