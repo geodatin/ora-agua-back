@@ -570,15 +570,13 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 		}
 	  ```
 
-# Ora-hidricos API
-
-**Área de superfície d'agua**
+**Filtro de estações**
 ----
-Método que retorna a área total de superfície d'agua.
+Retorna um array com os objetos que estão disponíveis no banco para cada categoria.
 
 * **URL:**
 
-	/api/water/area
+	/api/station/filter/:filterTerm
 
 * **Método:**
 
@@ -587,60 +585,9 @@ Método que retorna a área total de superfície d'agua.
 * **Parâmetros na URL:**
 
 	**Obrigatórios:**
-		
-	Nenhum
-
-	**Opcionais:**
-		
-		country:[string] - País sobre o qual se deseja obter informações, caso esse parâmetro não seja informado, será retornada a área de todos os países juntos
-		year:[number] - Ano sobre o qual se deseja obter informações
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/water/area?country=Brasil&year=2020
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			{
-			"count": 7707474.6
-			}
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
-**Série de superfície d'agua por ano**
-----
-Método que retorna a área total de superfície d'agua por ano em um país.
-
-* **URL:**
-
-	/api/water/series
-
-* **Método:**
-
-	`GET`
 	
-* **Parâmetros na URL:**
+    filterTerm:[string] - Termo a ser pesquisado
 
-	**Obrigatórios:**
-		
-	Nenhum
-
-	**Opcionais:**
-		
-	Nenhum
 		
 * **Parâmetros do Body:**
 
@@ -648,287 +595,7 @@ Método que retorna a área total de superfície d'agua por ano em um país.
 
 * **Exemplo:**
 
-	/api/water/series
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-		"x": [
-			1984,
-			1985,
-			1986,
-			1987,
-			1988,
-			1989,
-			1990,
-			1991,
-			1992,
-			...
-		],
-		"series": [
-			{
-			"id": "Brasil",
-			"data": [
-				116309.25,
-				148140.38,
-				270006.13,
-				194197.53,
-				231518.94,
-				216977.89,
-				248530.48,
-				249187.21,
-				165780.73,
-				193065,
-			...
-			]
-			}
-			...
-		]
-		}
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
-**Ranking de variação da superfície d'agua**
-----
-Método que retorna um ranking com a difereça entre os anos especificados da superfície d'agua em cada país'.
-
-* **URL:**
-
-	/api/water/variance/ranking/:initialYear/:finalYear
-
-* **Método:**
-
-	`GET`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-		initialYear:[number] - Ano inicial para a filtragen
-		finalYear:[number] - Ano final para a filtragen
-
-	**Opcionais:**
-		
-
-		order?:[number] - Ordem do ranking
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/water/variance/ranking/1984/2020
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			{
-			"x": [
-				"Bolívia",
-				"Guiana",
-				"Venezuela",
-				"Equador",
-				"Colômbia",
-				"Peru",
-				"Brasil"
-			],
-			"series": [
-				{
-				"id": "station",
-				"data": [
-					-15149.05,
-					8310.34,
-					12784.68,
-					74638.45,
-					178161.65,
-					527437.82,
-					1516129.94
-				]
-				}
-			],
-			"position": [
-				1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7
-			]
-			}
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
-**Área da bacia amazônica**
-----
-Método que retorna a área total da bacia amazônica.
-
-* **URL:**
-
-	/api/water/amazonic/area
-
-* **Método:**
-
-	`GET`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-	Nenhum
-
-	**Opcionais:**
-		
-		country:[string] - País sobre o qual se deseja obter informações, caso esse parâmetro não seja informado, será retornada a área de todos os países juntos
-		year:[number] - Ano sobre o qual se deseja obter informações
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/water/amazonic/area
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			{
-			"count": 7707474.6
-			}
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
-**Área da bacia amazônica por país**
-----
-Método que retorna a área total da bacia amazônica por país.
-
-* **URL:**
-
-	/api/water/area/country
-
-* **Método:**
-
-	`GET`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-	Nenhum
-
-	**Opcionais:**
-		
-		year:[number] - Ano sobre o qual se deseja obter informações
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/water/area/country
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-		[
-		{
-			"id": "Colômbia",
-			"y": 340799.13
-		},
-		{
-			"id": "Guiana",
-			"y": 12336.53
-		},
-		{
-			"id": "Venezuela",
-			"y": 52279.32
-		},
-		{
-			"id": "Peru",
-			"y": 961677.29
-		},
-		{
-			"id": "Equador",
-			"y": 130509.95
-		},
-		{
-			"id": "Brasil",
-			"y": 3703566.36
-		},
-		{
-			"id": "Bolívia",
-			"y": 714723.63
-		}
-		]
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-		```
-
-**Ultima atualização por estação**
-----
-Método que retorna a última atualização para cada estação
-
-* **URL:**
-
-	/api/observation/last
-
-* **Método:**
-
-	`GET`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-	Nenhum
-
-	**Opcionais:**
-		
-		page:[number] - Número da página a ser retornada
-		pageSize:[number] - Número de registros por página
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/observation/last?page=2pageSize
+	/api/station/filter/a
 
 * **Resposta:**
 
@@ -936,51 +603,46 @@ Método que retorna a última atualização para cada estação
 	  **Conteúdo:**
 	  ```javascript
 			[
-			{
-				"name": "ARIQUEMES",
-				"type": "Fluviométrica",
-				"rain": 0,
-				"flowRate": null,
-				"code": 15430000,
-				"level": 91,
-				"timestamp": "2021-10-08T04:45:00.000Z"
-			},
-			{
-				"name": "ARUMÃ - JUSANTE",
-				"type": "Fluviométrica",
-				"rain": 0,
-				"flowRate": null,
-				"code": 13962000,
-				"level": null,
-				"timestamp": "2021-10-07T02:45:00.000Z"
-			},
-			{
-				"name": "ASSIS BRASIL",
-				"type": "Fluviométrica",
-				"rain": 0,
-				"flowRate": null,
-				"code": 13450000,
-				"level": 133,
-				"timestamp": "2021-10-07T02:00:00.000Z"
-			},
-			{
-				"name": "ASSIS BRASIL - CPRM",
-				"type": "Fluviométrica",
-				"rain": 0,
-				"flowRate": null,
-				"code": 13450010,
-				"level": null,
-				"timestamp": "2017-12-16T12:15:00.000Z"
-			},
-			{
-				"name": "BARCELOS",
-				"type": "Fluviométrica",
-				"rain": 0,
-				"flowRate": null,
-				"code": 14480002,
-				"level": null,
-				"timestamp": "2021-10-07T07:45:00.000Z"
-			}
+				{
+					"value": "ALDEIA DO CHAPÉU",
+					"type": "name"
+				},
+				{
+					"value": "Almeirim",
+					"type": "name"
+				},
+				{
+					"value": "Atalaya Aval",
+					"type": "name"
+				},
+				{
+					"value": "ASSIS BRASIL",
+					"type": "name"
+				},
+				{
+					"value": "Aval Riberalta",
+					"type": "name"
+				},
+				{
+					"value": "ABUNÃ",
+					"type": "name"
+				},
+				{
+					"value": "Aguaricó",
+					"type": "name"
+				},
+				{
+					"value": "AUTAZES",
+					"type": "name"
+				},
+				{
+					"value": "ACANAUI",
+					"type": "name"
+				},
+				{
+					"value": "ANA",
+					"type": "responsible"
+				}
 			]
 	  ```
 	* **Código:** 500 <br />

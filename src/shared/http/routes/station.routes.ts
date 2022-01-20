@@ -4,6 +4,7 @@ import { CountStationsByNetworkController } from '@modules/station/services/coun
 import { CountStationsByResponsibleController } from '@modules/station/services/countStationsByResponsible/CountStationsByResponsibleController'
 import { CountStationsBySubwatershedController } from '@modules/station/services/countStationsBySubwatershed/CountStationsBySubwatershedController'
 import { CountStationsByTypeController } from '@modules/station/services/countStationsByType/CountStationsByTypeController'
+import { GetFilterOptionsController } from '@modules/station/services/getFilterOptions/GetFilterOprionsController'
 import { GetStationsPointsController } from '@modules/station/services/getStationsPoints/GetStationsPointsController'
 import { RankingRiversByStationsController } from '@modules/station/services/rankingRiversByStations/RankingRiversByStationsController'
 import { Router } from 'express'
@@ -20,6 +21,7 @@ const countStationsByNetworkController = new CountStationsByNetworkController()
 const getStationsPointsController = new GetStationsPointsController()
 const rankingRiversByStationsController =
   new RankingRiversByStationsController()
+const getFilterOptionsController = new GetFilterOptionsController()
 
 stationRoutes.post('/count', countAllStationsContoller.handle)
 stationRoutes.post('/count/type', countStationsByType.handle)
@@ -32,5 +34,6 @@ stationRoutes.post(
 stationRoutes.post('/count/network', countStationsByNetworkController.handle)
 stationRoutes.post('/location', getStationsPointsController.handle)
 stationRoutes.post('/ranking/river', rankingRiversByStationsController.handle)
+stationRoutes.get('/filter/:filterTerm', getFilterOptionsController.handle)
 
 export { stationRoutes }

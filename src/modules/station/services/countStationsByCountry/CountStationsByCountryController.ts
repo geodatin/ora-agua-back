@@ -10,7 +10,7 @@ class CountStationsByCountryController {
     const countStationsByCountry = container.resolve(
       CountStationsByCountryService
     )
-    const stationsCount = await countStationsByCountry.execute()
+    const stationsCount = await countStationsByCountry.execute(filters)
     return response.json(stationsCount)
   }
 }

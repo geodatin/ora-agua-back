@@ -1,8 +1,10 @@
 import { IFiltersDTO } from '../dtos/IFiltersDTO'
+import { IGetFilterOptionsDTO } from '../dtos/IGetFilterOptionsDTO'
 import { StationView } from '../models/StationView'
 
 interface IStationViewRepository {
   countAllStations(filters: IFiltersDTO): Promise<number>
+
   countStationsByCountry(
     filters: IFiltersDTO
   ): Promise<{ count: number; country: string; countryId: number }[]>
@@ -20,6 +22,11 @@ interface IStationViewRepository {
   ): Promise<{ position: number; river: string; count: number }[]>
 
   getStations(filters: IFiltersDTO): Promise<StationView[]>
+
+  findFilterOptions(
+    column: string,
+    filterTerm: string
+  ): Promise<IGetFilterOptionsDTO[]>
 }
 
 export { IStationViewRepository }

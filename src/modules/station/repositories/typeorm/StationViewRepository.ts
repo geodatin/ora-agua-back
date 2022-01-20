@@ -1,5 +1,7 @@
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
+import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
 import { StationView } from '@modules/station/models/StationView'
+import { toSnakeCase } from '@utils/toSnakeCase'
 import {
   getConnection,
   getRepository,
@@ -193,6 +195,23 @@ class StationViewRepository implements IStationViewRepository {
     }
 
     return query
+  }
+
+  async findFilterOptions(
+    column: string,
+    filterTerm: string
+  ): Promise<IGetFilterOptionsDTO[]> {
+    const columnName = toSnakeCase(column)
+    const options = await this.repository
+      .createQueryBuilder('station')
+      .select(`DISTINCT station.${columnName} AS value`)
+      .addSelect(`'${column}' AS type`)
+      .where(`station.${columnName} ILIKE :filterTerm`, {
+        filterTerm: `${filterTerm}%`,
+      })
+      .getRawMany()
+
+    return options
   }
 }
 
