@@ -28,6 +28,7 @@ Método que retorna o total de estações.
         "country": [], // País
         "responsible": [], // Órgão responsável
         "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
       }
     }
   ```
@@ -85,6 +86,7 @@ Método que retorna a contagem total de estações por país.
         "country": [], // País
         "responsible": [], // Órgão responsável
         "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
       }
     }
   ```
@@ -171,6 +173,7 @@ Método que retorna a contagem total de estações por rede.
         "country": [], // País
         "responsible": [], // Órgão responsável
         "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
       }
     }
   ```
@@ -242,6 +245,7 @@ Método que retorna a contagem total de estações por responsável.
         "country": [], // País
         "responsible": [], // Órgão responsável
         "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
       }
     }
   ```
@@ -331,6 +335,7 @@ Método que retorna a um ranking dos rios por quantidade de estações.
         "country": [], // País
         "responsible": [], // Órgão responsável
         "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
       }
     }
   ```
@@ -414,6 +419,7 @@ Método que retorna o shape das estações.
         "country": [], // País
         "responsible": [], // Órgão responsável
         "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
       }
     }
   ```

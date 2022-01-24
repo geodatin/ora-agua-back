@@ -245,7 +245,7 @@ class StationView {
   @Column({ name: 'OD' })
   OD: boolean
 
-  @Column({ name: 'electic_conductivity' })
+  @Column({ name: 'electric_conductivity' })
   electricConductivity: boolean
 
   @Column()

@@ -194,6 +194,38 @@ class StationViewRepository implements IStationViewRepository {
       }
     }
 
+    const variableSet = new Set([
+      'ph',
+      'OD',
+      'electricConductivity',
+      'turbidity',
+      'sampleTemperature',
+      'totalDissolvedSolid',
+      'totalNitrogen',
+      'totalOrtophosphate',
+      'totalSuspensionSolid',
+      'rain',
+      'flowRate',
+      'adoptedLevel',
+    ])
+
+    if (filters?.variable?.length > 0) {
+      filters.variable.forEach((variable) => {
+        if (variableSet.has(variable)) {
+          if (variable !== 'OD') {
+            variable = toSnakeCase(variable)
+          }
+
+          if (firstWhere) {
+            query = query.where(`"${variable}" = true`)
+            firstWhere = false
+          } else {
+            query = query.andWhere(`"${variable}" = true`)
+          }
+        }
+      })
+    }
+
     return query
   }
 
