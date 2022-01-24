@@ -10,7 +10,7 @@ Método que retorna o total de estações.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -20,7 +20,18 @@ Método que retorna o total de estações.
 		
 * **Parâmetros do Body:**
 
-	Nenhum
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 
 * **Exemplo:**
 
@@ -43,50 +54,6 @@ Método que retorna o total de estações.
       }
 	  ```
 
-**Contagem de estações por tipo**
-----
-Método que retorna a contagem total de estações pelo tipo.
-
-* **URL:**
-
-	/station/count/type
-
-* **Método:**
-
-	`GET`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-	Nenhum
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/station/count/type
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			{
-			"fluviometricCount": "1417",
-			"pluviometricCount": "1816"
-			}
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
 **Contagem de estações por país**
 ----
 Método que retorna a contagem total de estações por país.
@@ -97,7 +64,7 @@ Método que retorna a contagem total de estações por país.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -111,7 +78,18 @@ Método que retorna a contagem total de estações por país.
 		
 * **Parâmetros do Body:**
 
-	Nenhum
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 
 * **Exemplo:**
 
@@ -163,86 +141,6 @@ Método que retorna a contagem total de estações por país.
 		}
 	  ```
 
-**Contagem de estações por subbacia**
-----
-Método que retorna a contagem total de estações por subbacia.
-
-* **URL:**
-
-	/api/station/count/subwatershed
-
-* **Método:**
-
-	`GET`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-	Nenhum
-
-	**Não Obrigatórios:**
-
-		page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
-		order:[string] - Ordem da contagem('asc' ou 'desc')
-		
-* **Parâmetros do Body:**
-
-	Nenhum
-
-* **Exemplo:**
-
-	/api/station/count/subwatershed?page=1&order=desc
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			{
-			"x": [
-				"15 - RIO AMAZONAS,MADEIRA,GUAPORÉ,...",
-				"10 - RIO SOLIMÕES, JAVARI,ITACUAI",
-				"17 - RIO AMAZONAS,TAPAJÓS,JURUENA..",
-				"14 - RIO SOLIMÕES,NEGRO,BRANCO,....",
-				"18 - RIO AMAZONAS,,XINGÚ,IRIRI,PARU"
-			],
-			"series": [
-				{
-				"id": "station",
-				"data": [
-					867,
-					474,
-					467,
-					301,
-					294,
-					254,
-					186,
-					159,
-					139,
-					91,
-					1
-				]
-				}
-			],
-			"position": [
-				1,
-				2,
-				3,
-				4,
-				5
-			],
-			"pages": 3
-			}
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
 **Contagem de estações por rede**
 ----
 Método que retorna a contagem total de estações por rede.
@@ -253,7 +151,7 @@ Método que retorna a contagem total de estações por rede.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -264,6 +162,21 @@ Método que retorna a contagem total de estações por rede.
 	**Não Obrigatórios:**
 
 	Nenhum
+
+* **Parâmetros do Body:**
+
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 		
 * **Exemplo:**
 
@@ -310,7 +223,7 @@ Método que retorna a contagem total de estações por responsável.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -321,6 +234,21 @@ Método que retorna a contagem total de estações por responsável.
 	**Não Obrigatórios:**
 
 	Nenhum
+
+* **Parâmetros do Body:**
+
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 		
 * **Exemplo:**
 
@@ -383,7 +311,7 @@ Método que retorna a um ranking dos rios por quantidade de estações.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -396,6 +324,21 @@ Método que retorna a um ranking dos rios por quantidade de estações.
 	page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
 
 	order:[string] - Ordenação dos elementos ('asc' ou 'desc')
+
+* **Parâmetros do Body:**
+
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 		
 * **Exemplo:**
 
@@ -454,7 +397,7 @@ Método que retorna o shape das estações.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -465,6 +408,21 @@ Método que retorna o shape das estações.
 	**Não Obrigatórios:**
 	
   Nenhum
+
+* **Parâmetros do Body:**
+
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 
 * **Exemplo:**
 

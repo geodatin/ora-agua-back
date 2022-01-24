@@ -1,3 +1,4 @@
+import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IRankingDTO } from '@modules/station/dtos/IRankingDTO'
 import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { countPages, paginate } from '@utils/paginate'
@@ -6,6 +7,7 @@ import { inject, injectable } from 'tsyringe'
 interface IRequest {
   order: string
   page: number
+  filters: IFiltersDTO
 }
 
 @injectable()
@@ -15,8 +17,9 @@ class RankingRiversByStationsService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute({ order, page }: IRequest): Promise<IRankingDTO> {
+  async execute({ order, page, filters }: IRequest): Promise<IRankingDTO> {
     const ranking = await this.stationViewRepository.rankingRiversByStations(
+      filters,
       order
     )
 

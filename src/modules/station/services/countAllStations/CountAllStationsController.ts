@@ -5,8 +5,10 @@ import { CountAllStationsService } from './CountAllStationsService'
 
 class CountAllStationsController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { filters } = request.body
+
     const countAllStationsService = container.resolve(CountAllStationsService)
-    const stationsCount = await countAllStationsService.execute()
+    const stationsCount = await countAllStationsService.execute(filters)
     return response.json(stationsCount)
   }
 }

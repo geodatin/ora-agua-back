@@ -1,3 +1,4 @@
+import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { inject, injectable } from 'tsyringe'
 
@@ -10,8 +11,8 @@ class GetStationsPointsService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute() {
-    const stations = await this.stationViewRepository.getStations()
+  async execute(filters: IFiltersDTO) {
+    const stations = await this.stationViewRepository.getStations(filters)
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
     return parsed
   }
