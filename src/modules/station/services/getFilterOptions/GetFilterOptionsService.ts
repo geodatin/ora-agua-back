@@ -35,6 +35,69 @@ export class GetFilterOptionsService {
       filterTerm
     )
 
-    return countries.concat(rivers, names, networks, responsibles)
+    const variables = await this.getVariables(filterTerm)
+
+    return countries.concat(rivers, names, networks, responsibles, variables)
+  }
+
+  async getVariables(filterTerm: string): Promise<IGetFilterOptionsDTO[]> {
+    const variables = [
+      {
+        value: 'ph',
+        type: 'variable',
+      },
+      {
+        value: 'OD',
+        type: 'variable',
+      },
+      {
+        value: 'electricConductivity',
+        type: 'variable',
+      },
+      {
+        value: 'turbidity',
+        type: 'variable',
+      },
+      {
+        value: 'sampleTemperature',
+        type: 'variable',
+      },
+      {
+        value: 'totalDissolvedSolid',
+        type: 'variable',
+      },
+      {
+        value: 'totalNitrogen',
+        type: 'variable',
+      },
+      {
+        value: 'totalOrtophosphate',
+        type: 'variable',
+      },
+      {
+        value: 'totalSuspensionSolid',
+        type: 'variable',
+      },
+      {
+        value: 'rain',
+        type: 'variable',
+      },
+      {
+        value: 'flowRate',
+        type: 'variable',
+      },
+      {
+        value: 'adoptedLevel',
+        type: 'variable',
+      },
+    ]
+
+    const expression = new RegExp(`^${filterTerm}.*`)
+
+    const filtered = variables.filter((variable) =>
+      variable.value.match(expression)
+    )
+
+    return filtered
   }
 }
