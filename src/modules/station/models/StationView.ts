@@ -257,6 +257,15 @@ class StationView {
   @Column({ name: 'total_dissolved_solid' })
   totalDissolvedSolid: boolean
 
+  @Column({ name: 'total_nitrogen' })
+  totalNitrogen: boolean
+
+  @Column({ name: 'total_ortophosphate' })
+  totalOrtophosphate: boolean
+
+  @Column({ name: 'total_suspension_solid' })
+  totalSuspensionSolid: boolean
+
   @Column()
   rain: boolean
 
