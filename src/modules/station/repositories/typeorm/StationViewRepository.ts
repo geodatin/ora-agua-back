@@ -61,7 +61,7 @@ class StationViewRepository implements IStationViewRepository {
 
     const stationsCount = await query
       .groupBy('country, country_id')
-      .orderBy('country', 'DESC')
+      .orderBy('count', 'DESC')
       .getRawMany()
 
     return stationsCount
