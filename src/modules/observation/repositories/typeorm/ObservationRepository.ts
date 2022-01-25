@@ -17,7 +17,7 @@ class ObservationRepository implements IObservationRepository {
       'REFRESH MATERIALIZED VIEW observation_station_view WITH DATA'
     )
   }
-  async getLastObservation(): Promise<any[]> {
+  async getLastObservation(frequency: string): Promise<any[]> {
     const result = await getRepository(ObservationStationView)
       .createQueryBuilder('view')
       .select('*')

@@ -11,12 +11,14 @@ class TimeSeriesService {
 
   async execute(
     stationCode: number,
-    dataType: string
+    dataType: string,
+    frequency: string
   ): Promise<ITimeSeriesDTO> {
     const observations =
       await this.observationRepository.getStationObservations(
         stationCode,
-        dataType
+        dataType,
+        frequency
       )
     const response: ITimeSeriesDTO = {
       x: [],
