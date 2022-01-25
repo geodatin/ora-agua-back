@@ -1,7 +1,9 @@
+import { FrequencyType } from '../types/FrequencyType'
+
 interface ILastObservationDTO {
   page: number
   pageSize: number
-  frequency: string
+  frequency: FrequencyType
 }
 
 export { ILastObservationDTO }

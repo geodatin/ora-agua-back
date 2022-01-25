@@ -1,3 +1,4 @@
+import { FrequencyType } from '@modules/observation/types/FrequencyType'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
@@ -10,7 +11,7 @@ class TimeSeriesController {
     const timeSeries = await service.execute(
       Number(stationCode),
       dataType,
-      frequency
+      frequency as FrequencyType
     )
     return response.json(timeSeries)
   }

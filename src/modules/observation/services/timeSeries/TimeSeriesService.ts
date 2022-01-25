@@ -1,5 +1,6 @@
 import { ITimeSeriesDTO } from '@modules/observation/dtos/ITimeSeriesDTO'
 import { IObservationRepository } from '@modules/observation/repositories/IObservationRepository'
+import { FrequencyType } from '@modules/observation/types/FrequencyType'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -12,7 +13,7 @@ class TimeSeriesService {
   async execute(
     stationCode: number,
     dataType: string,
-    frequency: string
+    frequency: FrequencyType
   ): Promise<ITimeSeriesDTO> {
     const observations =
       await this.observationRepository.getStationObservations(

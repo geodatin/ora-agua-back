@@ -1,3 +1,4 @@
+import { FrequencyType } from '@modules/observation/types/FrequencyType'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
@@ -11,7 +12,7 @@ class LastObservationController {
     const data = await service.execute({
       page: page ? Number(page) : 1,
       pageSize: pageSize ? Number(pageSize) : 5,
-      frequency,
+      frequency: frequency as FrequencyType,
     })
     return response.json(data)
   }
