@@ -11,9 +11,9 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code, 
-            s.name, 
+            INITCAP(s.name) as name, 
             s.type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.location, 
             'HYBAM' as responsible, 
             'HYBAM' as network,
@@ -35,9 +35,9 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code::varchar, 
-            s.name, 
+            INITCAP(s.name) as name, 
             s.type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.location, 
             'ANA' as responsible, 
             s.network_type as network, 
@@ -60,9 +60,9 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code, 
-            s.name, 
+            INITCAP(s.name) as name, 
             null as type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.geometry as location, 
             'IDEAM' as responsible, 
             'RHA' as network,
@@ -85,12 +85,12 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code, 
-            s.name, 
+            INITCAP(s.name) as name, 
             null as type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.location, 
-            'SENHAMI' as responsible, 
-            'RHA' as network, 
+            'SENHAMI BOLÍVIA' as responsible, 
+            'RHA' as network,
             false as ph,
             false as "OD",
             false as electric_conductivity,
@@ -110,11 +110,11 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code, 
-            s.name, 
+            INITCAP(s.name) as name, 
             s.type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.location, 
-            'SENHAMI' as responsible, 
+            'SENHAMI PERU' as responsible, 
             'RHA' as network,
             false as ph,
             false as "OD",
@@ -135,9 +135,9 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code::varchar, 
-            s.name, 
+            INITCAP(s.name) as name, 
             s.type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.location, 
             'ANA' as responsible, 
             s.network_type as network, 
@@ -160,9 +160,9 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code, 
-            s.name, 
+            INITCAP(s.name) as name, 
             null as type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             s.geometry as location, 
             'IDEAM' as responsible, 
             'RQA' as network,
@@ -185,9 +185,9 @@ export class createStationMaterializedView1641842498907
         (
           select 
             s.code, 
-            s.name, 
+            INITCAP(s.name) as name, 
             null as type, 
-            s.river, 
+            INITCAP(s.river) as river, 
             geometry as location, 
             'SINCA' as responsible, 
             'RQA' as network,
