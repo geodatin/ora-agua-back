@@ -21,7 +21,7 @@ interface IStationViewRepository {
     order: string
   ): Promise<{ position: number; river: string; count: number }[]>
 
-  getStations(filters: IFiltersDTO): Promise<StationView[]>
+  getStations(filters: IFiltersDTO, network?: string): Promise<StationView[]>
 
   findFilterOptions(
     column: string,

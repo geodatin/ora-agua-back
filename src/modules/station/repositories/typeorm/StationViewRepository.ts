@@ -116,13 +116,39 @@ class StationViewRepository implements IStationViewRepository {
     return ranking
   }
 
-  async getStations(filters: IFiltersDTO): Promise<StationView[]> {
+  async getStations(
+    filters: IFiltersDTO,
+    network: string = null
+  ): Promise<StationView[]> {
     let query = this.repository.createQueryBuilder().select()
 
     query = this.applyFilters(query, filters)
 
+    if (network) {
+      query.andWhere('network = :network', { network })
+    }
+
     return query.getMany()
   }
+
+  async findFilterOptions(
+    column: string,
+    filterTerm: string
+  ): Promise<IGetFilterOptionsDTO[]> {
+    const columnName = toSnakeCase(column)
+    const options = await this.repository
+      .createQueryBuilder('station')
+      .select(`DISTINCT station.${columnName} AS value`)
+      .addSelect(`'${column}' AS type`)
+      .where(`station.${columnName} ILIKE :filterTerm`, {
+        filterTerm: `${filterTerm}%`,
+      })
+      .getRawMany()
+
+    return options
+  }
+
+  // PRIVATE FUNCTIONS
 
   private applyFilters(
     query: SelectQueryBuilder<any>,
@@ -227,23 +253,6 @@ class StationViewRepository implements IStationViewRepository {
     }
 
     return query
-  }
-
-  async findFilterOptions(
-    column: string,
-    filterTerm: string
-  ): Promise<IGetFilterOptionsDTO[]> {
-    const columnName = toSnakeCase(column)
-    const options = await this.repository
-      .createQueryBuilder('station')
-      .select(`DISTINCT station.${columnName} AS value`)
-      .addSelect(`'${column}' AS type`)
-      .where(`station.${columnName} ILIKE :filterTerm`, {
-        filterTerm: `${filterTerm}%`,
-      })
-      .getRawMany()
-
-    return options
   }
 }
 
