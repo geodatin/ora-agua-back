@@ -7,7 +7,7 @@ const observationRoutes = Router()
 const lastObservationController = new LastObservationController()
 const timeSeriesController = new TimeSeriesController()
 
-observationRoutes.get('/last', lastObservationController.handle)
+observationRoutes.get('/last/:frequency', lastObservationController.handle)
 observationRoutes.get(
   '/timeSeries/:stationCode/:dataType',
   timeSeriesController.handle
