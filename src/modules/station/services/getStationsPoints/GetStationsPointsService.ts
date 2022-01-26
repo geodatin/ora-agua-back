@@ -11,8 +11,11 @@ class GetStationsPointsService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute(filters: IFiltersDTO) {
-    const stations = await this.stationViewRepository.getStations(filters)
+  async execute(filters: IFiltersDTO, network?: string) {
+    const stations = await this.stationViewRepository.getStations(
+      filters,
+      network
+    )
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
     return parsed
   }
