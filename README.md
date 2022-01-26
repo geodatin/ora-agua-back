@@ -74,7 +74,7 @@ Método que retorna a contagem total de estações por país.
 
 	**Não Obrigatórios:**
 
-	Nenhum
+	output?:[string] - Formato de saída (permitidos: csv ou json).
 		
 * **Parâmetros do Body:**
 
@@ -161,7 +161,7 @@ Método que retorna a contagem total de estações por rede.
 
 	**Não Obrigatórios:**
 
-	Nenhum
+	output?:[string] - Formato de saída (permitidos: csv ou json).
 
 * **Parâmetros do Body:**
 
@@ -233,7 +233,7 @@ Método que retorna a contagem total de estações por responsável.
 
 	**Não Obrigatórios:**
 
-	Nenhum
+	output?:[string] - Formato de saída (permitidos: csv ou json).
 
 * **Parâmetros do Body:**
 
@@ -324,6 +324,8 @@ Método que retorna a um ranking dos rios por quantidade de estações.
 	page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
 
 	order:[string] - Ordenação dos elementos ('asc' ou 'desc')
+
+  output?:[string] - Formato de saída (permitidos: csv ou json).
 
 * **Parâmetros do Body:**
 
@@ -486,7 +488,7 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
 * **URL:**
 
-	/api/observation/timeSeries/:stationCode/:dataType
+	/api/observation/timeSeries/:stationCode/:dataType/:fequency
 
 * **Método:**
 
@@ -498,7 +500,9 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 	
     stationCode:[number] - Código da estação
     
-    dataType:[number] - Tipo de dado (rain, flowRate, adoptedLevel)
+    dataType:[string] - Tipo de dado (rain, flowRate, adoptedLevel)
+
+    frequency:[string] - Frequência dos dados (hour, day, week, month, trimester, semester, year)
 
 		
 * **Parâmetros do Body:**
@@ -531,6 +535,82 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
           0,
           ...
         ]
+      }
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
+**Listagem de Estações**
+----
+Listagem de estações da rede hidrológica.
+
+* **URL:**
+
+	/api/observation/last/:fequency
+
+* **Método:**
+
+	`GET`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+
+    frequency:[string] - Frequência dos dados (hour, day, week, month, trimester, semester, year)
+
+		
+* **Parâmetros do Body:**
+
+	Nenhum
+
+* **Exemplo:**
+
+	/api/observation/last/day
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+      {
+        "values": [
+          {
+            "location": {
+              "type": "Point",
+              "coordinates": [
+                -65.5275,
+                -9.7847
+              ]
+            },
+            "name": "MORADA NOVA - JUSANTE",
+            "rain": 0,
+            "flowRate": null,
+            "code": 15326000,
+            "level": null,
+            "timestamp": "2021-12-21T13:15:00.000Z"
+          },
+          {
+            "location": {
+              "type": "Point",
+              "coordinates": [
+                -68.9119,
+                -3.4569
+              ]
+            },
+            "name": "SÃO PAULO DE OLIVENÇA",
+            "rain": 0,
+            "flowRate": null,
+            "code": 11400000,
+            "level": null,
+            "timestamp": "2021-12-21T02:45:00.000Z"
+          }
+        ],
+        "pages": 10
       }
 	  ```
 	* **Código:** 500 <br />

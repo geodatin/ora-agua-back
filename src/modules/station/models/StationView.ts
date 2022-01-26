@@ -11,9 +11,9 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code, 
-          s.name, 
+          INITCAP(s.name) as name, 
           s.type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.location, 
           'HYBAM' as responsible, 
           'HYBAM' as network,
@@ -35,9 +35,9 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code::varchar, 
-          s.name, 
+          INITCAP(s.name) as name, 
           s.type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.location, 
           'ANA' as responsible, 
           s.network_type as network, 
@@ -60,9 +60,9 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code, 
-          s.name, 
+          INITCAP(s.name) as name, 
           null as type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.geometry as location, 
           'IDEAM' as responsible, 
           'RHA' as network,
@@ -85,11 +85,11 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code, 
-          s.name, 
+          INITCAP(s.name) as name, 
           null as type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.location, 
-          'SENHAMI' as responsible, 
+          'SENAMHI BOLÍVIA' as responsible, 
           'RHA' as network,
           false as ph,
           false as "OD",
@@ -110,11 +110,11 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code, 
-          s.name, 
+          INITCAP(s.name) as name, 
           s.type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.location, 
-          'SENHAMI' as responsible, 
+          'SENAMHI PERU' as responsible, 
           'RHA' as network,
           false as ph,
           false as "OD",
@@ -135,9 +135,9 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code::varchar, 
-          s.name, 
+          INITCAP(s.name) as name, 
           s.type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.location, 
           'ANA' as responsible, 
           s.network_type as network, 
@@ -160,9 +160,9 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code, 
-          s.name, 
+          INITCAP(s.name) as name, 
           null as type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           s.geometry as location, 
           'IDEAM' as responsible, 
           'RQA' as network,
@@ -185,9 +185,9 @@ import { Column, ViewEntity } from 'typeorm'
       (
         select 
           s.code, 
-          s.name, 
+          INITCAP(s.name) as name, 
           null as type, 
-          s.river, 
+          INITCAP(s.river) as river, 
           geometry as location, 
           'SINCA' as responsible, 
           'RQA' as network,

@@ -5,11 +5,12 @@ interface IObservationRepository {
   create(data: ICreateObservationDTO): Promise<void>
   createMany(data: ICreateObservationDTO[]): Promise<void>
   getStationMaxDate(stationCode: number): Promise<string>
-  getLastObservation(): Promise<any[]>
+  getLastObservation(frequency: string): Promise<any[]>
   refreshLastObservationView(): Promise<void>
   getStationObservations(
     stationCode: number,
-    dataType: string
+    dataType: string,
+    frequency: string
   ): Promise<ITimeSeriesEntryDTO[]>
 }
 export { IObservationRepository }
