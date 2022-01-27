@@ -1,3 +1,4 @@
+import { ILastObservationRhaViewRepository } from '@modules/observation/repositories/ILastObservationRhaViewRepository'
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IObservationIdeamRepository } from '@modules/observation/repositories/IObservationIdeamRepository'
 import { IObservationRhaViewRepository } from '@modules/observation/repositories/IObservationRhaViewRepository'
@@ -9,6 +10,7 @@ import { IWaterQualitySincaRepository } from '@modules/observation/repositories/
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
+import { LastObservationRhaViewRepository } from '@modules/observation/repositories/typeorm/LasObservationRhaViewRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
 import { ObservationIdeamRepository } from '@modules/observation/repositories/typeorm/ObservationIdeamRepository'
@@ -160,4 +162,9 @@ container.registerSingleton<IObservationSenhamiPeRepository>(
 container.registerSingleton<IObservationRhaViewRepository>(
   'ObservationRhaViewRepository',
   ObservationRhaViewRepository
+)
+
+container.registerSingleton<ILastObservationRhaViewRepository>(
+  'LastObservationRhaViewRepository',
+  LastObservationRhaViewRepository
 )
