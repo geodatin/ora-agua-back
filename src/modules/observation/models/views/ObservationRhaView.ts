@@ -1,8 +1,7 @@
 import { ViewColumn, ViewEntity } from 'typeorm'
 
 @ViewEntity({
-  expression: `CREATE MATERIALIZED VIEW observation_rha_view AS (
-    SELECT observation.* FROM 
+  expression: `SELECT observation.* FROM 
     (
         (
             SELECT station_code::varchar, o.timestamp, o.rain AS rain, o.flow_rate AS flow_rate, o.adopted_level AS level,
@@ -28,8 +27,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
             FROM observation_senhami_pe o 
             INNER JOIN station_view s ON s.code = o.station_code::varchar
         )
-    ) observation
-        )`,
+    ) observation`,
   materialized: true,
   name: 'observation_rha_view',
 })
