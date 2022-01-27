@@ -1,5 +1,10 @@
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 
+import { FrequencyType } from '../types/FrequencyType'
+
 export interface ILastObservationRhaViewRepository {
-  getLastObservations(filters: IFiltersDTO, network: string): Promise<any>
+  getLastObservations(
+    filters: IFiltersDTO,
+    frequency: FrequencyType
+  ): Promise<any>
 }
