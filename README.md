@@ -479,7 +479,7 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -494,11 +494,22 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 		
 * **Parâmetros do Body:**
 
-	Nenhum
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 
 * **Exemplo:**
 
-	/api/observation/timeSeries/351004/rain
+	/api/observation/timeSeries/351004/rain/day
 
 * **Resposta:**
 
@@ -542,7 +553,7 @@ Listagem de estações da rede hidrológica.
 
 * **Método:**
 
-	`GET`
+	`POST`
 	
 * **Parâmetros na URL:**
 
@@ -553,7 +564,18 @@ Listagem de estações da rede hidrológica.
 		
 * **Parâmetros do Body:**
 
-	Nenhum
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
 
 * **Exemplo:**
 

@@ -7,11 +7,13 @@ import { TimeSeriesService } from './TimeSeriesService'
 class TimeSeriesController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { stationCode, dataType, frequency } = request.params
+    const { filters } = request.body
     const service = container.resolve(TimeSeriesService)
     const timeSeries = await service.execute(
       Number(stationCode),
       dataType,
-      frequency as FrequencyType
+      frequency as FrequencyType,
+      filters
     )
     return response.json(timeSeries)
   }

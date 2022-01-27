@@ -10,7 +10,7 @@ class LastObservationService {
     private observationRepository: IObservationRepository
   ) {}
 
-  async execute({ page, pageSize, frequency }: ILastObservationDTO) {
+  async execute({ page, pageSize, frequency, filters }: ILastObservationDTO) {
     const response = await this.observationRepository.getLastObservation(
       frequency
     )
