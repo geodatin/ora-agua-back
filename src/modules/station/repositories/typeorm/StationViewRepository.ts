@@ -1,6 +1,6 @@
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
-import { StationView } from '@modules/station/models/StationView'
+import { StationView } from '@modules/station/models/views/StationView'
 import { toSnakeCase } from '@utils/toSnakeCase'
 import {
   getConnection,
@@ -8,6 +8,8 @@ import {
   Repository,
   SelectQueryBuilder,
 } from 'typeorm'
+
+import { applyFilters } from '@shared/database/utils/applyFilters'
 
 import { IStationViewRepository } from '../IStationViewRepository'
 
@@ -26,7 +28,7 @@ class StationViewRepository implements IStationViewRepository {
       .select('network')
       .addSelect('count(code)', 'count')
 
-    query = this.applyFilters(query, filters)
+    query = applyFilters(query, filters)
 
     const stationsCount = await query
       .groupBy('network')
@@ -41,7 +43,7 @@ class StationViewRepository implements IStationViewRepository {
       .createQueryBuilder()
       .select('count(code)', 'count')
 
-    query = this.applyFilters(query, filters)
+    query = applyFilters(query, filters)
 
     const { count } = await query.getRawOne()
 
@@ -57,7 +59,7 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('country_id', 'countryId')
       .addSelect('count(code)', 'count')
 
-    query = this.applyFilters(query, filters)
+    query = applyFilters(query, filters)
 
     const stationsCount = await query
       .groupBy('country, country_id')
@@ -75,7 +77,7 @@ class StationViewRepository implements IStationViewRepository {
       .select('responsible')
       .addSelect('count(code)', 'count')
 
-    query = this.applyFilters(query, filters)
+    query = applyFilters(query, filters)
 
     const stationsCount = await query
       .groupBy('responsible')
@@ -107,7 +109,7 @@ class StationViewRepository implements IStationViewRepository {
           .from(StationView, 'stations')
           .where('stations.river IS NOT NULL')
 
-        subQuery = this.applyFilters(subQuery, filters, false)
+        subQuery = applyFilters(subQuery, filters, false)
 
         return subQuery
           .groupBy('stations.river')
@@ -123,7 +125,7 @@ class StationViewRepository implements IStationViewRepository {
   ): Promise<StationView[]> {
     let query = this.repository.createQueryBuilder().select()
 
-    query = this.applyFilters(query, filters)
+    query = applyFilters(query, filters)
 
     if (network) {
       query.andWhere('network = :network', { network })

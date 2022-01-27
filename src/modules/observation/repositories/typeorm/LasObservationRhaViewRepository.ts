@@ -1,10 +1,10 @@
 import { LastObservationRhaView } from '@modules/observation/models/views/LastObservationRhaView'
 import { FrequencyType } from '@modules/observation/types/FrequencyType'
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
-import { StationView } from '@modules/station/models/StationView'
+import { StationView } from '@modules/station/models/views/StationView'
 import { getRepository, Repository } from 'typeorm'
 
-import { applyFilters } from '@shared/database/utils/applyStationFilters'
+import { applyFilters } from '@shared/database/utils/applyFilters'
 
 import { ILastObservationRhaViewRepository } from '../ILastObservationRhaViewRepository'
 
@@ -39,7 +39,7 @@ export class LastObservationRhaViewRepository
       .andWhere('observation.frequency = :frequency', { frequency })
       .orderBy('observation.last_update', 'DESC')
 
-    await applyFilters(query, filters, false)
+    applyFilters(query, filters, false)
 
     return await query.getRawMany()
   }
