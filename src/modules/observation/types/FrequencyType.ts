@@ -3,8 +3,8 @@ enum FrequencyType {
   DAY = 'day',
   WEEK = 'week',
   MONTH = 'month',
-  TRIMESTER = 'trimester',
-  SEMESTER = 'semester',
+  QUARTER = 'quarter',
+  // SEMESTER = 'semester',
   YEAR = 'year',
 }
 
