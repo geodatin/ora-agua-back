@@ -492,7 +492,7 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
 * **Método:**
 
-	`POST`
+	`GET`
 	
 * **Parâmetros na URL:**
 
@@ -507,18 +507,7 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 		
 * **Parâmetros do Body:**
 
-	```javascript
-    {
-      "filters": {
-        "name": [], // Nome da estação
-        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
-        "country": [], // País
-        "responsible": [], // Órgão responsável
-        "river": [], // Rio
-        "variable": [] // Variáveis que a estação possui medição
-      }
-    }
-  ```
+	Nenhum
 
 * **Exemplo:**
 

@@ -1,5 +1,6 @@
 import { IObservationHybamRepository } from '@modules/observation/repositories/IObservationHybamRepository'
 import { IObservationIdeamRepository } from '@modules/observation/repositories/IObservationIdeamRepository'
+import { IObservationRhaViewRepository } from '@modules/observation/repositories/IObservationRhaViewRepository'
 import { IObservationSenhamiPeRepository } from '@modules/observation/repositories/IObservationSenhamiPeRespository'
 import { IObservationSenhamiRepository } from '@modules/observation/repositories/IObservationSenhamiRepository'
 import { IWaterQualityIdeamRepository } from '@modules/observation/repositories/IWaterQualityIdeamRepository'
@@ -11,6 +12,7 @@ import { GeochemistryHybamRepository } from '@modules/observation/repositories/t
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
 import { ObservationIdeamRepository } from '@modules/observation/repositories/typeorm/ObservationIdeamRepository'
+import { ObservationRhaViewRepository } from '@modules/observation/repositories/typeorm/ObservationRhaViewRepository'
 import { ObservationSenhamiPeRepository } from '@modules/observation/repositories/typeorm/ObservationSenhamiPeRepository'
 import { ObservationSenhamiRepository } from '@modules/observation/repositories/typeorm/ObservationSenhamiRepository'
 import { PhysicalChemistryHybamRepository } from '@modules/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
@@ -153,4 +155,9 @@ container.registerSingleton<IStationSenhamiPeRepository>(
 container.registerSingleton<IObservationSenhamiPeRepository>(
   'ObservationSenhamiPeRepository',
   ObservationSenhamiPeRepository
+)
+
+container.registerSingleton<IObservationRhaViewRepository>(
+  'ObservationRhaViewRepository',
+  ObservationRhaViewRepository
 )

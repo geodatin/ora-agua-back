@@ -29,7 +29,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
         )
     ) observation`,
   materialized: true,
-  name: 'observation_station_view',
+  name: 'observation_rha_view',
 })
 export class ObservationRhaView {
   @ViewColumn()
