@@ -409,7 +409,7 @@ Método que retorna o shape das estações.
 
 	**Não Obrigatórios:**
 	
-  network[string] - Tipo de rede a ser retornada
+  network[string] - Tipo de rede a ser retornada. ["RHA", "RQA" , "HYBAM"]
 
 * **Parâmetros do Body:**
 
