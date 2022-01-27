@@ -409,7 +409,7 @@ Método que retorna o shape das estações.
 
 	**Não Obrigatórios:**
 	
-  Nenhum
+  network[string] - Tipo de rede a ser retornada
 
 * **Parâmetros do Body:**
 
@@ -428,14 +428,14 @@ Método que retorna o shape das estações.
 
 * **Exemplo:**
 
-	/api/station/location
+	/api/station/location?network=RHA
 
 * **Resposta:**
 
 	* **Código:** 200 <br />
 	  **Conteúdo:**
 	  ```javascript
-		  {
+      {
         "type": "FeatureCollection",
         "features": [
           {
@@ -443,18 +443,31 @@ Método que retorna o shape das estações.
             "geometry": {
               "type": "Point",
               "coordinates": [
-                -71.57258,
-                -14.02781
+                -73.9076,
+                -4.5132
               ]
             },
             "properties": {
-              "code": "114046",
-              "name": "POMACANCHI",
-              "type": "M",
+              "code": "220105",
+              "name": "SAN REGIS",
+              "type": "H",
               "river": null,
-              "responsible": "senhami",
+              "responsible": "SENHAMI",
               "country": "Peru",
-              "countryId": 5
+              "countryId": 5,
+              "network": "RHA",
+              "ph": false,
+              "OD": false,
+              "electricConductivity": false,
+              "turbidity": false,
+              "sampleTemperature": false,
+              "totalDissolvedSolid": false,
+              "totalNitrogen": false,
+              "totalOrtophosphate": false,
+              "totalSuspensionSolid": false,
+              "rain": false,
+              "flowRate": false,
+              "adoptedLevel": false
             }
           },
           ...
