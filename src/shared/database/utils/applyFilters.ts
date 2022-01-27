@@ -2,11 +2,11 @@ import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { toSnakeCase } from '@utils/toSnakeCase'
 import { SelectQueryBuilder } from 'typeorm'
 
-export async function applyFilters(
+export function applyFilters(
   query: SelectQueryBuilder<any>,
   filters: IFiltersDTO,
   firstWhere: boolean = true
-): Promise<SelectQueryBuilder<any>> {
+): SelectQueryBuilder<any> {
   if (filters?.country?.length > 0) {
     if (firstWhere) {
       query = query.where('country IN (:...countries)', {
