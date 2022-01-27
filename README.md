@@ -500,9 +500,9 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 	
     stationCode:[number] - Código da estação
     
-    dataType:[string] - Tipo de dado (rain, flowRate, adoptedLevel)
+    dataType:[string] - Tipo de dado (rain, flowRate, level)
 
-    frequency:[string] - Frequência dos dados (hour, day, week, month, trimester, semester, year)
+    frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 
 		
 * **Parâmetros do Body:**
@@ -520,11 +520,11 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 	  ```javascript
       {
         "x": [
-          "2015-12-22",
-          "2015-12-23",
-          "2016-01-01",
-          "2016-01-02",
-          "2016-01-03"
+          "2021-12-21T02:00:00.000Z",
+		      "2021-12-21T01:00:00.000Z",
+		      "2021-12-21T00:00:00.000Z",
+          "2021-12-20T23:00:00.000Z",
+          "2021-12-20T22:00:00.000Z",
           ...
         ],
         "y": [
@@ -561,7 +561,7 @@ Listagem de estações da rede hidrológica.
 
 	**Obrigatórios:**
 
-    frequency:[string] - Frequência dos dados (hour, day, week, month, trimester, semester, year)
+    frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 
 		
 * **Parâmetros do Body:**
