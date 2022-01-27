@@ -68,7 +68,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
           SELECT MAX(timestamp) FROM observation_rha_view 
       )- INTERVAL '1 YEAR' GROUP BY o.station_code, o2.last_update`,
   materialized: true,
-  name: 'observation_station_view',
+  name: 'last_observation_rha_view',
 })
 export class LastObservationRhaView {
   @ViewColumn()
