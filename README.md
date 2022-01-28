@@ -395,7 +395,7 @@ Método que retorna o shape das estações.
 
 * **URL:**
 
-	/api/station/shape
+	/api/station/location
 
 * **Método:**
 
@@ -562,6 +562,11 @@ Listagem de estações da rede hidrológica.
 	**Obrigatórios:**
 
     frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
+
+  **Não Obrigatórios:**
+  
+    page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
+    pageSize?:[number] - Número de elementos por página. Default: 5. 
 
 		
 * **Parâmetros do Body:**

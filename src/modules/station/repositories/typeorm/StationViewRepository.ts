@@ -120,11 +120,13 @@ class StationViewRepository implements IStationViewRepository {
   ): Promise<StationView[]> {
     let query = this.repository.createQueryBuilder().select()
 
-    query = applyFilters(query, filters)
-
+    let firstWhere = true
     if (network) {
-      query.andWhere('network = :network', { network })
+      query.where('network = :network', { network })
+      firstWhere = false
     }
+
+    query = applyFilters(query, filters, firstWhere)
 
     return query.getMany()
   }

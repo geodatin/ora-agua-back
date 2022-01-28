@@ -11,7 +11,7 @@ class GetStationsPointsController {
     const getStationsPointsService = container.resolve(GetStationsPointsService)
     const stations = await getStationsPointsService.execute(
       filters,
-      String(network)
+      network === undefined ? undefined : String(network)
     )
     return response.json(stations)
   }
