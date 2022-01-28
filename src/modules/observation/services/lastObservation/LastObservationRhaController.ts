@@ -6,7 +6,7 @@ import { LastObservationRhaService } from './LastObservationRhaService'
 
 export class LastObservationRhaController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { page, pageSize } = request.query
+    const { page, pageSize, stationCode } = request.query
     const { frequency } = request.params
     const { filters } = request.body
     const service = container.resolve(LastObservationRhaService)
@@ -15,6 +15,7 @@ export class LastObservationRhaController {
       pageSize: pageSize ? Number(pageSize) : 5,
       frequency: frequency as FrequencyType,
       filters,
+      stationCode: stationCode as string,
     })
     return response.json(data)
   }
