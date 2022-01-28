@@ -567,6 +567,7 @@ Listagem de estações da rede hidrológica.
   
     page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
     pageSize?:[number] - Número de elementos por página. Default: 5. 
+    stationCode?:[string] - Código da estação a ser pesquisada.
 
 		
 * **Parâmetros do Body:**
