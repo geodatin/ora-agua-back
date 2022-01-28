@@ -25,11 +25,6 @@ export class GetFilterOptionsService {
       filterTerm
     )
 
-    const networks = await this.stationViewRepository.findFilterOptions(
-      'network',
-      filterTerm
-    )
-
     const responsibles = await this.stationViewRepository.findFilterOptions(
       'responsible',
       filterTerm
@@ -37,7 +32,7 @@ export class GetFilterOptionsService {
 
     const variables = await this.getVariables(filterTerm)
 
-    return countries.concat(rivers, names, networks, responsibles, variables)
+    return countries.concat(rivers, names, responsibles, variables)
   }
 
   async getVariables(filterTerm: string): Promise<IGetFilterOptionsDTO[]> {

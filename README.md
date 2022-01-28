@@ -395,7 +395,7 @@ Método que retorna o shape das estações.
 
 * **URL:**
 
-	/api/station/shape
+	/api/station/location
 
 * **Método:**
 
