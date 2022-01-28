@@ -7,6 +7,7 @@ interface ILastObservationDTO {
   pageSize: number
   frequency: FrequencyType
   filters: IFiltersDTO
+  stationCode?: string
 }
 
 export { ILastObservationDTO }
