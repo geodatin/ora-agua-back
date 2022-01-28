@@ -5,6 +5,7 @@ import { FrequencyType } from '../types/FrequencyType'
 export interface ILastObservationRhaViewRepository {
   getLastObservations(
     filters: IFiltersDTO,
-    frequency: FrequencyType
+    frequency: FrequencyType,
+    stationCode?: string
   ): Promise<any>
 }
