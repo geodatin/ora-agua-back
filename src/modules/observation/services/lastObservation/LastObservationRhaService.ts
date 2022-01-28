@@ -19,6 +19,7 @@ export class LastObservationRhaService {
     return {
       values: paginate(response, page, pageSize),
       pages: countPages(response, pageSize),
+      total: response.length,
     }
   }
 }
