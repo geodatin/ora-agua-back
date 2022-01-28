@@ -10,11 +10,18 @@ export class LastObservationRhaService {
     private lastObservationRhaViewRepository: ILastObservationRhaViewRepository
   ) {}
 
-  async execute({ page, pageSize, frequency, filters }: ILastObservationDTO) {
+  async execute({
+    page,
+    pageSize,
+    frequency,
+    filters,
+    stationCode,
+  }: ILastObservationDTO) {
     const response =
       await this.lastObservationRhaViewRepository.getLastObservations(
         filters,
-        frequency
+        frequency,
+        stationCode
       )
     return {
       values: paginate(response, page, pageSize),

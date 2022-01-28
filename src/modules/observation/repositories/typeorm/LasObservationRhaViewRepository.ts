@@ -18,7 +18,8 @@ export class LastObservationRhaViewRepository
 
   async getLastObservations(
     filters: IFiltersDTO,
-    frequency: FrequencyType
+    frequency: FrequencyType,
+    stationCode?: string
   ): Promise<any> {
     const query = this.repository
       .createQueryBuilder('observation')
@@ -38,6 +39,10 @@ export class LastObservationRhaViewRepository
       .andWhere('station.network = :network', { network: 'RHA' })
       .andWhere('observation.frequency = :frequency', { frequency })
       .orderBy('observation.last_update', 'DESC')
+
+    if (stationCode) {
+      query.andWhere('station.code = :stationCode', { stationCode })
+    }
 
     applyFilters(query, filters, false)
 
