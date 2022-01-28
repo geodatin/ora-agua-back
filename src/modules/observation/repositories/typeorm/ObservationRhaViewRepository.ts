@@ -23,7 +23,7 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
       .addSelect(this.getColumnByDataType(dataType), 'y')
       .where('station_code = :code', { code: stationCode })
       .groupBy('x')
-      .orderBy('x', 'DESC')
+      .orderBy('x', 'ASC')
       .limit(200)
       .setParameter('frequency', frequency)
       .getRawMany()
