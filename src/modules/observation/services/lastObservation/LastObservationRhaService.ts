@@ -23,6 +23,9 @@ export class LastObservationRhaService {
         frequency,
         stationCode
       )
+    if (stationCode) {
+      return response[0]
+    }
     return {
       values: paginate(response, page, pageSize),
       pages: countPages(response, pageSize),
