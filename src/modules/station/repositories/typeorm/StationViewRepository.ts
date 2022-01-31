@@ -147,8 +147,6 @@ class StationViewRepository implements IStationViewRepository {
 
     return options
   }
-
-  // PRIVATE FUNCTIONS
 }
 
 export { StationViewRepository }
