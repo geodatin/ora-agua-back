@@ -301,6 +301,72 @@ Método que retorna a contagem total de estações por responsável.
 		}
 	  ```
 
+**Contagem de estações por variável medida**
+----
+Método que retorna a contagem de estações por variável medida em cada rede.
+
+* **URL:**
+
+	/api/station/count/variable
+
+* **Método:**
+
+	`POST`
+	
+* **Parâmetros na URL:**
+
+	**Obrigatórios:**
+		
+	Nenhum
+
+	**Não Obrigatórios:**
+
+	output?:[string] - Formato de saída (permitidos: csv ou json).
+
+* **Parâmetros do Body:**
+
+	```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
+		
+* **Exemplo:**
+
+	/api/station/count/variable
+
+* **Resposta:**
+
+	* **Código:** 200 <br />
+	  **Conteúdo:**
+	  ```javascript
+      [
+        { network: 'RQA', variable: 'ph', stations: 5 },
+        { network: 'RQA', variable: 'adoptedLevel', stations: 5 },
+        { network: 'RQA', variable: 'flowRate', stations: 5 },
+        { network: 'RHA', variable: 'ph', stations: 10 },
+        { network: 'RHA', variable: 'adoptedLevel', stations: 10 },
+        { network: 'RHA', variable: 'flowRate', stations: 10 },
+        { network: 'HYBAM', variable: 'ph', stations: 3 },
+        { network: 'HYBAM', variable: 'adoptedLevel', stations: 3 },
+        { network: 'HYBAM', variable: 'flowRate', stations: 3 },
+      ]
+	  ```
+	* **Código:** 500 <br />
+	  **Conteúdo:**
+	  ```javascript
+		{
+			message: 'Internal Server Error'
+		}
+	  ```
+
 **Ranking de Rios por quantidade de estações**
 ----
 Método que retorna a um ranking dos rios por quantidade de estações.

@@ -1,5 +1,6 @@
 import { IFiltersDTO } from '../dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '../dtos/IGetFilterOptionsDTO'
+import { IVariablesCountDTO } from '../dtos/IVariablesCountDTO'
 import { StationView } from '../models/views/StationView'
 
 interface IStationViewRepository {
@@ -27,6 +28,8 @@ interface IStationViewRepository {
     column: string,
     filterTerm: string
   ): Promise<IGetFilterOptionsDTO[]>
+
+  countStationsByVariable(filters: IFiltersDTO): Promise<IVariablesCountDTO[]>
 }
 
 export { IStationViewRepository }
