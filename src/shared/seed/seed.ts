@@ -53,11 +53,11 @@ const task = cron.schedule(
 
     await connection
       .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW last_observation_rha_view')
+      .query('REFRESH MATERIALIZED VIEW observation_rha_view')
 
     await connection
       .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rha_view')
+      .query('REFRESH MATERIALIZED VIEW last_observation_rha_view')
 
     connection.close()
   },
