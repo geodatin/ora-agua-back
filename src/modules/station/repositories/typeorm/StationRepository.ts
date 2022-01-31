@@ -1,6 +1,6 @@
 import { ICountRequestDTO } from '@modules/station/dtos/ICountRequestDTO'
 import { StationAll } from '@modules/station/models/StationAll'
-import { getRepository, IsNull, Repository } from 'typeorm'
+import { getRepository, IsNull, Not, Repository } from 'typeorm'
 
 import { ICreateStationDTO } from '../../dtos/ICreateStationDTO'
 import { StationAna } from '../../models/StationAna'
@@ -103,7 +103,7 @@ class StationRepository implements IStationRepository {
   }
 
   async getTelemetricStations(): Promise<StationAll[]> {
-    const stations = await this.repositoryAll.find({ id: IsNull() })
+    const stations = await this.repositoryAll.find({ id: Not(IsNull()) })
     return stations
   }
 
