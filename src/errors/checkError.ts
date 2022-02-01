@@ -13,6 +13,7 @@ export function checkError(
       message: err.message,
     })
   }
+  throw err
   return response.status(500).json({
     message: `Internal server error - ${err.message}`,
   })

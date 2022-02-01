@@ -1,5 +1,6 @@
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
+import { IVariablesCountDTO } from '@modules/station/dtos/IVariablesCountDTO'
 import { StationView } from '@modules/station/models/views/StationView'
 import { toSnakeCase } from '@utils/toSnakeCase'
 import { getConnection, getRepository, Repository } from 'typeorm'
@@ -146,6 +147,49 @@ class StationViewRepository implements IStationViewRepository {
       .getRawMany()
 
     return options
+  }
+
+  async countStationsByVariable(
+    filters: IFiltersDTO
+  ): Promise<IVariablesCountDTO[]> {
+    let query = this.repository
+      .createQueryBuilder()
+      .select('network', 'network')
+      .addSelect('count(*) filter (where ph)', 'ph')
+      .addSelect('count(*) filter (where "OD")', 'OD')
+      .addSelect(
+        'count(*) filter (where electric_conductivity)',
+        'electricConductivity'
+      )
+      .addSelect('count(*) filter (where turbidity)', 'turbidity')
+      .addSelect(
+        'count(*) filter (where sample_temperature)',
+        'sampleTemperature'
+      )
+      .addSelect(
+        'count(*) filter (where total_dissolved_solid)',
+        'totalDissolvedSolid'
+      )
+      .addSelect('count(*) filter (where total_nitrogen)', 'totalNitrogen')
+      .addSelect(
+        'count(*) filter (where total_ortophosphate)',
+        'totalOrtophosphate'
+      )
+      .addSelect(
+        'count(*) filter (where total_suspension_solid)',
+        'totalSuspensionSolid'
+      )
+      .addSelect('count(*) filter (where rain)', 'rain')
+      .addSelect('count(*) filter (where flow_rate)', 'flowRate')
+      .addSelect('count(*) filter (where adopted_level)', 'adoptedLevel')
+
+    query = applyFilters(query, filters)
+
+    const stationsCountByVariableAndNetwork = await query
+      .groupBy('network')
+      .getRawMany()
+
+    return stationsCountByVariableAndNetwork
   }
 }
 
