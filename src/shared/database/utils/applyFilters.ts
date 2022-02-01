@@ -1,5 +1,6 @@
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { toSnakeCase } from '@utils/toSnakeCase'
+import { variables } from '@utils/variables'
 import { SelectQueryBuilder } from 'typeorm'
 
 export function applyFilters(
@@ -72,20 +73,7 @@ export function applyFilters(
     }
   }
 
-  const variableSet = new Set([
-    'ph',
-    'OD',
-    'electricConductivity',
-    'turbidity',
-    'sampleTemperature',
-    'totalDissolvedSolid',
-    'totalNitrogen',
-    'totalOrtophosphate',
-    'totalSuspensionSolid',
-    'rain',
-    'flowRate',
-    'adoptedLevel',
-  ])
+  const variableSet = new Set(variables.map((variable) => variable.value))
 
   if (filters?.variable?.length > 0) {
     filters.variable.forEach((variable) => {
