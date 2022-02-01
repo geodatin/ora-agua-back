@@ -45,7 +45,6 @@ class InsertObservationFromApiSeeder {
         }
       }
     }
-    await this.observationRepository.refreshLastObservationView()
     await this.updateLastStation(0)
   }
 
