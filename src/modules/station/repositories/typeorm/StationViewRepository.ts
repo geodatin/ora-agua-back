@@ -4,7 +4,7 @@ import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO
 import { IVariablesCountDTO } from '@modules/station/dtos/IVariablesCountDTO'
 import { StationView } from '@modules/station/models/views/StationView'
 import { toSnakeCase } from '@utils/toSnakeCase'
-import { getConnection, getRepository, Repository } from 'typeorm'
+import { Brackets, getConnection, getRepository, Repository } from 'typeorm'
 
 import { applyFilters } from '@shared/database/utils/applyFilters'
 
@@ -136,8 +136,9 @@ class StationViewRepository implements IStationViewRepository {
         'observation',
         'station.code = observation.station_code'
       )
-      .where(`observation.frequency = 'day'`)
+      .andWhere(`observation.frequency = 'day'`)
       .orWhere(`observation.frequency IS NULL`)
+
       .addSelect('observation.rain', 'rain')
 
     return query.getMany()
