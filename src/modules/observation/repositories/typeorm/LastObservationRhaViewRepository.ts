@@ -46,6 +46,8 @@ export class LastObservationRhaViewRepository
 
     applyFilters(query, filters, false)
 
+    query.orderBy('last_update').addOrderBy('rain', 'DESC', 'NULLS LAST')
+
     return await query.getRawMany()
   }
 }
