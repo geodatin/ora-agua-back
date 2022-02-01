@@ -3,6 +3,12 @@ import { IStationViewRepository } from '@modules/station/repositories/IStationVi
 import { variables } from '@utils/variables'
 import { inject, injectable } from 'tsyringe'
 
+interface IResponse {
+  network: string
+  variable: string
+  stations: number
+}
+
 @injectable()
 class CountStationsByVariableService {
   constructor(
@@ -10,13 +16,11 @@ class CountStationsByVariableService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute(
-    filters: IFiltersDTO
-  ): Promise<{ network: string; variable: string; stations: number }[]> {
+  async execute(filters: IFiltersDTO): Promise<IResponse[]> {
     const stationsCountByVariable =
       await this.stationViewRepository.countStationsByVariable(filters)
 
-    const response = []
+    const response: IResponse[] = []
 
     stationsCountByVariable.forEach((count) => {
       variables.forEach((variable) => {
