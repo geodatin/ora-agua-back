@@ -1,3 +1,4 @@
+import { LastObservationRhaView } from '@modules/observation/models/views/LastObservationRhaView'
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
 import { IVariablesCountDTO } from '@modules/station/dtos/IVariablesCountDTO'
@@ -119,7 +120,7 @@ class StationViewRepository implements IStationViewRepository {
     filters: IFiltersDTO,
     network: string = null
   ): Promise<StationView[]> {
-    let query = this.repository.createQueryBuilder().select()
+    let query = this.repository.createQueryBuilder('station').select()
 
     let firstWhere = true
     if (network) {
@@ -128,6 +129,15 @@ class StationViewRepository implements IStationViewRepository {
     }
 
     query = applyFilters(query, filters, firstWhere)
+
+    query
+      .innerJoin(
+        LastObservationRhaView,
+        'observation',
+        'station.code = observation.station_code'
+      )
+      .where(`observation.frequency = 'day'`)
+      .addSelect('observation.rain', 'rain')
 
     return query.getMany()
   }
