@@ -40,21 +40,22 @@ import { Column, ViewEntity } from 'typeorm'
           INITCAP(s.river) as river, 
           s.location, 
           'ANA' as responsible, 
-          s.network_type as network, 
-          EXISTS(select 1 from water_quality_observation q where q.ph is not null and q.station_code = s.code) as ph,
-          EXISTS(select 1 from water_quality_observation q where q."OD" is not null and q.station_code = s.code) as "OD",
-          EXISTS(select 1 from water_quality_observation q where q.electric_conductivity is not null and q.station_code = s.code) as electric_conductivity,
-          EXISTS(select 1 from water_quality_observation q where q.turbidity is not null and q.station_code = s.code) as turbidity,
-          EXISTS(select 1 from water_quality_observation q where q.sample_temperature is not null and q.station_code = s.code) as sample_temperature,
-          EXISTS(select 1 from water_quality_observation q where q.total_dissolved_solid is not null and q.station_code = s.code) as total_dissolved_solid,
-          EXISTS(select 1 from water_quality_observation q where q.total_nitrogen is not null and q.station_code = s.code) as total_nitrogen,
-          EXISTS(select 1 from water_quality_observation q where q.total_ortophosphate is not null and q.station_code = s.code) as total_ortophosphate,
-          EXISTS(select 1 from water_quality_observation q where q.total_suspension_solid is not null and q.station_code = s.code) as total_suspension_solid,
+          'RHA' as network, 
+          false as ph,
+          false as "OD",
+          false as electric_conductivity,
+          false as turbidity,
+          false as sample_temperature,
+          false as total_dissolved_solid,
+          false as total_nitrogen,
+          false as total_ortophosphate,
+          false as total_suspension_solid,
           EXISTS(select 1 from observation_ana o where o.rain is not null and o.station_code = s.code) as rain,
           EXISTS(select 1 from observation_ana o where o.flow_rate is not null and o.station_code = s.code) as flow_rate,
           EXISTS(select 1 from observation_ana o where o.adopted_level is not null and o.station_code = s.code) as adopted_level
-        from station_ana s, pontos_de_interesse p
-        where (ST_Intersects(p.geom, s.location) or p.id = s.code::varchar) and p.id is not null and s.network_type = 'RHA'
+        from station_all s inner join pontos_de_interesse p
+        on (ST_Intersects(p.geom, s.location) or p.id = s.code::varchar)
+        where p.id is not null
       )
       UNION
       (
@@ -66,20 +67,21 @@ import { Column, ViewEntity } from 'typeorm'
           s.geometry as location, 
           'IDEAM' as responsible, 
           'RHA' as network,
-          EXISTS(select 1 from water_quality_ideam q where q.ph is not null and q.station_code = s.code) as ph,
-          EXISTS(select 1 from water_quality_ideam q where q."OD" is not null and q.station_code = s.code) as "OD",
-          EXISTS(select 1 from water_quality_ideam q where q.electric_conductivity is not null and q.station_code = s.code) as electric_conductivity,
-          EXISTS(select 1 from water_quality_ideam q where q.turbidity is not null and q.station_code = s.code) as turbidity,
-          EXISTS(select 1 from water_quality_ideam q where q.sample_temperature is not null and q.station_code = s.code) as sample_temperature,
-          EXISTS(select 1 from water_quality_ideam q where q.total_dissolved_solid is not null and q.station_code = s.code) as total_dissolved_solid,
-          EXISTS(select 1 from water_quality_ideam q where q.total_nitrogen is not null and q.station_code = s.code) as total_nitrogen,
-          EXISTS(select 1 from water_quality_ideam q where q.total_ortophosphate is not null and q.station_code = s.code) as total_ortophosphate,
-          EXISTS(select 1 from water_quality_ideam q where q.total_suspension_solid is not null and q.station_code = s.code) as total_suspension_solid,
+          false as ph,
+          false as "OD",
+          false as electric_conductivity,
+          false as turbidity,
+          false as sample_temperature,
+          false as total_dissolved_solid,
+          false as total_nitrogen,
+          false as total_ortophosphate,
+          false as total_suspension_solid,
           EXISTS(select 1 from observation_ideam o where o.rain_mm_d is not null and o.station_code = s.code) as rain,
           EXISTS(select 1 from observation_ideam o where o.flow_rate_mcs is not null and o.station_code = s.code) as flow_rate,
           EXISTS(select 1 from observation_ideam o where o.level_m is not null and o.station_code = s.code) as adopted_level
-        from station_ideam s, pontos_de_interesse p
-        where (ST_Intersects(p.geom, s.geometry) or p.id = s.code) and p.id is not null
+        from station_ideam s inner join pontos_de_interesse p
+        on (ST_Intersects(p.geom, s.geometry) or p.id = s.code::numeric::varchar)
+        where p.id is not null
       )
       UNION
       (
@@ -95,7 +97,7 @@ import { Column, ViewEntity } from 'typeorm'
           false as "OD",
           false as electric_conductivity,
           false as turbidity,
-          EXISTS(select 1 from observation_senhami o where o.temperature is not null and o.station_code = s.code) as sample_temperature,
+          false as sample_temperature,
           false as total_dissolved_solid,
           false as total_nitrogen,
           false as total_ortophosphate,
@@ -103,8 +105,9 @@ import { Column, ViewEntity } from 'typeorm'
           EXISTS(select 1 from observation_senhami o where o.rain is not null and o.station_code = s.code) as rain,
           false as flow_rate,
           EXISTS(select 1 from observation_senhami o where o.level is not null and o.station_code = s.code) as adopted_level
-        from station_senhami s, pontos_de_interesse p
-        where (ST_Intersects(p.geom, s.location) or p.id = s.code) and p.id is not null
+        from station_senhami s inner join pontos_de_interesse p
+        on (ST_Intersects(p.geom, s.location) or p.id = s.code or lower(s.name) = lower(p.nome)) 
+        where p.id is not null
       )
       UNION
       (
@@ -120,7 +123,7 @@ import { Column, ViewEntity } from 'typeorm'
           false as "OD",
           false as electric_conductivity,
           false as turbidity,
-          EXISTS(select 1 from observation_senhami_pe o where o.temperature is not null and o.station_code = s.code) as sample_temperature,
+          false as sample_temperature,
           false as total_dissolved_solid,
           false as total_nitrogen,
           false as total_ortophosphate,
@@ -128,8 +131,9 @@ import { Column, ViewEntity } from 'typeorm'
           EXISTS(select 1 from observation_senhami_pe o where o.rain is not null and o.station_code = s.code) as rain,
           false as flow_rate,
           EXISTS(select 1 from observation_senhami_pe o where o.level is not null and o.station_code = s.code) as adopted_level
-        from station_senhami_pe s, pontos_de_interesse p
-        where (ST_Intersects(p.geom, s.location) or p.id = s.code) and p.id is not null
+        from station_senhami_pe s inner join pontos_de_interesse p
+        on (ST_Intersects(p.geom, s.location) or p.id = s.code) 
+        where p.id is not null
       )
       UNION
       (
@@ -140,7 +144,7 @@ import { Column, ViewEntity } from 'typeorm'
           INITCAP(s.river) as river, 
           s.location, 
           'ANA' as responsible, 
-          s.network_type as network, 
+          'RQA' as network, 
           EXISTS(select 1 from water_quality_observation q where q.ph is not null and q.station_code = s.code) as ph,
           EXISTS(select 1 from water_quality_observation q where q."OD" is not null and q.station_code = s.code) as "OD",
           EXISTS(select 1 from water_quality_observation q where q.electric_conductivity is not null and q.station_code = s.code) as electric_conductivity,
@@ -150,11 +154,11 @@ import { Column, ViewEntity } from 'typeorm'
           EXISTS(select 1 from water_quality_observation q where q.total_nitrogen is not null and q.station_code = s.code) as total_nitrogen,
           EXISTS(select 1 from water_quality_observation q where q.total_ortophosphate is not null and q.station_code = s.code) as total_ortophosphate,
           EXISTS(select 1 from water_quality_observation q where q.total_suspension_solid is not null and q.station_code = s.code) as total_suspension_solid,
-          EXISTS(select 1 from observation_ana o where o.rain is not null and o.station_code = s.code) as rain,
-          EXISTS(select 1 from observation_ana o where o.flow_rate is not null and o.station_code = s.code) as flow_rate,
-          EXISTS(select 1 from observation_ana o where o.adopted_level is not null and o.station_code = s.code) as adopted_level
-        from station_ana s, rrmca_general r
-        where ST_Intersects(r.geom, s.location) and s.network_type = 'RQA'
+          false as rain,
+          false as flow_rate,
+          false as adopted_level
+        from station_all s inner join rrmca_general r
+        on (ST_Intersects(r.geom, s.location) or s.code = r.codigo)
       )
       UNION
       (
@@ -175,11 +179,11 @@ import { Column, ViewEntity } from 'typeorm'
           EXISTS(select 1 from water_quality_ideam q where q.total_nitrogen is not null and q.station_code = s.code) as total_nitrogen,
           EXISTS(select 1 from water_quality_ideam q where q.total_ortophosphate is not null and q.station_code = s.code) as total_ortophosphate,
           EXISTS(select 1 from water_quality_ideam q where q.total_suspension_solid is not null and q.station_code = s.code) as total_suspension_solid,
-          EXISTS(select 1 from observation_ideam o where o.rain_mm_d is not null and o.station_code = s.code) as rain,
-          EXISTS(select 1 from observation_ideam o where o.flow_rate_mcs is not null and o.station_code = s.code) as flow_rate,
-          EXISTS(select 1 from observation_ideam o where o.level_m is not null and o.station_code = s.code) as adopted_level
-        from station_ideam s, rrmca_general r
-        where ST_Intersects(r.geom, s.geometry)
+          false as rain,
+          false as flow_rate,
+          false as adopted_level
+        from station_ideam s inner join rrmca_general r
+        on (ST_Intersects(r.geom, s.geometry) or s.code::numeric = r.codigo)
       )
       UNION
       (
@@ -203,8 +207,8 @@ import { Column, ViewEntity } from 'typeorm'
           false as rain,
           false as flow_rate,
           false as adopted_level
-        from station_sinca s, rrmca_general r
-        where ST_Intersects(r.geom, s.geometry)
+        from station_sinca s inner join rrmca_general r
+        on (ST_Intersects(r.geom, s.geometry) or s.code = r.codigo::varchar)
       )
     ) as stations,
     south_america_country as countries
