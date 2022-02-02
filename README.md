@@ -72,9 +72,9 @@ Método que retorna a contagem total de estações por país.
 
   **Não Obrigatórios:**
 
-  output?:[string] - Formato de saída (permitidos: csv ou json).
-
-- **Parâmetros do Body:**
+	format?:[string] - Formato de saída (permitidos: csv ou json).
+		
+* **Parâmetros do Body:**
 
   ```javascript
     {
@@ -158,7 +158,7 @@ Método que retorna a contagem total de estações por rede.
 
   **Não Obrigatórios:**
 
-  output?:[string] - Formato de saída (permitidos: csv ou json).
+  format?:[string] - Formato de saída (permitidos: csv ou json).
 
 - **Parâmetros do Body:**
 
@@ -229,7 +229,7 @@ Método que retorna a contagem total de estações por responsável.
 
   **Não Obrigatórios:**
 
-  output?:[string] - Formato de saída (permitidos: csv ou json).
+	format?:[string] - Formato de saída (permitidos: csv ou json).
 
 - **Parâmetros do Body:**
 
@@ -316,7 +316,7 @@ Método que retorna a contagem de estações por variável medida em cada rede.
 
   **Não Obrigatórios:**
 
-  output?:[string] - Formato de saída (permitidos: csv ou json).
+  format?:[string] - Formato de saída (permitidos: csv ou json).
 
 - **Parâmetros do Body:**
 
@@ -385,7 +385,7 @@ Método que retorna a um ranking dos rios por quantidade de estações.
 
   order:[string] - Ordenação dos elementos ('asc' ou 'desc')
 
-  output?:[string] - Formato de saída (permitidos: csv ou json).
+  format?:[string] - Formato de saída (permitidos: csv ou json).
 
 - **Parâmetros do Body:**
 
