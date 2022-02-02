@@ -138,7 +138,7 @@ class StationViewRepository implements IStationViewRepository {
       )
       .addSelect('observation.rain', 'rain')
 
-    return query.getRawMany()
+    return query.getMany()
   }
 
   async findFilterOptions(
