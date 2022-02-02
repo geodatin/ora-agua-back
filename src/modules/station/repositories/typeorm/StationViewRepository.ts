@@ -134,7 +134,7 @@ class StationViewRepository implements IStationViewRepository {
       .leftJoin(
         LastObservationRhaView,
         'observation',
-        `station.code = observation.station_code AND observation.frequency = 'day'`
+        `station.code = observation.station_code AND observation.frequency = 'week'`
       )
       .addSelect('observation.rain', 'rain')
 
