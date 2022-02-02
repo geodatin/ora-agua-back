@@ -1,26 +1,25 @@
 # Ora-redes API
 
-**Contagem de estações**
-----
+## **Contagem de estações**
+
 Método que retorna o total de estações.
 
-* **URL:**
+- **URL:**
 
-	/api/station/count
+  /api/station/count
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
-		
-	Nenhum
-		
-* **Parâmetros do Body:**
+- **Parâmetros na URL:**
 
-	```javascript
+  **Obrigatórios:**
+  Nenhum
+
+- **Parâmetros do Body:**
+
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -33,52 +32,51 @@ Método que retorna o total de estações.
     }
   ```
 
-* **Exemplo:**
+- **Exemplo:**
 
-	/api/station/count
+  /api/station/count
 
-* **Resposta:**
+- **Resposta:**
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "count": 896
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "message": 'Internal Server Error'
       }
-	  ```
+    ```
 
-**Contagem de estações por país**
-----
+## **Contagem de estações por país**
+
 Método que retorna a contagem total de estações por país.
 
-* **URL:**
+- **URL:**
 
-	/api/station/count/country
+  /api/station/count/country
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
-		
-	Nenhum
+- **Parâmetros na URL:**
 
-	**Não Obrigatórios:**
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
 
 	format?:[string] - Formato de saída (permitidos: csv ou json).
 		
 * **Parâmetros do Body:**
 
-	```javascript
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -91,81 +89,80 @@ Método que retorna a contagem total de estações por país.
     }
   ```
 
-* **Exemplo:**
+- **Exemplo:**
 
-	/api/station/count/country
+  /api/station/count/country
 
-* **Resposta:**
+- **Resposta:**
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			[
-        {
-          "country": "Bolívia",
-          "countryId": 6,
-          "count": 203
-        },
-        {
-          "country": "Brasil",
-          "countryId": 9,
-          "count": 194
-        },
-        {
-          "country": "Colômbia",
-          "countryId": 7,
-          "count": 37
-        },
-        {
-          "country": "Equador",
-          "countryId": 4,
-          "count": 16
-        },
-        {
-          "country": "Peru",
-          "countryId": 5,
-          "count": 444
-        },
-        {
-          "country": "Venezuela",
-          "countryId": 8,
-          "count": 2
-        }
-      ]
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
+    [
+      {
+        country: "Bolívia",
+        countryId: 6,
+        count: 203,
+      },
+      {
+        country: "Brasil",
+        countryId: 9,
+        count: 194,
+      },
+      {
+        country: "Colômbia",
+        countryId: 7,
+        count: 37,
+      },
+      {
+        country: "Equador",
+        countryId: 4,
+        count: 16,
+      },
+      {
+        country: "Peru",
+        countryId: 5,
+        count: 444,
+      },
+      {
+        country: "Venezuela",
+        countryId: 8,
+        count: 2,
+      },
+    ];
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Contagem de estações por rede**
-----
+## **Contagem de estações por rede**
+
 Método que retorna a contagem total de estações por rede.
 
-* **URL:**
+- **URL:**
 
-	/api/station/count/network
+  /api/station/count/network
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
-		
-	Nenhum
+- **Parâmetros na URL:**
 
-	**Não Obrigatórios:**
+  **Obrigatórios:**
+  Nenhum
 
-	format?:[string] - Formato de saída (permitidos: csv ou json).
+  **Não Obrigatórios:**
 
-* **Parâmetros do Body:**
+  format?:[string] - Formato de saída (permitidos: csv ou json).
 
-	```javascript
+- **Parâmetros do Body:**
+
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -177,16 +174,16 @@ Método que retorna a contagem total de estações por rede.
       }
     }
   ```
-		
-* **Exemplo:**
 
-	/api/station/count/network
+- **Exemplo:**
 
-* **Resposta:**
+  /api/station/count/network
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "values": [
           {
@@ -204,40 +201,39 @@ Método que retorna a contagem total de estações por rede.
         ],
         "total": 326
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Contagem de estações por responsável**
-----
+## **Contagem de estações por responsável**
+
 Método que retorna a contagem total de estações por responsável.
 
-* **URL:**
+- **URL:**
 
-	/api/station/count/responsible
+  /api/station/count/responsible
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
-		
-	Nenhum
+- **Parâmetros na URL:**
 
-	**Não Obrigatórios:**
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
 
 	format?:[string] - Formato de saída (permitidos: csv ou json).
 
-* **Parâmetros do Body:**
+- **Parâmetros do Body:**
 
-	```javascript
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -249,16 +245,16 @@ Método que retorna a contagem total de estações por responsável.
       }
     }
   ```
-		
-* **Exemplo:**
 
-	/api/station/count/responsible
+- **Exemplo:**
 
-* **Resposta:**
+  /api/station/count/responsible
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "values": [
           {
@@ -292,110 +288,39 @@ Método que retorna a contagem total de estações por responsável.
         ],
         "total": 896
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Contagem de estações por variável medida**
-----
+## **Contagem de estações por variável medida**
+
 Método que retorna a contagem de estações por variável medida em cada rede.
 
-* **URL:**
+- **URL:**
 
-	/api/station/count/variable
+  /api/station/count/variable
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
-		
-	Nenhum
+- **Parâmetros na URL:**
 
-	**Não Obrigatórios:**
+  **Obrigatórios:**
+  Nenhum
 
-	format?:[string] - Formato de saída (permitidos: csv ou json).
-
-* **Parâmetros do Body:**
-
-	```javascript
-    {
-      "filters": {
-        "name": [], // Nome da estação
-        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
-        "country": [], // País
-        "responsible": [], // Órgão responsável
-        "river": [], // Rio
-        "variable": [] // Variáveis que a estação possui medição
-      }
-    }
-  ```
-		
-* **Exemplo:**
-
-	/api/station/count/variable
-
-* **Resposta:**
-
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-      [
-        { network: 'RQA', variable: 'ph', stations: 5 },
-        { network: 'RQA', variable: 'adoptedLevel', stations: 5 },
-        { network: 'RQA', variable: 'flowRate', stations: 5 },
-        { network: 'RHA', variable: 'ph', stations: 10 },
-        { network: 'RHA', variable: 'adoptedLevel', stations: 10 },
-        { network: 'RHA', variable: 'flowRate', stations: 10 },
-        { network: 'HYBAM', variable: 'ph', stations: 3 },
-        { network: 'HYBAM', variable: 'adoptedLevel', stations: 3 },
-        { network: 'HYBAM', variable: 'flowRate', stations: 3 },
-      ]
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
-
-**Ranking de Rios por quantidade de estações**
-----
-Método que retorna a um ranking dos rios por quantidade de estações.
-
-* **URL:**
-
-	/api/station/ranking/river
-
-* **Método:**
-
-	`POST`
-	
-* **Parâmetros na URL:**
-
-	**Obrigatórios:**
-		
-	Nenhum
-
-	**Não Obrigatórios:**
-
-	page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
-
-	order:[string] - Ordenação dos elementos ('asc' ou 'desc')
+  **Não Obrigatórios:**
 
   format?:[string] - Formato de saída (permitidos: csv ou json).
 
-* **Parâmetros do Body:**
+- **Parâmetros do Body:**
 
-	```javascript
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -407,16 +332,85 @@ Método que retorna a um ranking dos rios por quantidade de estações.
       }
     }
   ```
-		
-* **Exemplo:**
 
-	/api/station/ranking/river?order=desc&page=1
+- **Exemplo:**
 
-* **Resposta:**
+  /api/station/count/variable
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
+    [
+      { network: "RQA", variable: "ph", stations: 5 },
+      { network: "RQA", variable: "adoptedLevel", stations: 5 },
+      { network: "RQA", variable: "flowRate", stations: 5 },
+      { network: "RHA", variable: "ph", stations: 10 },
+      { network: "RHA", variable: "adoptedLevel", stations: 10 },
+      { network: "RHA", variable: "flowRate", stations: 10 },
+      { network: "HYBAM", variable: "ph", stations: 3 },
+      { network: "HYBAM", variable: "adoptedLevel", stations: 3 },
+      { network: "HYBAM", variable: "flowRate", stations: 3 },
+    ];
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
+
+## **Ranking de Rios por quantidade de estações**
+
+Método que retorna a um ranking dos rios por quantidade de estações.
+
+- **URL:**
+
+  /api/station/ranking/river
+
+- **Método:**
+
+  `POST`
+
+- **Parâmetros na URL:**
+
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
+
+  page:[number] - Número da pagina de registros a ser retornada, cada página contém 5 registros.
+
+  order:[string] - Ordenação dos elementos ('asc' ou 'desc')
+
+  format?:[string] - Formato de saída (permitidos: csv ou json).
+
+- **Parâmetros do Body:**
+
+  ```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
+
+- **Exemplo:**
+
+  /api/station/ranking/river?order=desc&page=1
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "x": [
           null,
@@ -446,40 +440,39 @@ Método que retorna a um ranking dos rios por quantidade de estações.
         ],
         "pages": 16
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Shape das estações**
-----
+## **Shape das estações**
+
 Método que retorna o shape das estações.
 
-* **URL:**
+- **URL:**
 
-	/api/station/location
+  /api/station/location
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
-		
-	Nenhum
+- **Parâmetros na URL:**
 
-	**Não Obrigatórios:**
-	
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
+
   network[string] - Tipo de rede a ser retornada. ["RHA", "RQA" , "HYBAM"]
 
-* **Parâmetros do Body:**
+- **Parâmetros do Body:**
 
-	```javascript
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -492,15 +485,15 @@ Método que retorna o shape das estações.
     }
   ```
 
-* **Exemplo:**
+- **Exemplo:**
 
-	/api/station/location?network=RHA
+  /api/station/location?network=RHA
 
-* **Resposta:**
+- **Resposta:**
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "type": "FeatureCollection",
         "features": [
@@ -539,56 +532,55 @@ Método que retorna o shape das estações.
           ...
         ]
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Série Temporal de Observações de uma Estação**
-----
+## **Série Temporal de Observações de uma Estação**
+
 Uma série temporal de observações (chuva, vazão ou nível) de uma determinada estação.
 
-* **URL:**
+- **URL:**
 
-	/api/observation/timeSeries/:stationCode/:dataType/:fequency
+  /api/observation/timeSeries/:stationCode/:dataType/:fequency
 
-* **Método:**
+- **Método:**
 
-	`GET`
-	
-* **Parâmetros na URL:**
+  `GET`
 
-	**Obrigatórios:**
-	
-    stationCode:[number] - Código da estação
-    
-    dataType:[string] - Tipo de dado (rain, flowRate, level)
+- **Parâmetros na URL:**
 
-    frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
+  **Obrigatórios:**
 
-		
-* **Parâmetros do Body:**
+  stationCode:[number] - Código da estação
 
-	Nenhum
+  dataType:[string] - Tipo de dado (rain, flowRate, level)
 
-* **Exemplo:**
+  frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 
-	/api/observation/timeSeries/351004/rain/day
+- **Parâmetros do Body:**
 
-* **Resposta:**
+  Nenhum
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+- **Exemplo:**
+
+  /api/observation/timeSeries/351004/rain/day
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "x": [
           "2021-12-21T02:00:00.000Z",
-		      "2021-12-21T01:00:00.000Z",
-		      "2021-12-21T00:00:00.000Z",
+          "2021-12-21T01:00:00.000Z",
+          "2021-12-21T00:00:00.000Z",
           "2021-12-20T23:00:00.000Z",
           "2021-12-20T22:00:00.000Z",
           ...
@@ -602,43 +594,42 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
           ...
         ]
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Listagem de Estações**
-----
+## **Listagem de Estações**
+
 Listagem de estações da rede hidrológica.
 
-* **URL:**
+- **URL:**
 
-	/api/observation/last/:frequency
+  /api/observation/last/:frequency
 
-* **Método:**
+- **Método:**
 
-	`POST`
-	
-* **Parâmetros na URL:**
+  `POST`
 
-	**Obrigatórios:**
+- **Parâmetros na URL:**
 
-    frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
+  **Obrigatórios:**
+
+  frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 
   **Não Obrigatórios:**
-  
-    page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
-    pageSize?:[number] - Número de elementos por página. Default: 5. 
-    stationCode?:[string] - Código da estação a ser pesquisada.
 
-		
-* **Parâmetros do Body:**
+  page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
+  pageSize?:[number] - Número de elementos por página. Default: 5.
+  stationCode?:[string] - Código da estação a ser pesquisada.
 
-	```javascript
+- **Parâmetros do Body:**
+
+  ```javascript
     {
       "filters": {
         "name": [], // Nome da estação
@@ -651,15 +642,15 @@ Listagem de estações da rede hidrológica.
     }
   ```
 
-* **Exemplo:**
+- **Exemplo:**
 
-	/api/observation/last/day
+  /api/observation/last/day
 
-* **Resposta:**
+- **Resposta:**
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
       {
         "values": [
           {
@@ -697,94 +688,136 @@ Listagem de estações da rede hidrológica.
         ],
         "pages": 10
       }
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
 
-**Filtro de estações**
-----
+## **Filtro de estações**
+
 Retorna um array com os objetos que estão disponíveis no banco para cada categoria.
 
-* **URL:**
+- **URL:**
 
-	/api/station/filter/:filterTerm
+  /api/station/filter/:filterTerm
 
-* **Método:**
+- **Método:**
 
-	`GET`
-	
-* **Parâmetros na URL:**
+  `GET`
 
-	**Obrigatórios:**
-	
-    filterTerm:[string] - Termo a ser pesquisado
+- **Parâmetros na URL:**
 
-		
-* **Parâmetros do Body:**
+  **Obrigatórios:**
 
-	Nenhum
+  filterTerm:[string] - Termo a ser pesquisado
 
-* **Exemplo:**
+- **Parâmetros do Body:**
 
-	/api/station/filter/a
+  Nenhum
 
-* **Resposta:**
+- **Exemplo:**
 
-	* **Código:** 200 <br />
-	  **Conteúdo:**
-	  ```javascript
-			[
-				{
-					"value": "ALDEIA DO CHAPÉU",
-					"type": "name"
-				},
-				{
-					"value": "Almeirim",
-					"type": "name"
-				},
-				{
-					"value": "Atalaya Aval",
-					"type": "name"
-				},
-				{
-					"value": "ASSIS BRASIL",
-					"type": "name"
-				},
-				{
-					"value": "Aval Riberalta",
-					"type": "name"
-				},
-				{
-					"value": "ABUNÃ",
-					"type": "name"
-				},
-				{
-					"value": "Aguaricó",
-					"type": "name"
-				},
-				{
-					"value": "AUTAZES",
-					"type": "name"
-				},
-				{
-					"value": "ACANAUI",
-					"type": "name"
-				},
-				{
-					"value": "ANA",
-					"type": "responsible"
-				}
-			]
-	  ```
-	* **Código:** 500 <br />
-	  **Conteúdo:**
-	  ```javascript
-		{
-			message: 'Internal Server Error'
-		}
-	  ```
+  /api/station/filter/a
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
+    [
+      {
+        value: "ALDEIA DO CHAPÉU",
+        type: "name",
+      },
+      {
+        value: "Almeirim",
+        type: "name",
+      },
+      {
+        value: "Atalaya Aval",
+        type: "name",
+      },
+      {
+        value: "ASSIS BRASIL",
+        type: "name",
+      },
+      {
+        value: "Aval Riberalta",
+        type: "name",
+      },
+      {
+        value: "ABUNÃ",
+        type: "name",
+      },
+      {
+        value: "Aguaricó",
+        type: "name",
+      },
+      {
+        value: "AUTAZES",
+        type: "name",
+      },
+      {
+        value: "ACANAUI",
+        type: "name",
+      },
+      {
+        value: "ANA",
+        type: "responsible",
+      },
+    ];
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
+
+**Ultima atualização geral**
+
+Retorna um objeto com a ultima atualização geral.
+
+- **URL:**
+
+  /api/observation/lastUpdate
+
+- **Método:**
+
+  `GET`
+
+- **Parâmetros na URL:**
+
+  **Obrigatórios:**
+
+  Nenhum
+
+- **Parâmetros do Body:**
+
+  Nenhum
+
+- **Exemplo:**
+
+  /api/observation/lastUpdate
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
+        {
+          "lastUpdate": "2022-01-31T19:44:21.746Z"
+        }
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```

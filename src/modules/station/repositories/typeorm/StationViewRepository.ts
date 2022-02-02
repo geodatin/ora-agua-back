@@ -131,12 +131,11 @@ class StationViewRepository implements IStationViewRepository {
     query = applyFilters(query, filters, firstWhere)
 
     query
-      .innerJoin(
+      .leftJoin(
         LastObservationRhaView,
         'observation',
-        'station.code = observation.station_code'
+        `station.code = observation.station_code AND observation.frequency = 'day'`
       )
-      .where(`observation.frequency = 'day'`)
       .addSelect('observation.rain', 'rain')
 
     return query.getMany()

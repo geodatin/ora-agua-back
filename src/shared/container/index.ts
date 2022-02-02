@@ -11,7 +11,7 @@ import { IWaterQualitySincaRepository } from '@modules/observation/repositories/
 import { DailyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { GeochemistryHybamRepository } from '@modules/observation/repositories/typeorm/GeochemistryHybamRepository'
-import { LastObservationRhaViewRepository } from '@modules/observation/repositories/typeorm/LasObservationRhaViewRepository'
+import { LastObservationRhaViewRepository } from '@modules/observation/repositories/typeorm/LastObservationRhaViewRepository'
 import { LastUpdateViewRepository } from '@modules/observation/repositories/typeorm/LastUpdateViewRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
