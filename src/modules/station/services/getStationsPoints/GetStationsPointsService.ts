@@ -24,6 +24,7 @@ class GetStationsPointsService {
       } else {
         station.situation = 'normal'
       }
+      delete station.rainQ
       return station
     })
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
