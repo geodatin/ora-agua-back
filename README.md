@@ -563,6 +563,10 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
   frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 
+  **Não Obrigatórios:**
+
+  format:[string] - Formato de saída (permitidos: csv ou json).
+
 - **Parâmetros do Body:**
 
   Nenhum
