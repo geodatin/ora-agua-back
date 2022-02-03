@@ -142,6 +142,7 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('station.rain', 'rain')
       .addSelect('station.flow_rate', 'flowRate')
       .addSelect('station.adopted_level', 'adoptedLevel')
+      .addSelect('station.location', 'location')
 
     let firstWhere = true
     if (network) {
