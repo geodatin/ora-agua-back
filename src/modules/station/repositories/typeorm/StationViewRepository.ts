@@ -120,7 +120,28 @@ class StationViewRepository implements IStationViewRepository {
     filters: IFiltersDTO,
     network: string = null
   ): Promise<StationView[]> {
-    let query = this.repository.createQueryBuilder('station').select()
+    let query = this.repository
+      .createQueryBuilder('station')
+      .select('code', 'code')
+      .addSelect('river', 'river')
+      .addSelect('name', 'name')
+      .addSelect('type', 'type')
+      .addSelect('responsible', 'responsible')
+      .addSelect('country', 'country')
+      .addSelect('country_id', 'countryId')
+      .addSelect('network', 'network')
+      .addSelect('ph', 'ph')
+      .addSelect('"OD"', 'OD')
+      .addSelect('electric_conductivity', 'electricConductivity')
+      .addSelect('turbidity', 'turbidity')
+      .addSelect('sample_temperature', 'sampleTemperature')
+      .addSelect('total_dissolved_solid', 'totalDissolvedSolid')
+      .addSelect('total_nitrogen', 'totalNitrogen')
+      .addSelect('total_ortophosphate', 'totalOrtophosphate')
+      .addSelect('total_suspension_solid', 'totalSuspensionSolid')
+      .addSelect('station.rain', 'rain')
+      .addSelect('station.flow_rate', 'flowRate')
+      .addSelect('station.adopted_level', 'adoptedLevel')
 
     let firstWhere = true
     if (network) {
@@ -136,9 +157,9 @@ class StationViewRepository implements IStationViewRepository {
         'observation',
         `station.code = observation.station_code AND observation.frequency = 'week'`
       )
-      .addSelect('observation.rain', 'rain')
+      .addSelect('observation.rain', 'rainQ')
 
-    return query.getMany()
+    return query.getRawMany()
   }
 
   async findFilterOptions(

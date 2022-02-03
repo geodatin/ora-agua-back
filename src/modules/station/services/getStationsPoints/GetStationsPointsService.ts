@@ -17,9 +17,9 @@ class GetStationsPointsService {
       network
     )) as any
     stations.map((station) => {
-      if (station.rain > 10) {
+      if (station.rainQ > 10) {
         station.situation = 'alert'
-      } else if (station.rain > 5) {
+      } else if (station.rainQ > 5) {
         station.situation = 'attention'
       } else {
         station.situation = 'normal'
