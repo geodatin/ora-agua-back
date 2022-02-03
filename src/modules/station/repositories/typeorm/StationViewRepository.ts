@@ -130,18 +130,6 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('country', 'country')
       .addSelect('country_id', 'countryId')
       .addSelect('network', 'network')
-      .addSelect('ph', 'ph')
-      .addSelect('"OD"', 'OD')
-      .addSelect('electric_conductivity', 'electricConductivity')
-      .addSelect('turbidity', 'turbidity')
-      .addSelect('sample_temperature', 'sampleTemperature')
-      .addSelect('total_dissolved_solid', 'totalDissolvedSolid')
-      .addSelect('total_nitrogen', 'totalNitrogen')
-      .addSelect('total_ortophosphate', 'totalOrtophosphate')
-      .addSelect('total_suspension_solid', 'totalSuspensionSolid')
-      .addSelect('station.rain', 'rain')
-      .addSelect('station.flow_rate', 'flowRate')
-      .addSelect('station.adopted_level', 'adoptedLevel')
       .addSelect('station.location', 'location')
 
     let firstWhere = true
