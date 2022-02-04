@@ -146,7 +146,9 @@ class StationViewRepository implements IStationViewRepository {
         'observation',
         `station.code = observation.station_code AND observation.frequency = 'week'`
       )
-      .addSelect('observation.rain', 'rainQ')
+      .addSelect('observation.rain', 'rain')
+      .addSelect('observation.flow_rate', 'flowRate')
+      .addSelect('observation.level', 'level')
 
     return query.getRawMany()
   }
