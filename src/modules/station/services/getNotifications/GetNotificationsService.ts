@@ -67,7 +67,7 @@ export class GetNotificationsService {
         responsible: station.responsible,
         location: station.location,
         situation: 'alert',
-        type: type,
+        type: type === 'level' ? 'adoptedLevel' : type,
         value: station[type],
       }
     } else if (station[type] > attentionLimit) {
