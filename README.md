@@ -72,8 +72,8 @@ Método que retorna a contagem total de estações por país.
 
   **Não Obrigatórios:**
 
-	format?:[string] - Formato de saída (permitidos: csv ou json).
-		
+  format?:[string] - Formato de saída (permitidos: csv ou json).
+
 * **Parâmetros do Body:**
 
   ```javascript
@@ -229,7 +229,7 @@ Método que retorna a contagem total de estações por responsável.
 
   **Não Obrigatórios:**
 
-	format?:[string] - Formato de saída (permitidos: csv ou json).
+  format?:[string] - Formato de saída (permitidos: csv ou json).
 
 - **Parâmetros do Body:**
 
@@ -817,6 +817,83 @@ Retorna um objeto com a ultima atualização geral.
         {
           "lastUpdate": "2022-01-31T19:44:21.746Z"
         }
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
+
+**Shape das estações**
+
+Método que retorna as notificações da situação de cada estação.
+
+- **URL:**
+
+  /api/station/notification
+
+- **Método:**
+
+  `POST`
+
+- **Parâmetros na URL:**
+
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
+
+  network?[string] - Tipo de rede a ser retornada. ["RHA", "RQA" , "HYBAM"]
+  page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
+  pageSize?:[number] - Número de elementos por página. Default: 5.
+
+- **Parâmetros do Body:**
+
+  ```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
+
+- **Exemplo:**
+
+  /api/station/notification?network=RHA
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
+      {
+      "values": [
+        {
+          "code": "14620000",
+          "name": "Boa Vista",
+          "location": {
+            "type": "Point",
+            "coordinates": [
+              -60.6561,
+              2.8267
+            ]
+          },
+          "situation": "attention",
+          "type": "flowRate",
+          "value": 1796.44
+        },
+        ...
+      ],
+      "pages": 11,
+      "total": 53
+    }
     ```
   - **Código:** 500 <br />
     **Conteúdo:**
