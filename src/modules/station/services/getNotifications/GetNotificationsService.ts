@@ -1,7 +1,7 @@
 import { IGetNotificationsRequestDTO } from '@modules/station/dtos/IGetNotificationsDTO'
 import { IGetStationsResponseDTO } from '@modules/station/dtos/IGetStationsDTO'
+import { INotification } from '@modules/station/interfaces/INotification'
 import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
-import { INotification } from '@modules/station/types/INotification'
 import { paginate, countPages } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
 
@@ -62,6 +62,7 @@ export class GetNotificationsService {
       notification = {
         code: station.code,
         name: station.name,
+        responsible: station.responsible,
         location: station.location,
         situation: 'alert',
         type: type,
@@ -71,6 +72,7 @@ export class GetNotificationsService {
       notification = {
         code: station.code,
         name: station.name,
+        responsible: station.responsible,
         location: station.location,
         situation: 'attention',
         type: type,
