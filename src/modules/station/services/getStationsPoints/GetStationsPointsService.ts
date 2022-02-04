@@ -17,14 +17,23 @@ class GetStationsPointsService {
       network
     )) as any
     stations.map((station) => {
-      if (station.rainQ > 10) {
+      if (station.rain > 10) {
         station.situation = 'alert'
-      } else if (station.rainQ > 5) {
+      } else if (station.rain > 5) {
         station.situation = 'attention'
       } else {
         station.situation = 'normal'
       }
-      delete station.rainQ
+
+      if (station.rain || station.level || station.flowRate) {
+        station.hasData = true
+      } else {
+        station.hasData = false
+      }
+
+      delete station.rain
+      delete station.level
+      delete station.flowRate
       return station
     })
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
