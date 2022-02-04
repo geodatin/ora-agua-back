@@ -78,7 +78,7 @@ export class GetNotificationsService {
         responsible: station.responsible,
         location: station.location,
         situation: 'attention',
-        type: type,
+        type: type === 'level' ? 'adoptedLevel' : type,
         value: station[type],
       }
     }
