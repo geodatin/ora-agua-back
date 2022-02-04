@@ -9,10 +9,10 @@ class GetStationsPointsController {
     const { network } = request.query
 
     const getStationsPointsService = container.resolve(GetStationsPointsService)
-    const stations = await getStationsPointsService.execute(
+    const stations = await getStationsPointsService.execute({
       filters,
-      network === undefined ? undefined : String(network)
-    )
+      network: network === undefined ? undefined : String(network),
+    })
     return response.json(stations)
   }
 }
