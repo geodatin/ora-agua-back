@@ -1,6 +1,10 @@
 import { LastObservationRhaView } from '@modules/observation/models/views/LastObservationRhaView'
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
+import {
+  IGetStationsRequestDTO,
+  IGetStationsResponseDTO,
+} from '@modules/station/dtos/IGetStationsDTO'
 import { IVariablesCountDTO } from '@modules/station/dtos/IVariablesCountDTO'
 import { StationView } from '@modules/station/models/views/StationView'
 import { toSnakeCase } from '@utils/toSnakeCase'
@@ -116,10 +120,10 @@ class StationViewRepository implements IStationViewRepository {
     return ranking
   }
 
-  async getStations(
-    filters: IFiltersDTO,
-    network: string = null
-  ): Promise<StationView[]> {
+  async getStations({
+    filters,
+    network,
+  }: IGetStationsRequestDTO): Promise<IGetStationsResponseDTO[]> {
     let query = this.repository
       .createQueryBuilder('station')
       .select('code', 'code')
@@ -149,6 +153,7 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('observation.rain', 'rain')
       .addSelect('observation.flow_rate', 'flowRate')
       .addSelect('observation.level', 'level')
+      .addSelect('observation.last_update', 'lastUpdate')
 
     return query.getRawMany()
   }
