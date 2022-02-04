@@ -9,4 +9,5 @@ export interface INotification {
   value: number
   type: string
   situation: string
+  lastUpdate: string
 }

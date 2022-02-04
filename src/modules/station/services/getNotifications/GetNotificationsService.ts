@@ -69,6 +69,7 @@ export class GetNotificationsService {
         situation: 'alert',
         type: type === 'level' ? 'adoptedLevel' : type,
         value: station[type],
+        lastUpdate: station.lastUpdate,
       }
     } else if (station[type] > attentionLimit) {
       notification = {
@@ -80,6 +81,7 @@ export class GetNotificationsService {
         situation: 'attention',
         type: type === 'level' ? 'adoptedLevel' : type,
         value: station[type],
+        lastUpdate: station.lastUpdate,
       }
     }
     return notification

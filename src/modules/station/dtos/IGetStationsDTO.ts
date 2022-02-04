@@ -17,6 +17,7 @@ export interface IGetStationsResponseDTO {
   flowRate: number
   situation: string
   hasData: boolean
+  lastUpdate: string
 }
 
 export interface IGetStationsRequestDTO {
