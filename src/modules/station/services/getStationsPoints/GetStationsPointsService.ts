@@ -1,4 +1,4 @@
-import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
+import { IGetStationsRequestDTO } from '@modules/station/dtos/IGetStationsDTO'
 import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { inject, injectable } from 'tsyringe'
 
@@ -11,11 +11,11 @@ class GetStationsPointsService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute(filters: IFiltersDTO, network?: string) {
-    const stations = (await this.stationViewRepository.getStations(
+  async execute({ filters, network }: IGetStationsRequestDTO) {
+    const stations = await this.stationViewRepository.getStations({
       filters,
-      network
-    )) as any
+      network,
+    })
     stations.map((station) => {
       if (station.rain > 10) {
         station.situation = 'alert'
