@@ -4,6 +4,7 @@ import { INotification } from '@modules/station/interfaces/INotification'
 import { IStationViewRepository } from '@modules/station/repositories/IStationViewRepository'
 import { paginate, countPages } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
+import { v4 as createUuid } from 'uuid'
 
 @injectable()
 export class GetNotificationsService {
@@ -60,6 +61,7 @@ export class GetNotificationsService {
     let notification: INotification = null
     if (station[type] > alertLimit) {
       notification = {
+        id: createUuid(),
         code: station.code,
         name: station.name,
         responsible: station.responsible,
@@ -70,6 +72,7 @@ export class GetNotificationsService {
       }
     } else if (station[type] > attentionLimit) {
       notification = {
+        id: createUuid(),
         code: station.code,
         name: station.name,
         responsible: station.responsible,
