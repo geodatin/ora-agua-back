@@ -10,4 +10,5 @@ export interface INotification {
   type: string
   situation: string
   lastUpdate: string
+  network: string
 }
