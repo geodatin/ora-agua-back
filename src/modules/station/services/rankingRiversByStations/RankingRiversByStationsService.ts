@@ -39,11 +39,13 @@ class RankingRiversByStationsService {
 
     const x: string[] = []
     const y: number[] = []
+    const networks: string[] = []
     const pos: number[] = []
 
-    pageValues.forEach(({ position, river, count }) => {
+    pageValues.forEach(({ position, river, count, network }) => {
       x.push(river)
       y.push(count)
+      networks.push(network)
       pos.push(position)
     })
 
@@ -56,6 +58,7 @@ class RankingRiversByStationsService {
         },
       ],
       position: pos,
+      networks,
       pages: countPages(ranking, 5),
     }
   }
