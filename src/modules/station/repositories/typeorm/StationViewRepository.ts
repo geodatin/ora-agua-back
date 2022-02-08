@@ -136,12 +136,7 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('network', 'network')
       .addSelect('station.location', 'location')
 
-    let firstWhere = true
-    if (network) {
-      query.where('network = :network', { network })
-      firstWhere = false
-    }
-
+    const firstWhere = true
     query = applyFilters(query, filters, firstWhere)
 
     query
