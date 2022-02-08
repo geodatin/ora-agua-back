@@ -468,7 +468,7 @@ Método que retorna o shape das estações.
 
   **Não Obrigatórios:**
 
-  network[string] - Tipo de rede a ser retornada. ["RHA", "RQA" , "HYBAM"]
+  Nenhum
 
 - **Parâmetros do Body:**
 
@@ -487,7 +487,7 @@ Método que retorna o shape das estações.
 
 - **Exemplo:**
 
-  /api/station/location?network=RHA
+  /api/station/location
 
 - **Resposta:**
 
@@ -845,7 +845,6 @@ Método que retorna as notificações da situação de cada estação.
 
   **Não Obrigatórios:**
 
-  network?[string] - Tipo de rede a ser retornada. ["RHA", "RQA" , "HYBAM"]
   page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
   pageSize?:[number] - Número de elementos por página. Default: 5.
 
@@ -866,7 +865,7 @@ Método que retorna as notificações da situação de cada estação.
 
 - **Exemplo:**
 
-  /api/station/notification?network=RHA
+  /api/station/notification
 
 - **Resposta:**
 
