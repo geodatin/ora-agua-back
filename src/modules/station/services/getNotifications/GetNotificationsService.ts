@@ -13,15 +13,9 @@ export class GetNotificationsService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute({
-    filters,
-    network,
-    page,
-    pageSize,
-  }: IGetNotificationsRequestDTO) {
+  async execute({ filters, page, pageSize }: IGetNotificationsRequestDTO) {
     const stations = await this.stationViewRepository.getStations({
       filters,
-      network,
     })
 
     const notifications: INotification[] = []
