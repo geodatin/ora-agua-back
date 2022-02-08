@@ -6,12 +6,10 @@ import { GetStationsPointsService } from './GetStationsPointsService'
 class GetStationsPointsController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { filters } = request.body
-    const { network } = request.query
 
     const getStationsPointsService = container.resolve(GetStationsPointsService)
     const stations = await getStationsPointsService.execute({
       filters,
-      network: network === undefined ? undefined : String(network),
     })
     return response.json(stations)
   }

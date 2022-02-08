@@ -11,10 +11,9 @@ class GetStationsPointsService {
     private stationViewRepository: IStationViewRepository
   ) {}
 
-  async execute({ filters, network }: IGetStationsRequestDTO) {
+  async execute({ filters }: IGetStationsRequestDTO) {
     const stations = await this.stationViewRepository.getStations({
       filters,
-      network,
     })
     stations.map((station) => {
       if (station.rain > 10) {
