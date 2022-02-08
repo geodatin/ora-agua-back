@@ -97,6 +97,7 @@ class StationViewRepository implements IStationViewRepository {
       .createQueryBuilder()
       .select('counting.river', 'river')
       .addSelect('count')
+      .addSelect('counting.network', 'network')
       .addSelect(
         `DENSE_RANK() OVER(ORDER BY count ${
           order === 'asc' ? 'ASC' : 'DESC'
@@ -107,6 +108,7 @@ class StationViewRepository implements IStationViewRepository {
         subQuery = subQuery
           .select('stations.river', 'river')
           .addSelect('count(code)', 'count')
+          .addSelect('stations.network', 'network')
           .from(StationView, 'stations')
           .where('stations.river IS NOT NULL')
 
@@ -114,6 +116,7 @@ class StationViewRepository implements IStationViewRepository {
 
         return subQuery
           .groupBy('stations.river')
+          .addGroupBy('stations.network')
           .orderBy('count', order === 'asc' ? 'ASC' : 'DESC', 'NULLS LAST')
       }, 'counting')
       .getRawMany()
