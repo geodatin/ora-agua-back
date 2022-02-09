@@ -411,35 +411,55 @@ Método que retorna a um ranking dos rios por quantidade de estações.
   - **Código:** 200 <br />
     **Conteúdo:**
     ```javascript
-      {
-        "x": [
-          null,
-          "Madeira",
-          "Rio Maranon",
-          "Rio Solimoes",
-          "Rio Napo"
-        ],
-        "series": [
           {
-            "id": "station",
-            "data": [
-              718,
-              21,
-              11,
-              7,
-              6
-            ]
-          }
-        ],
-        "position": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "pages": 16
-      }
+      "x": [
+        "Madeira",
+        "Rio Maranon",
+        "Rio Purus",
+        "Rio Solimoes",
+        "Rio Branco"
+      ],
+      "datasets": [
+        {
+          "label": "RHA",
+          "data": [
+            0,
+            0,
+            4,
+            0,
+            3
+          ]
+        },
+        {
+          "label": "RQA",
+          "data": [
+            0,
+            0,
+            1,
+            0,
+            1
+          ]
+        },
+        {
+          "label": "HYBAM",
+          "data": [
+            21,
+            11,
+            3,
+            7,
+            2
+          ]
+        }
+      ],
+      "position": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pages": 18
+    }
     ```
   - **Código:** 500 <br />
     **Conteúdo:**
