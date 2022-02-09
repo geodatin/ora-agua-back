@@ -886,7 +886,8 @@ Método que retorna as notificações da situação de cada estação.
           },
           "situation": "attention",
           "type": "flowRate",
-          "value": 1796.44
+          "value": 1796.44,
+          "network": "RHA"
         },
         ...
       ],
