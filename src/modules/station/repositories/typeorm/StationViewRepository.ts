@@ -91,19 +91,14 @@ class StationViewRepository implements IStationViewRepository {
   async rankingRiversByStations(
     filters: IFiltersDTO,
     order: string
-  ): Promise<{ position: number; river: string; count: number }[]> {
+  ): Promise<{ river: string; count: number; network: string }[]> {
     const connection = getConnection()
     const ranking = await connection
       .createQueryBuilder()
       .select('counting.river', 'river')
       .addSelect('count')
       .addSelect('counting.network', 'network')
-      .addSelect(
-        `DENSE_RANK() OVER(ORDER BY count ${
-          order === 'asc' ? 'ASC' : 'DESC'
-        } NULLS LAST)::INTEGER`,
-        'position'
-      )
+
       .from((subQuery) => {
         subQuery = subQuery
           .select('stations.river', 'river')
@@ -114,10 +109,7 @@ class StationViewRepository implements IStationViewRepository {
 
         subQuery = applyFilters(subQuery, filters, false)
 
-        return subQuery
-          .groupBy('stations.river')
-          .addGroupBy('stations.network')
-          .orderBy('count', order === 'asc' ? 'ASC' : 'DESC', 'NULLS LAST')
+        return subQuery.groupBy('stations.river').addGroupBy('stations.network')
       }, 'counting')
       .getRawMany()
     return ranking
