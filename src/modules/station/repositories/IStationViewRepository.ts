@@ -23,7 +23,7 @@ interface IStationViewRepository {
   rankingRiversByStations(
     filters: IFiltersDTO,
     order: string
-  ): Promise<{ position: number; river: string; count: number }[]>
+  ): Promise<{ river: string; count: number; network: string }[]>
 
   getStations(data: IGetStationsRequestDTO): Promise<IGetStationsResponseDTO[]>
 
