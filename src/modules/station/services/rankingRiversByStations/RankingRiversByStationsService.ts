@@ -71,7 +71,7 @@ class RankingRiversByStationsService {
 
     newRanking
       .sort((a, b) => {
-        if (order === 'ASC') {
+        if (order === 'asc') {
           return a.total - b.total
         }
         return b.total - a.total
