@@ -1,6 +1,6 @@
 interface IRankingDTO {
   x: string[]
-  series: { id: string; data: number[] }[]
+  datasets: { label: string; data: number[] }[]
   position: number[]
   pages: number
 }

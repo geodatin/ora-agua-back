@@ -36,12 +36,14 @@ class InsertObservationSenhamiSeeder {
         const observation = {
           stationCode: station.code,
           timestamp: moment(date + ' ' + hour).toDate(),
-          temperature: temperatureValues[i],
-          speed: speedValues[i],
-          relativeHumidity: humidityValues[i],
-          rain: rainValues[i],
-          pressure: pressureValues[i],
-          level: levelValues[i],
+          temperature:
+            temperatureValues[i] === false ? null : temperatureValues[i],
+          speed: speedValues[i] === false ? null : speedValues[i],
+          relativeHumidity:
+            humidityValues[i] === false ? null : humidityValues[i],
+          rain: rainValues[i] === false ? null : rainValues[i],
+          pressure: pressureValues[i] === false ? null : pressureValues[i],
+          level: levelValues[i] === false ? null : levelValues[i],
         }
         console.log(observation)
         observations.push(observation)

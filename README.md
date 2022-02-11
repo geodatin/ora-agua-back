@@ -72,8 +72,8 @@ Método que retorna a contagem total de estações por país.
 
   **Não Obrigatórios:**
 
-	format?:[string] - Formato de saída (permitidos: csv ou json).
-		
+  format?:[string] - Formato de saída (permitidos: csv ou json).
+
 * **Parâmetros do Body:**
 
   ```javascript
@@ -229,7 +229,7 @@ Método que retorna a contagem total de estações por responsável.
 
   **Não Obrigatórios:**
 
-	format?:[string] - Formato de saída (permitidos: csv ou json).
+  format?:[string] - Formato de saída (permitidos: csv ou json).
 
 - **Parâmetros do Body:**
 
@@ -411,35 +411,55 @@ Método que retorna a um ranking dos rios por quantidade de estações.
   - **Código:** 200 <br />
     **Conteúdo:**
     ```javascript
-      {
-        "x": [
-          null,
-          "Madeira",
-          "Rio Maranon",
-          "Rio Solimoes",
-          "Rio Napo"
-        ],
-        "series": [
           {
-            "id": "station",
-            "data": [
-              718,
-              21,
-              11,
-              7,
-              6
-            ]
-          }
-        ],
-        "position": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "pages": 16
-      }
+      "x": [
+        "Madeira",
+        "Rio Maranon",
+        "Rio Purus",
+        "Rio Solimoes",
+        "Rio Branco"
+      ],
+      "datasets": [
+        {
+          "label": "RHA",
+          "data": [
+            0,
+            0,
+            4,
+            0,
+            3
+          ]
+        },
+        {
+          "label": "RQA",
+          "data": [
+            0,
+            0,
+            1,
+            0,
+            1
+          ]
+        },
+        {
+          "label": "HYBAM",
+          "data": [
+            21,
+            11,
+            3,
+            7,
+            2
+          ]
+        }
+      ],
+      "position": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pages": 18
+    }
     ```
   - **Código:** 500 <br />
     **Conteúdo:**
@@ -468,7 +488,7 @@ Método que retorna o shape das estações.
 
   **Não Obrigatórios:**
 
-  network[string] - Tipo de rede a ser retornada. ["RHA", "RQA" , "HYBAM"]
+  Nenhum
 
 - **Parâmetros do Body:**
 
@@ -487,7 +507,7 @@ Método que retorna o shape das estações.
 
 - **Exemplo:**
 
-  /api/station/location?network=RHA
+  /api/station/location
 
 - **Resposta:**
 
@@ -817,6 +837,83 @@ Retorna um objeto com a ultima atualização geral.
         {
           "lastUpdate": "2022-01-31T19:44:21.746Z"
         }
+    ```
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
+
+**Shape das estações**
+
+Método que retorna as notificações da situação de cada estação.
+
+- **URL:**
+
+  /api/station/notification
+
+- **Método:**
+
+  `POST`
+
+- **Parâmetros na URL:**
+
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
+
+  page?:[number] - Número da pagina de registros a ser retornada. Default: 1.
+  pageSize?:[number] - Número de elementos por página. Default: 5.
+
+- **Parâmetros do Body:**
+
+  ```javascript
+    {
+      "filters": {
+        "name": [], // Nome da estação
+        "network": [], // Tipo de rede (RQA, RHA ou HYBAM)
+        "country": [], // País
+        "responsible": [], // Órgão responsável
+        "river": [], // Rio
+        "variable": [] // Variáveis que a estação possui medição
+      }
+    }
+  ```
+
+- **Exemplo:**
+
+  /api/station/notification
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+    ```javascript
+      {
+      "values": [
+        {
+          "code": "14620000",
+          "name": "Boa Vista",
+          "location": {
+            "type": "Point",
+            "coordinates": [
+              -60.6561,
+              2.8267
+            ]
+          },
+          "situation": "attention",
+          "type": "flowRate",
+          "value": 1796.44,
+          "network": "RHA"
+        },
+        ...
+      ],
+      "pages": 11,
+      "total": 53
+    }
     ```
   - **Código:** 500 <br />
     **Conteúdo:**

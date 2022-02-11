@@ -1,6 +1,10 @@
 import { LastObservationRhaView } from '@modules/observation/models/views/LastObservationRhaView'
 import { IFiltersDTO } from '@modules/station/dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '@modules/station/dtos/IGetFilterOptionsDTO'
+import {
+  IGetStationsRequestDTO,
+  IGetStationsResponseDTO,
+} from '@modules/station/dtos/IGetStationsDTO'
 import { IVariablesCountDTO } from '@modules/station/dtos/IVariablesCountDTO'
 import { StationView } from '@modules/station/models/views/StationView'
 import { toSnakeCase } from '@utils/toSnakeCase'
@@ -87,39 +91,34 @@ class StationViewRepository implements IStationViewRepository {
   async rankingRiversByStations(
     filters: IFiltersDTO,
     order: string
-  ): Promise<{ position: number; river: string; count: number }[]> {
+  ): Promise<{ river: string; count: number; network: string }[]> {
     const connection = getConnection()
     const ranking = await connection
       .createQueryBuilder()
       .select('counting.river', 'river')
       .addSelect('count')
-      .addSelect(
-        `DENSE_RANK() OVER(ORDER BY count ${
-          order === 'asc' ? 'ASC' : 'DESC'
-        } NULLS LAST)::INTEGER`,
-        'position'
-      )
+      .addSelect('counting.network', 'network')
+
       .from((subQuery) => {
         subQuery = subQuery
           .select('stations.river', 'river')
           .addSelect('count(code)', 'count')
+          .addSelect('stations.network', 'network')
           .from(StationView, 'stations')
           .where('stations.river IS NOT NULL')
 
         subQuery = applyFilters(subQuery, filters, false)
 
-        return subQuery
-          .groupBy('stations.river')
-          .orderBy('count', order === 'asc' ? 'ASC' : 'DESC', 'NULLS LAST')
+        return subQuery.groupBy('stations.river').addGroupBy('stations.network')
       }, 'counting')
       .getRawMany()
     return ranking
   }
 
-  async getStations(
-    filters: IFiltersDTO,
-    network: string = null
-  ): Promise<StationView[]> {
+  async getStations({
+    filters,
+    network,
+  }: IGetStationsRequestDTO): Promise<IGetStationsResponseDTO[]> {
     let query = this.repository
       .createQueryBuilder('station')
       .select('code', 'code')
@@ -130,26 +129,9 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('country', 'country')
       .addSelect('country_id', 'countryId')
       .addSelect('network', 'network')
-      .addSelect('ph', 'ph')
-      .addSelect('"OD"', 'OD')
-      .addSelect('electric_conductivity', 'electricConductivity')
-      .addSelect('turbidity', 'turbidity')
-      .addSelect('sample_temperature', 'sampleTemperature')
-      .addSelect('total_dissolved_solid', 'totalDissolvedSolid')
-      .addSelect('total_nitrogen', 'totalNitrogen')
-      .addSelect('total_ortophosphate', 'totalOrtophosphate')
-      .addSelect('total_suspension_solid', 'totalSuspensionSolid')
-      .addSelect('station.rain', 'rain')
-      .addSelect('station.flow_rate', 'flowRate')
-      .addSelect('station.adopted_level', 'adoptedLevel')
       .addSelect('station.location', 'location')
 
-    let firstWhere = true
-    if (network) {
-      query.where('network = :network', { network })
-      firstWhere = false
-    }
-
+    const firstWhere = true
     query = applyFilters(query, filters, firstWhere)
 
     query
@@ -158,7 +140,10 @@ class StationViewRepository implements IStationViewRepository {
         'observation',
         `station.code = observation.station_code AND observation.frequency = 'week'`
       )
-      .addSelect('observation.rain', 'rainQ')
+      .addSelect('observation.rain', 'rain')
+      .addSelect('observation.flow_rate', 'flowRate')
+      .addSelect('observation.level', 'level')
+      .addSelect('observation.last_update', 'lastUpdate')
 
     return query.getRawMany()
   }

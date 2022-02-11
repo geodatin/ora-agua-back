@@ -36,7 +36,6 @@ export class InsertObservationSenhamiPeSeeder {
       const lastDateAsParamIndex = dates.findIndex(
         (date) => date === lastDateAsParam
       )
-      console.log(lastDateAsParamIndex)
       for (const [index, date] of dates.entries()) {
         if (index >= lastDateAsParamIndex) {
           const url = buildUrl(
@@ -76,7 +75,6 @@ export class InsertObservationSenhamiPeSeeder {
                   utc(observation.timestamp).isAfter(utc(lastDate)) ||
                   !lastDate
                 ) {
-                  console.log(observation)
                   observations.push(observation)
                 }
               }
@@ -97,7 +95,6 @@ export class InsertObservationSenhamiPeSeeder {
                   !lastDate
                 ) {
                   observations.push(observation06)
-                  console.log(observation06)
                 }
 
                 const observation10: ICreateObservationSenhamiPeDTO = {
@@ -113,7 +110,6 @@ export class InsertObservationSenhamiPeSeeder {
                   !lastDate
                 ) {
                   observations.push(observation10)
-                  console.log(observation10)
                 }
 
                 const observation14: ICreateObservationSenhamiPeDTO = {
@@ -129,7 +125,6 @@ export class InsertObservationSenhamiPeSeeder {
                   !lastDate
                 ) {
                   observations.push(observation14)
-                  console.log(observation14)
                 }
 
                 const observation18: ICreateObservationSenhamiPeDTO = {
@@ -145,7 +140,6 @@ export class InsertObservationSenhamiPeSeeder {
                   !lastDate
                 ) {
                   observations.push(observation18)
-                  console.log(observation18)
                 }
               }
             }
@@ -167,7 +161,6 @@ export class InsertObservationSenhamiPeSeeder {
                   utc(observation.timestamp).isAfter(utc(lastDate)) ||
                   !lastDate
                 ) {
-                  console.log(observation)
                   observations.push(observation)
                 }
               }
@@ -190,7 +183,6 @@ export class InsertObservationSenhamiPeSeeder {
                   utc(observation.timestamp).isAfter(utc(lastDate)) ||
                   !lastDate
                 ) {
-                  console.log(observation)
                   observations.push(observation)
                 }
               }
@@ -223,7 +215,6 @@ export class InsertObservationSenhamiPeSeeder {
         const date = $(value).text()
         dates.push(date.replace('-', ''))
       })
-    console.log(dates)
     return dates
   }
 }

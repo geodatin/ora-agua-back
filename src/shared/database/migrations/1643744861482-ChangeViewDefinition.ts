@@ -2,13 +2,12 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class ChangeViewDefinition1643744861482 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DROP MATERIALIZED VIEW last_observation_rha_view')
     await queryRunner.query(
       `CREATE MATERIALIZED VIEW last_observation_rha_view AS (
         SELECT  
         (
             SELECT 
-                AVG(rain) AS rain 
+                SUM(rain) AS rain 
             FROM 
                 observation_rha_view 
             WHERE 
@@ -51,7 +50,7 @@ export class ChangeViewDefinition1643744861482 implements MigrationInterface {
         SELECT  
         (
             SELECT 
-                AVG(rain) AS rain 
+                SUM(rain) AS rain 
             FROM 
                 observation_rha_view 
             WHERE 
@@ -94,7 +93,7 @@ export class ChangeViewDefinition1643744861482 implements MigrationInterface {
         SELECT  
         (
             SELECT 
-                AVG(rain) AS rain 
+                SUM(rain) AS rain 
             FROM 
                 observation_rha_view 
             WHERE 
@@ -137,7 +136,7 @@ export class ChangeViewDefinition1643744861482 implements MigrationInterface {
         SELECT  
         (
             SELECT 
-                AVG(rain) AS rain 
+                SUM(rain) AS rain 
             FROM 
                 observation_rha_view 
             WHERE 
@@ -180,7 +179,7 @@ export class ChangeViewDefinition1643744861482 implements MigrationInterface {
         SELECT  
         (
             SELECT 
-                AVG(rain) AS rain 
+                SUM(rain) AS rain 
             FROM 
                 observation_rha_view 
             WHERE 
@@ -223,7 +222,7 @@ export class ChangeViewDefinition1643744861482 implements MigrationInterface {
         SELECT  
         (
             SELECT 
-                AVG(rain) AS rain 
+                SUM(rain) AS rain 
             FROM 
                 observation_rha_view 
             WHERE 
