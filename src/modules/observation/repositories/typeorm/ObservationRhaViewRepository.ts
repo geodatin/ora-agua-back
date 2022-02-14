@@ -17,26 +17,18 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
     frequency: FrequencyType,
     dataType: string
   ): Promise<ITimeSeriesEntryDTO[]> {
-    const changeOrderFrequency = ['hour', 'day', 'week']
-    // Changes orderBy option to get most recent records
-    const shouldChangeOrder = changeOrderFrequency.includes(frequency)
     const timeSeries = await this.repository
       .createQueryBuilder()
-      .select(`date_trunc(:frequency, timestamp)`, 'x')
+      .select('date_trunc(:frequency, timestamp)', 'x')
       .addSelect(this.getColumnByDataType(dataType), 'y')
       .where('station_code = :code', { code: stationCode })
       .groupBy('x')
-      .orderBy('x', shouldChangeOrder ? 'DESC' : 'ASC')
+      .orderBy('x', 'DESC')
       .limit(200)
       .setParameter('frequency', frequency)
       .getRawMany()
 
-    if (shouldChangeOrder) {
-      // Reverse array to return it on the ascending order
-      return timeSeries.reverse()
-    }
-
-    return timeSeries
+    return timeSeries.reverse()
   }
 
   private getColumnByDataType(dataType: string): string {
