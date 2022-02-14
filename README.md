@@ -793,6 +793,13 @@ Retorna um array com os objetos que estão disponíveis no banco para cada categ
         value: "ANA",
         type: "responsible",
       },
+      {
+        value: "adoptedLevel",
+        type: "variable",
+        namePT: "Nível",
+        nameEN: "Adopted Level",
+        nameES: "Nivel",
+      },
     ];
     ```
   - **Código:** 500 <br />
