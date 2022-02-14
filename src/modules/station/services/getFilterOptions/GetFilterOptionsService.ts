@@ -37,10 +37,13 @@ export class GetFilterOptionsService {
   }
 
   async getVariables(filterTerm: string): Promise<IGetFilterOptionsDTO[]> {
-    const expression = new RegExp(`^${filterTerm}.*`)
+    const expression = new RegExp(`^${filterTerm.toLowerCase()}.*`)
 
-    const filtered = variables.filter((variable) =>
-      variable.value.match(expression)
+    const filtered = variables.filter(
+      (variable) =>
+        variable.nameEN.toLowerCase().match(expression) ||
+        variable.nameES.toLowerCase().match(expression) ||
+        variable.namePT.toLowerCase().match(expression)
     )
 
     return filtered
