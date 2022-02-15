@@ -57,7 +57,7 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
         }
       )
       .orderBy('x', 'DESC')
-      .limit(200)
+      .limit(100)
       .getRawMany()
 
     return timeSeries.reverse()
