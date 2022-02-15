@@ -17,21 +17,56 @@ class TimeSeriesService {
     frequency: FrequencyType,
     format?: string
   ): Promise<ITimeSeriesDTO | string> {
-    const observations = await this.observationRhaViewRepository.timeSeries(
-      stationCode,
-      frequency,
-      dataType
-    )
+    let observations = null
+    if (dataType === 'raw') {
+      observations = await this.observationRhaViewRepository.timeSeriesRaw(
+        stationCode,
+        frequency
+      )
+    } else {
+      observations = await this.observationRhaViewRepository.timeSeries(
+        stationCode,
+        frequency,
+        dataType
+      )
+    }
 
     if (format === 'csv') {
       const csvValues = observations.map((o) => {
-        return {
-          date: o.x,
-          value: o.y,
+        if (dataType !== 'raw') {
+          return {
+            date: o.x,
+            value: o.y,
+          }
+        } else {
+          return {
+            date: o.x,
+            rain: o.rain,
+            level: o.adoptedLevel,
+            flowRate: o.flowRate,
+          }
         }
       })
 
       return json2csv.parse(csvValues)
+    }
+
+    if (dataType === 'raw') {
+      const response: ITimeSeriesDTO = {
+        x: [],
+        rain: [],
+        adoptedLevel: [],
+        flowRate: [],
+      }
+
+      observations.forEach((observation) => {
+        response.x.push(observation.x.toISOString())
+        response.rain.push(observation.rain)
+        response.adoptedLevel.push(observation.adoptedLevel)
+        response.flowRate.push(observation.flowRate)
+      })
+
+      return response
     }
 
     const response: ITimeSeriesDTO = {
