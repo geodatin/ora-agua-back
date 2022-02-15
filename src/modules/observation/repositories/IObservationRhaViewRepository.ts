@@ -7,6 +7,10 @@ interface IObservationRhaViewRepository {
     frequency: FrequencyType,
     dataType: string
   ): Promise<ITimeSeriesEntryDTO[]>
+  timeSeriesRaw(
+    stationCode: string,
+    frequency: FrequencyType
+  ): Promise<ITimeSeriesEntryDTO[]>
 }
 
 export { IObservationRhaViewRepository }

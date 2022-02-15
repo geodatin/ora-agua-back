@@ -31,6 +31,38 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
     return timeSeries.reverse()
   }
 
+  async timeSeriesRaw(
+    stationCode: string,
+    frequency: FrequencyType
+  ): Promise<ITimeSeriesEntryDTO[]> {
+    const { maxTimestamp } = await this.repository
+      .createQueryBuilder()
+      .select('MAX(timestamp)', 'maxTimestamp')
+      .where('station_code = :code', { code: stationCode })
+      .getRawOne()
+
+    const timeSeries = await this.repository
+      .createQueryBuilder()
+      .select('timestamp', 'x')
+      .addSelect('rain', 'rain')
+      .addSelect('level', 'adoptedLevel')
+      .addSelect('flow_rate', 'flowRate')
+      .where('station_code = :code', { code: stationCode })
+      .andWhere(
+        `timestamp > :maxTimestamp::DATE - INTERVAL '${
+          frequency === 'quarter' ? '3 months' : '1 ' + frequency
+        }'`,
+        {
+          maxTimestamp,
+        }
+      )
+      .orderBy('x', 'DESC')
+      .limit(200)
+      .getRawMany()
+
+    return timeSeries.reverse()
+  }
+
   private getColumnByDataType(dataType: string): string {
     const columns = {
       rain: 'SUM(COALESCE(rain, 0))',
