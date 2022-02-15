@@ -579,7 +579,7 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
   stationCode:[number] - Código da estação
 
-  dataType:[string] - Tipo de dado (rain, flowRate, level)
+  dataType:[string] - Tipo de dado (rain, flowRate, level, raw)
 
   frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 
