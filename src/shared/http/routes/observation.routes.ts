@@ -1,6 +1,6 @@
-import { LastObservationRhaController } from '@modules/observation/services/lastObservation/LastObservationRhaController'
-import { LastUpdateController } from '@modules/observation/services/lastUpdate/LastUpdateController'
-import { TimeSeriesController } from '@modules/observation/services/timeSeries/TimeSeriesController'
+import { LastObservationRhaController } from '@modules/api/observation/services/lastObservation/LastObservationRhaController'
+import { LastUpdateController } from '@modules/api/observation/services/lastUpdate/LastUpdateController'
+import { TimeSeriesController } from '@modules/api/observation/services/timeSeries/TimeSeriesController'
 import { Router } from 'express'
 
 const observationRoutes = Router()
