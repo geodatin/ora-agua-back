@@ -24,7 +24,10 @@ const development = {
   database: process.env.DB_NAME,
   synchronize: false,
   logging: true,
-  entities: ['./src/modules/**/models/*.ts', './src/modules/**/models/**/*.ts'],
+  entities: [
+    './src/modules/**/**/models/*.ts',
+    './src/modules/**/**/**/models/*.ts',
+  ],
   migrations: ['./src/shared/database/migrations/*.ts'],
   cli: {
     entitiesDir: './src/modules/**/models',
