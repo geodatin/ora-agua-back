@@ -8,12 +8,18 @@ export class GetNotificationsController {
     const { filters, limits } = request.body
     const { page, pageSize } = request.query
 
+    const limitsDefault = {
+      rainLimits: [10, 5],
+      levelLimits: [1000, 800],
+      flowRateLimits: [2000, 1500],
+    }
+
     const getNotificationsService = container.resolve(GetNotificationsService)
     const notifications = await getNotificationsService.execute({
       filters,
       page: page ? Number(page) : 1,
       pageSize: pageSize ? Number(pageSize) : 5,
-      limits,
+      limits: limits || limitsDefault,
     })
     return response.json(notifications)
   }
