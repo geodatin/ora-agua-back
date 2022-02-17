@@ -56,11 +56,10 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
           maxTimestamp,
         }
       )
-      .orderBy('x', 'DESC')
-      .limit(100)
+      .orderBy('x', 'ASC')
       .getRawMany()
 
-    return timeSeries.reverse()
+    return timeSeries
   }
 
   private getColumnByDataType(dataType: string): string {
