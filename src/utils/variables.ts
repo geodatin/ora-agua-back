@@ -84,3 +84,8 @@ export const variables = [
     nameES: 'Nivel',
   },
 ]
+
+export function getVariableName(value: string): string {
+  const variable = variables.find((v) => v.value === value)
+  return variable.nameEN
+}
