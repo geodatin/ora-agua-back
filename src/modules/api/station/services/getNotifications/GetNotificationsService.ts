@@ -4,8 +4,8 @@ import { v4 as createUuid } from 'uuid'
 
 import { IGetNotificationsRequestDTO } from '../../dtos/IGetNotificationsDTO'
 import { IGetStationsResponseDTO } from '../../dtos/IGetStationsDTO'
-import { INotification } from '../../interfaces/INotification'
 import { IStationViewRepository } from '../../repositories/IStationViewRepository'
+import { INotification } from './interfaces/INotification'
 
 @injectable()
 export class GetNotificationsService {
@@ -18,67 +18,26 @@ export class GetNotificationsService {
     filters,
     page,
     pageSize,
-    limits: { rainLimits, levelLimits, flowRateLimits },
+    limits,
   }: IGetNotificationsRequestDTO) {
     const stations = await this.stationViewRepository.getStations({
       filters,
     })
 
     const notifications: INotification[] = []
+    const notificationTypes = ['rain', 'level', 'flowRate']
+
     stations.forEach((station) => {
-      let rainNotification = null
-      let levelNotification = null
-      let flowRateNotification = null
-
-      if (rainLimits?.length > 0) {
-        const [alertLimit, attentionLimit] = rainLimits
-        rainNotification = this.generateNotification(
+      notificationTypes.forEach((notificationType) => {
+        const [alertLimit, attentionLimit] = limits[`${notificationType}Limits`]
+        const notification = this.generateNotification(
           station,
-          'rain',
+          notificationType,
           alertLimit,
           attentionLimit
         )
-      } else {
-        rainNotification = this.generateNotification(station, 'rain', 10, 5)
-      }
-
-      if (levelLimits?.length > 0) {
-        const [alertLimit, attentionLimit] = levelLimits
-        levelNotification = this.generateNotification(
-          station,
-          'rain',
-          alertLimit,
-          attentionLimit
-        )
-      } else {
-        levelNotification = this.generateNotification(
-          station,
-          'level',
-          1000,
-          800
-        )
-      }
-
-      if (flowRateLimits?.length > 0) {
-        const [alertLimit, attentionLimit] = flowRateLimits
-        flowRateNotification = this.generateNotification(
-          station,
-          'rain',
-          alertLimit,
-          attentionLimit
-        )
-      } else {
-        flowRateNotification = this.generateNotification(
-          station,
-          'flowRate',
-          2000,
-          1500
-        )
-      }
-
-      if (rainNotification) notifications.push(rainNotification)
-      if (levelNotification) notifications.push(levelNotification)
-      if (flowRateNotification) notifications.push(flowRateNotification)
+        if (notification.situation) notifications.push(notification)
+      })
     })
 
     return {
@@ -110,8 +69,6 @@ export class GetNotificationsService {
       notification.situation = 'alert'
     } else if (station[type] > attentionLimit) {
       notification.situation = 'emergency'
-    } else {
-      notification.situation = 'normal'
     }
     return notification
   }
