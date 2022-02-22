@@ -567,7 +567,7 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
 - **URL:**
 
-  /api/observation/timeSeries/:stationCode/:dataType/:fequency
+  /api/observation/timeSeries/:network/:stationCode/:dataType/:fequency
 
 - **Método:**
 
@@ -577,9 +577,11 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
   **Obrigatórios:**
 
+  network:[number] - Tipo da rede (rha ou rqa)
+
   stationCode:[number] - Código da estação
 
-  dataType:[string] - Tipo de dado (rain, flowRate, level, raw)
+  dataType:[string] - Tipo de dado - para a rede hidrológica: rain, flowRate ou level; para a rede de qualidade: ph, OD, electricConductivity, turbidity, sampleTemperature, totalDissolvedSolid, totalNitrogen, totalOrtophosphate ou totalSuspensionSolid; para dados brutos: raw.
 
   frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 

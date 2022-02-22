@@ -28,6 +28,8 @@ class DownloadWaterLevelsHybamSeeder {
       '..',
       '..',
       '..',
+      '..',
+      '..',
       'tmp',
       `daily_water_level_hybam.csv`
     )
@@ -39,6 +41,8 @@ class DownloadWaterLevelsHybamSeeder {
 
     const monthlyFilePath = path.join(
       __dirname,
+      '..',
+      '..',
       '..',
       '..',
       '..',

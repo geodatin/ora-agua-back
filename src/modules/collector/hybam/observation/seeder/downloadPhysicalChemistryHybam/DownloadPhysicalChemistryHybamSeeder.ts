@@ -26,6 +26,8 @@ class DownloadPhysicalChemistryHybamSeeder {
       '..',
       '..',
       '..',
+      '..',
+      '..',
       'tmp',
       `physical_chemistry_hybam.csv`
     )

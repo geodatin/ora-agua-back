@@ -28,6 +28,8 @@ class DownloadSedimentsHybamSeeder {
       '..',
       '..',
       '..',
+      '..',
+      '..',
       'tmp',
       `sediments_hybam.csv`
     )
@@ -39,6 +41,8 @@ class DownloadSedimentsHybamSeeder {
 
     const satelliteFilePath = path.join(
       __dirname,
+      '..',
+      '..',
       '..',
       '..',
       '..',

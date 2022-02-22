@@ -28,6 +28,8 @@ class DownloadDischargesHybamSeeder {
       '..',
       '..',
       '..',
+      '..',
+      '..',
       'tmp',
       `daily_discharge_hybam.csv`
     )
@@ -39,6 +41,8 @@ class DownloadDischargesHybamSeeder {
 
     const monthlyFilePath = path.join(
       __dirname,
+      '..',
+      '..',
       '..',
       '..',
       '..',

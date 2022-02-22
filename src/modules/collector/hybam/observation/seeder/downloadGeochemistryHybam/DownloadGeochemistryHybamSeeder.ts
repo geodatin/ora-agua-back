@@ -81,6 +81,8 @@ class DownloadGeochemistryHybamSeeder {
       '..',
       '..',
       '..',
+      '..',
+      '..',
       'tmp',
       `geochemistry_hybam.csv`
     )

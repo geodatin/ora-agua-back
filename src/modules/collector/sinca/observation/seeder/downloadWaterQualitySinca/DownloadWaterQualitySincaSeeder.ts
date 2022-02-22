@@ -96,6 +96,8 @@ class DownloadWaterQualitySincaSeeder {
         '..',
         '..',
         '..',
+        '..',
+        '..',
         'tmp',
         `water_quality_sinca.csv`
       )

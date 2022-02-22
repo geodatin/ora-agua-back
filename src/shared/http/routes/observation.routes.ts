@@ -11,7 +11,7 @@ const lastUpdateControler = new LastUpdateController()
 
 observationRoutes.post('/last/:frequency', lastObservationRhaController.handle)
 observationRoutes.get(
-  '/timeSeries/:stationCode/:dataType/:frequency',
+  '/timeSeries/:network/:stationCode/:dataType/:frequency',
   timeSeriesController.handle
 )
 
