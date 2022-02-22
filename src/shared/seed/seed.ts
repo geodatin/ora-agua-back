@@ -23,10 +23,10 @@ import { createConnection } from 'typeorm'
 
 const hoursInterval = 4
 
-env.config()
+/* env.config()
 log(`Running seeders every ${hoursInterval} hours`)
 const task = cron.schedule(
-  `0 */${hoursInterval} * * *`,
+  `0 *\/${hoursInterval} * * *`,
   async () => {
     const connection = await createConnection()
     // await insertStationController.start()
@@ -73,13 +73,30 @@ const task = cron.schedule(
     timezone: 'America/Sao_Paulo',
   }
 )
-task.start()
+task.start() */
 
-/* createConnection().then(async (connection) => {
-  // await insertObservationFromApiController.start()
+createConnection().then(async (connection) => {
+  // await insertStationController.start()
   // await downloadObservationCsvsController.start()
-  // await insertObservationSenhamiController.start()
-  // await insertObservationSenhamiPeController.start()
+
+  await insertObservationFromApiController.start()
+  await insertObservationSenhamiController.start()
+  await insertObservationSenhamiPeController.start()
+
+  // await insertStationsSincaController.start()
+  // await downloadWaterQualitySincaController.start()
+
+  // await insertStationsIdeamController.start()
+  // await downloadObservationIdeamController.start()
+  // await downloadWaterQualityIdeamController.start()
+
+  // await insertStationsHybamController.start()
+  // await downloadWaterLevelsHybamController.start()
+  // await downloadDischargesHybamController.start()
+  // await downloadSedimentsHybamController.start()
+  // await downloadPhysicalChemistryHybamController.start()
+  // await downloadGeochemistryHybamController.start()
+
   await connection
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW station_view')
@@ -96,4 +113,3 @@ task.start()
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW last_update_view')
 })
- */
