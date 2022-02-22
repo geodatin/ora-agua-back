@@ -1,33 +1,52 @@
 import { ViewColumn, ViewEntity } from 'typeorm'
 
 @ViewEntity({
-  expression: `SELECT observation.* FROM 
-    (
-        (
-            SELECT station_code::varchar, o.timestamp, o.rain AS rain, o.flow_rate AS flow_rate, o.adopted_level AS level,
-            'ANA' as responsible
-            FROM observation_ana o 
-            INNER JOIN station_view s ON s.code = o.station_code::varchar
-        ) UNION
-        (
-            SELECT station_code::varchar, o.timestamp, o.rain_mm_d AS rain, o.flow_rate_mcs AS flow_rate, o.level_m AS level,
-            'IDEAM' as responsible
-            FROM observation_ideam o 
-            INNER JOIN station_view s ON s.code = o.station_code::varchar
-        ) UNION
-        (
-            SELECT station_code::varchar, o.timestamp, o.rain AS rain, null AS flow_rate, o.level AS level,
-            'SENAMHI BOLÍVIA' as responsible
-            FROM observation_senhami o 
-            INNER JOIN station_view s ON s.code = o.station_code::varchar
-        ) UNION
-        (
-            SELECT station_code::varchar, o.timestamp, o.rain AS rain, null AS flow_rate, o.level AS level,
-            'SENAMHI PERU' as responsible
-            FROM observation_senhami_pe o 
-            INNER JOIN station_view s ON s.code = o.station_code::varchar
-        )
-    ) observation`,
+  expression: ` 
+      SELECT observation.station_code,
+        observation."timestamp",
+        observation.rain,
+        observation.flow_rate,
+        observation.level,
+        observation.responsible
+      FROM ( SELECT o.station_code::character varying AS station_code,
+                o."timestamp",
+                o.rain,
+                o.flow_rate,
+                o.adopted_level AS level,
+                'ANA'::text AS responsible
+              FROM observation_ana o
+                JOIN station_view s ON s.code::text = o.station_code::character varying::text
+              WHERE s.network = 'RHA'
+        UNION
+            SELECT o.station_code,
+                o."timestamp",
+                o.rain_mm_d AS rain,
+                o.flow_rate_mcs AS flow_rate,
+                o.level_m AS level,
+                'IDEAM'::text AS responsible
+              FROM observation_ideam o
+                JOIN station_view s ON s.code::text = o.station_code::text
+              WHERE s.network = 'RHA'
+        UNION
+            SELECT o.station_code,
+                o."timestamp",
+                o.rain,
+                NULL::double precision AS flow_rate,
+                o.level,
+                'SENAMHI BOLÍVIA'::text AS responsible
+              FROM observation_senhami o
+                JOIN station_view s ON s.code::text = o.station_code::text
+              WHERE s.network = 'RHA'
+        UNION
+            SELECT o.station_code,
+                o."timestamp",
+                o.rain,
+                NULL::double precision AS flow_rate,
+                o.level,
+                'SENAMHI PERU'::text AS responsible
+              FROM observation_senhami_pe o
+                JOIN station_view s ON s.code::text = o.station_code::text
+          WHERE s.network = 'RHA') observation;`,
   materialized: true,
   name: 'observation_rha_view',
 })

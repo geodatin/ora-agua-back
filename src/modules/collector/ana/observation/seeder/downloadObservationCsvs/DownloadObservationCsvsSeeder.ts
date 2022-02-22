@@ -44,7 +44,17 @@ class DownloadObservationCsvsSeeder {
     const baseUrl =
       'https://www.snirh.gov.br/hidroweb/rest/api/documento/convencionais'
     const options: IDownloadOptionsDTO = {
-      directory: path.resolve(__dirname, '..', '..', '..', '..', '..', 'tmp'),
+      directory: path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        '..',
+        '..',
+        '..',
+        'tmp'
+      ),
       filename: `download.zip`,
     }
     const query = {

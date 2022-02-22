@@ -13,7 +13,7 @@ class ObservationSenhamiRepository implements IObservationSenhamiRepository {
 
   async create(data: ICreateObservationSenhamiDTO[]): Promise<void> {
     const observation = this.repository.create(data)
-    await this.repository.save(observation)
+    await this.repository.save(observation, { reload: false })
   }
 
   async getStationMaxDate(stationCode: string): Promise<string> {
