@@ -191,6 +191,7 @@ export class InsertObservationSenhamiPeSeeder {
           }
         }
         await this.observationSenhamiPeRepository.create(observations)
+        observations.length = 0
       }
     }
   }
