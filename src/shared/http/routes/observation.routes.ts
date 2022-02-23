@@ -9,7 +9,7 @@ const lastObservationController = new LastObservationController()
 const timeSeriesController = new TimeSeriesController()
 const lastUpdateControler = new LastUpdateController()
 
-observationRoutes.post('/last/:frequency', lastObservationController.handle)
+observationRoutes.post('/list/:frequency', lastObservationController.handle)
 observationRoutes.get(
   '/timeSeries/:network/:stationCode/:dataType/:frequency',
   timeSeriesController.handle
