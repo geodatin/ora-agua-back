@@ -1,8 +1,9 @@
 import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
+import { Point } from 'geojson'
 
 import { FrequencyType } from '../types/FrequencyType'
 
-interface ILastObservationDTO {
+export interface ILastObservationRequestDTO {
   page: number
   pageSize: number
   frequency: FrequencyType
@@ -10,4 +11,11 @@ interface ILastObservationDTO {
   stationCode?: string
 }
 
-export { ILastObservationDTO }
+export interface ILastObservationResponseDTO {
+  code: number
+  name: string
+  location: Point
+  responsible: string
+  lastUpdate: string
+  values?: { key: string; value: number }[]
+}
