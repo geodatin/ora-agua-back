@@ -23,13 +23,14 @@ export class LastObservationRhaViewRepository
   ): Promise<any> {
     const query = this.repository
       .createQueryBuilder('observation')
-      .select('observation.rain', 'rain')
-      .addSelect('observation.level', 'level')
-      .addSelect('observation.flow_rate', 'flowRate')
+      .select('observation.rain', 'observations_rain')
+      .addSelect('observation.level', 'observations_level')
+      .addSelect('observation.flow_rate', 'observations_flowRate')
       .addSelect('observation.last_update', 'lastUpdate')
       .addSelect('station.location', 'location')
       .addSelect('station.code', 'code')
       .addSelect('station.responsible', 'responsible')
+      .addSelect('station.network', 'network')
       .addSelect('station.name', 'name')
       .innerJoin(
         StationView,
@@ -46,7 +47,9 @@ export class LastObservationRhaViewRepository
 
     applyFilters(query, filters, false)
 
-    query.orderBy('last_update').addOrderBy('rain', 'DESC', 'NULLS LAST')
+    query
+      .orderBy('last_update')
+      .addOrderBy('observation.rain', 'DESC', 'NULLS LAST')
 
     return await query.getRawMany()
   }
