@@ -1,7 +1,7 @@
 import { countPages, paginate } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
 
-import { ILastObservationDTO } from '../../dtos/ILastObservationDTO'
+import { ILastObservationRequestDTO } from '../../dtos/ILastObservationDTO'
 import { ILastObservationRhaViewRepository } from '../../repositories/ILastObservationRhaViewRepository'
 
 @injectable()
@@ -17,13 +17,26 @@ export class LastObservationRhaService {
     frequency,
     filters,
     stationCode,
-  }: ILastObservationDTO) {
+  }: ILastObservationRequestDTO) {
     const response =
       await this.lastObservationRhaViewRepository.getLastObservations(
         filters,
         frequency,
         stationCode
       )
+
+    response.forEach((observation) => {
+      observation.values = []
+      for (const key in observation) {
+        if (key.toString().includes('observations')) {
+          const newKey = key.split('_')[1]
+          observation.values.push({ key: newKey, value: observation[key] })
+          delete observation[key]
+        }
+      }
+      console.log(observation)
+    })
+
     if (stationCode) {
       return response[0]
     }
