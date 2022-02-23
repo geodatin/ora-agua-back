@@ -1,11 +1,14 @@
 import { countPages, paginate } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
 
-import { ILastObservationRequestDTO } from '../../dtos/ILastObservationDTO'
+import {
+  ILastObservationRequestDTO,
+  ILastObservationResponseDTO,
+} from '../../dtos/ILastObservationDTO'
 import { ILastObservationRhaViewRepository } from '../../repositories/ILastObservationRhaViewRepository'
 
 @injectable()
-export class LastObservationRhaService {
+export class LastObservationService {
   constructor(
     @inject('LastObservationRhaViewRepository')
     private lastObservationRhaViewRepository: ILastObservationRhaViewRepository
@@ -25,12 +28,15 @@ export class LastObservationRhaService {
         stationCode
       )
 
-    response.forEach((observation) => {
-      observation.values = []
+    response.forEach((observation: ILastObservationResponseDTO) => {
+      observation.observations = []
       for (const key in observation) {
-        if (key.toString().includes('observations')) {
+        if (key.toString().includes('observations_')) {
           const newKey = key.split('_')[1]
-          observation.values.push({ key: newKey, value: observation[key] })
+          observation.observations.push({
+            key: newKey,
+            value: observation[key],
+          })
           delete observation[key]
         }
       }
