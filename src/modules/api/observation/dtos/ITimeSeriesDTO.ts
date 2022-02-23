@@ -10,7 +10,7 @@ interface ITimeSeriesEntryDTO {
   x: Date
   y?: Number
   rain?: Number
-  adoptedLevel?: Number
+  level?: Number
   flowRate?: Number
 }
 
