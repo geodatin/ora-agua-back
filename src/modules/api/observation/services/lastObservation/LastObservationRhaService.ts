@@ -34,7 +34,6 @@ export class LastObservationRhaService {
           delete observation[key]
         }
       }
-      console.log(observation)
     })
 
     if (stationCode) {
