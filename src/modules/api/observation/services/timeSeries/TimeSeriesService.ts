@@ -68,7 +68,7 @@ class TimeSeriesService {
             return {
               date: o.x,
               rain: o.rain,
-              level: o.adoptedLevel,
+              level: o.level,
               flowRate: o.flowRate,
             }
           } else {
@@ -103,7 +103,7 @@ class TimeSeriesService {
         observations.forEach((observation: ITimeSeriesEntryDTO) => {
           response.x.push(observation.x.toISOString())
           response.rain.push(observation.rain)
-          response.adoptedLevel.push(observation.adoptedLevel)
+          response.adoptedLevel.push(observation.level)
           response.flowRate.push(observation.flowRate)
         })
 
