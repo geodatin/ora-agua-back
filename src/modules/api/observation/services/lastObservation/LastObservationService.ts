@@ -5,13 +5,15 @@ import {
   ILastObservationRequestDTO,
   ILastObservationResponseDTO,
 } from '../../dtos/ILastObservationDTO'
-import { ILastObservationRhaViewRepository } from '../../repositories/ILastObservationRhaViewRepository'
+import { ILastObservationViewRepository } from '../../repositories/ILastObservationViewRepository'
 
 @injectable()
 export class LastObservationService {
   constructor(
     @inject('LastObservationRhaViewRepository')
-    private lastObservationRhaViewRepository: ILastObservationRhaViewRepository
+    private lastObservationRhaViewRepository: ILastObservationViewRepository,
+    @inject('LastObservationRqaViewRepository')
+    private lastObservationRqaViewRepository: ILastObservationViewRepository
   ) {}
 
   async execute({
@@ -21,12 +23,18 @@ export class LastObservationService {
     filters,
     stationCode,
   }: ILastObservationRequestDTO) {
-    const response =
-      await this.lastObservationRhaViewRepository.getLastObservations(
-        filters,
-        frequency,
-        stationCode
-      )
+    let repository: ILastObservationViewRepository
+    if (filters.network[0] === 'RQA') {
+      repository = this.lastObservationRqaViewRepository
+    } else {
+      repository = this.lastObservationRhaViewRepository
+    }
+
+    const response = await repository.getLastObservations(
+      filters,
+      frequency,
+      stationCode
+    )
 
     response.forEach((observation: ILastObservationResponseDTO) => {
       observation.observations = []
