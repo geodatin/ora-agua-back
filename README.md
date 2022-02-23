@@ -635,7 +635,7 @@ Listagem de estações da rede hidrológica.
 
 - **URL:**
 
-  /api/observation/last/:frequency
+  /api/observation/list/:frequency
 
 - **Método:**
 
@@ -670,7 +670,7 @@ Listagem de estações da rede hidrológica.
 
 - **Exemplo:**
 
-  /api/observation/last/day
+  /api/observation/list/day
 
 - **Resposta:**
 
@@ -711,6 +711,65 @@ Listagem de estações da rede hidrológica.
             "flowRate": null,
             "lastUpdate": "2021-12-21T02:45:00.000Z"
           },
+        ],
+        "pages": 10
+      }
+    ```
+    ```javascript
+      {
+      "values": [
+        {
+          "code": "12700000",
+          "name": "Santos Dumont",
+          "location": {
+            "type": "Point",
+            "coordinates": [
+              -68.2461,
+              -6.4403
+            ]
+          },
+          "responsible": "ANA",
+          "network": "RQA",
+          "lastUpdate": "2021-06-18T20:00:00.000Z",
+          "observations": [
+            {
+              "key": "turbidity",
+              "value": 207.33
+            },
+            {
+              "key": "ph",
+              "value": 7.83
+            },
+            {
+              "key": "od",
+              "value": 5.77
+            },
+            {
+              "key": "electricConductivity",
+              "value": null
+            },
+            {
+              "key": "sampleTemperature",
+              "value": 28.62
+            },
+            {
+              "key": "totalDissolvedSolid",
+              "value": null
+            },
+            {
+              "key": "totalNitrogen",
+              "value": null
+            },
+            {
+              "key": "totalOrtophosphate",
+              "value": null
+            },
+            {
+              "key": "totalSuspensionSolid",
+              "value": null
+            }
+          ]
+        },
         ],
         "pages": 10
       }
