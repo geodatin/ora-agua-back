@@ -6,10 +6,10 @@ import { applyFilters } from '@shared/database/utils/applyFilters'
 
 import { LastObservationRhaView } from '../../models/LastObservationRhaView'
 import { FrequencyType } from '../../types/FrequencyType'
-import { ILastObservationRhaViewRepository } from '../ILastObservationRhaViewRepository'
+import { ILastObservationViewRepository } from '../ILastObservationViewRepository'
 
 export class LastObservationRhaViewRepository
-  implements ILastObservationRhaViewRepository
+  implements ILastObservationViewRepository
 {
   private repository: Repository<LastObservationRhaView>
   constructor() {
@@ -37,7 +37,6 @@ export class LastObservationRhaViewRepository
         'station',
         'station.code = observation.station_code'
       )
-      .andWhere('station.network = :network', { network: 'RHA' })
       .andWhere('observation.frequency = :frequency', { frequency })
       .orderBy('observation.last_update', 'DESC')
 
