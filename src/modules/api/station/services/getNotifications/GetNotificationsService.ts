@@ -60,7 +60,7 @@ export class GetNotificationsService {
       responsible: station.responsible,
       location: station.location,
       situation: null,
-      type: type === 'level' ? 'adoptedLevel' : type,
+      type: type,
       value: station[type],
       lastUpdate: station.lastUpdate,
       network: station.network,

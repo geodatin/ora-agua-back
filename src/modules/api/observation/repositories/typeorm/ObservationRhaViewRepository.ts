@@ -45,7 +45,7 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
       .createQueryBuilder()
       .select('timestamp', 'x')
       .addSelect('rain', 'rain')
-      .addSelect('level', 'adoptedLevel')
+      .addSelect('level', 'level')
       .addSelect('flow_rate', 'flowRate')
       .where('station_code = :code', { code: stationCode })
       .andWhere(

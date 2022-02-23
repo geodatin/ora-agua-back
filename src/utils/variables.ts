@@ -77,10 +77,10 @@ export const variables = [
     nameES: 'Tasa de Flujo',
   },
   {
-    value: 'adoptedLevel',
+    value: 'level',
     type: 'variable',
     namePT: 'Nível',
-    nameEN: 'Adopted Level',
+    nameEN: 'Level',
     nameES: 'Nivel',
   },
 ]
