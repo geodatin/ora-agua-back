@@ -197,7 +197,7 @@ class StationViewRepository implements IStationViewRepository {
       )
       .addSelect('count(*) filter (where rain)', 'rain')
       .addSelect('count(*) filter (where flow_rate)', 'flowRate')
-      .addSelect('count(*) filter (where adopted_level)', 'adoptedLevel')
+      .addSelect('count(*) filter (where adopted_level)', 'level')
 
     query = applyFilters(query, filters)
 
