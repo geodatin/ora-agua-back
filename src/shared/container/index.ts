@@ -1,8 +1,9 @@
-import { ILastObservationRhaViewRepository } from '@modules/api/observation/repositories/ILastObservationRhaViewRepository'
+import { ILastObservationViewRepository } from '@modules/api/observation/repositories/ILastObservationViewRepository'
 import { ILastUpdateViewRepository } from '@modules/api/observation/repositories/ILastUpdateViewRepository'
 import { IObservationRhaViewRepository } from '@modules/api/observation/repositories/IObservationRhaViewRepository'
 import { IObservationRqaViewRepository } from '@modules/api/observation/repositories/IObservationRqaViewRepository'
 import { LastObservationRhaViewRepository } from '@modules/api/observation/repositories/typeorm/LastObservationRhaViewRepository'
+import { LastObservationRqaViewRepository } from '@modules/api/observation/repositories/typeorm/LastObservationRqaViewRepository'
 import { LastUpdateViewRepository } from '@modules/api/observation/repositories/typeorm/LastUpdateViewRepository'
 import { ObservationRhaViewRepository } from '@modules/api/observation/repositories/typeorm/ObservationRhaViewRepository'
 import { ObservationRqaViewRepository } from '@modules/api/observation/repositories/typeorm/ObservationRqaViewRepository'
@@ -165,9 +166,14 @@ container.registerSingleton<IObservationRqaViewRepository>(
   ObservationRqaViewRepository
 )
 
-container.registerSingleton<ILastObservationRhaViewRepository>(
+container.registerSingleton<ILastObservationViewRepository>(
   'LastObservationRhaViewRepository',
   LastObservationRhaViewRepository
+)
+
+container.registerSingleton<ILastObservationViewRepository>(
+  'LastObservationRqaViewRepository',
+  LastObservationRqaViewRepository
 )
 
 container.registerSingleton<ILastUpdateViewRepository>(
