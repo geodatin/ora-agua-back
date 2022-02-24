@@ -83,10 +83,18 @@ export function applyFilters(
         }
 
         if (firstWhere) {
-          query = query.where(`"${variable}" = true`)
+          query = query.where(
+            `station."${
+              variable === 'level' ? 'adopted_level' : variable
+            }" = true`
+          )
           firstWhere = false
         } else {
-          query = query.andWhere(`"${variable}" = true`)
+          query = query.andWhere(
+            `station."${
+              variable === 'level' ? 'adopted_level' : variable
+            }" = true`
+          )
         }
       }
     })
