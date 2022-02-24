@@ -1,14 +1,15 @@
 import { countPages, paginate } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
+import { v4 as createUuid } from 'uuid'
 
 import {
-  ILastObservationRequestDTO,
-  ILastObservationResponseDTO,
-} from '../../dtos/ILastObservationDTO'
+  IListObservationRequestDTO,
+  IListObservationResponseDTO,
+} from '../../dtos/IListObservationDTO'
 import { ILastObservationViewRepository } from '../../repositories/ILastObservationViewRepository'
 
 @injectable()
-export class LastObservationService {
+export class ListObservationService {
   constructor(
     @inject('LastObservationRhaViewRepository')
     private lastObservationRhaViewRepository: ILastObservationViewRepository,
@@ -22,7 +23,7 @@ export class LastObservationService {
     frequency,
     filters,
     stationCode,
-  }: ILastObservationRequestDTO) {
+  }: IListObservationRequestDTO) {
     let repository: ILastObservationViewRepository
     if (filters.network[0] === 'RQA') {
       repository = this.lastObservationRqaViewRepository
@@ -36,8 +37,9 @@ export class LastObservationService {
       stationCode
     )
 
-    response.forEach((observation: ILastObservationResponseDTO) => {
+    response.forEach((observation: IListObservationResponseDTO) => {
       observation.observations = []
+      observation.id = createUuid()
       for (const key in observation) {
         if (key.toString().includes('observations_')) {
           const newKey = key.split('_')[1]
