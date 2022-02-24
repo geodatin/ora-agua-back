@@ -1,15 +1,15 @@
-import { LastObservationController } from '@modules/api/observation/services/lastObservation/LastObservationController'
 import { LastUpdateController } from '@modules/api/observation/services/lastUpdate/LastUpdateController'
+import { ListObservationController } from '@modules/api/observation/services/listObservation/ListObservationController'
 import { TimeSeriesController } from '@modules/api/observation/services/timeSeries/TimeSeriesController'
 import { Router } from 'express'
 
 const observationRoutes = Router()
 
-const lastObservationController = new LastObservationController()
+const listObservationController = new ListObservationController()
 const timeSeriesController = new TimeSeriesController()
 const lastUpdateControler = new LastUpdateController()
 
-observationRoutes.post('/list/:frequency', lastObservationController.handle)
+observationRoutes.post('/list/:frequency', listObservationController.handle)
 observationRoutes.get(
   '/timeSeries/:network/:stationCode/:dataType/:frequency',
   timeSeriesController.handle
