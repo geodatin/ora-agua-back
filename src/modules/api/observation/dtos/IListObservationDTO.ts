@@ -3,7 +3,7 @@ import { Point } from 'geojson'
 
 import { FrequencyType } from '../types/FrequencyType'
 
-export interface ILastObservationRequestDTO {
+export interface IListObservationRequestDTO {
   page: number
   pageSize: number
   frequency: FrequencyType
@@ -11,7 +11,8 @@ export interface ILastObservationRequestDTO {
   stationCode?: string
 }
 
-export interface ILastObservationResponseDTO {
+export interface IListObservationResponseDTO {
+  id: string
   code: number
   name: string
   location: Point
