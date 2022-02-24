@@ -25,7 +25,7 @@ class StationViewRepository implements IStationViewRepository {
     filters: IFiltersDTO
   ): Promise<{ count: number; network: string }[]> {
     let query = this.repository
-      .createQueryBuilder()
+      .createQueryBuilder('station')
       .select('network')
       .addSelect('count(code)', 'count')
 
@@ -41,7 +41,7 @@ class StationViewRepository implements IStationViewRepository {
 
   async countAllStations(filters: IFiltersDTO): Promise<number> {
     let query = this.repository
-      .createQueryBuilder()
+      .createQueryBuilder('station')
       .select('count(code)', 'count')
 
     query = applyFilters(query, filters)
@@ -55,7 +55,7 @@ class StationViewRepository implements IStationViewRepository {
     filters: IFiltersDTO
   ): Promise<{ count: number; country: string; countryId: number }[]> {
     let query = this.repository
-      .createQueryBuilder()
+      .createQueryBuilder('station')
       .select('country')
       .addSelect('country_id', 'countryId')
       .addSelect('count(code)', 'count')
@@ -74,7 +74,7 @@ class StationViewRepository implements IStationViewRepository {
     filters: IFiltersDTO
   ): Promise<{ count: number; responsible: string }[]> {
     let query = this.repository
-      .createQueryBuilder()
+      .createQueryBuilder('station')
       .select('responsible')
       .addSelect('count(code)', 'count')
 
@@ -98,18 +98,17 @@ class StationViewRepository implements IStationViewRepository {
       .select('counting.river', 'river')
       .addSelect('count')
       .addSelect('counting.network', 'network')
-
       .from((subQuery) => {
         subQuery = subQuery
-          .select('stations.river', 'river')
+          .select('station.river', 'river')
           .addSelect('count(code)', 'count')
-          .addSelect('stations.network', 'network')
-          .from(StationView, 'stations')
-          .where('stations.river IS NOT NULL')
+          .addSelect('station.network', 'network')
+          .from(StationView, 'station')
+          .where('station.river IS NOT NULL')
 
         subQuery = applyFilters(subQuery, filters, false)
 
-        return subQuery.groupBy('stations.river').addGroupBy('stations.network')
+        return subQuery.groupBy('station.river').addGroupBy('station.network')
       }, 'counting')
       .getRawMany()
     return ranking
@@ -169,7 +168,7 @@ class StationViewRepository implements IStationViewRepository {
     filters: IFiltersDTO
   ): Promise<IVariablesCountDTO[]> {
     let query = this.repository
-      .createQueryBuilder()
+      .createQueryBuilder('station')
       .select('network', 'network')
       .addSelect('count(*) filter (where ph)', 'ph')
       .addSelect('count(*) filter (where "OD")', 'OD')
