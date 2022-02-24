@@ -5,8 +5,7 @@ import 'express-async-errors'
 import '@utils/formatPgResponse'
 import '../database'
 import '../container'
-import { checkError } from '../../errors/checkError'
-import rateLimiter from './middlewares/rateLimiter'
+import { checkError } from '../errors/checkError'
 import { routes } from './routes/index.routes'
 
 const app = express()
