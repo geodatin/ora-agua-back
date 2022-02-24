@@ -23,7 +23,7 @@ export class LastObservationRqaViewRepository
   ): Promise<any> {
     const query = this.repository
       .createQueryBuilder('observation')
-      .select('observation."OD"', 'observations_od')
+      .select('observation."OD"', 'observations_OD')
       .addSelect(
         'observation.electric_conductivity',
         'observations_electricConductivity'
