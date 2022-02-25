@@ -10,7 +10,7 @@ import { PhysicalChemistryHybam } from '../../observation/models/PhysicalChemist
 import { SatelliteDerivedSedimentsHybam } from '../../observation/models/SatelliteDerivedSedimentsHybam'
 import { SedimentsHybam } from '../../observation/models/SedimentsHybam'
 
-@Entity({ name: 'station_hybam' })
+@Entity({ name: 'station_hybam', schema: process.env.SCHEMA })
 class StationHybam {
   @PrimaryColumn()
   code: string

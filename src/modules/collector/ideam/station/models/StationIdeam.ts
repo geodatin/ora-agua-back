@@ -1,7 +1,7 @@
 import { Point } from 'geojson'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
-@Entity('station_ideam')
+@Entity({ name: 'station_ideam', schema: process.env.SCHEMA })
 class StationIdeam {
   @PrimaryColumn()
   code: string

@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
-@Entity('observation_senhami')
+@Entity({ name: 'observation_senhami', schema: process.env.SCHEMA })
 class ObservationSenhami {
   @PrimaryColumn({ name: 'station_code' })
   stationCode: string
