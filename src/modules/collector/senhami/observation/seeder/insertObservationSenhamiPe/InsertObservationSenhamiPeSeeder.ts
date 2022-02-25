@@ -53,7 +53,6 @@ export class InsertObservationSenhamiPeSeeder {
             }
           )
           const table = await scraper.get(url)
-          console.log(url)
           let header = ''
           for (const key in table[1][0]) {
             header += `${table[1][0][key]}`

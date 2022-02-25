@@ -46,7 +46,6 @@ class InsertObservationSenhamiSeeder {
           pressure: pressureValues[i] === false ? null : pressureValues[i],
           level: levelValues[i] === false ? null : levelValues[i],
         }
-        console.log(observation)
         observations.push(observation)
       }
       const lastDate =
