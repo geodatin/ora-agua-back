@@ -49,6 +49,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
           WHERE s.network = 'RHA') observation;`,
   materialized: true,
   name: 'observation_rha_view',
+  schema: process.env.SCHEMA,
 })
 export class ObservationRhaView {
   @ViewColumn()
