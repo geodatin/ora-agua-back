@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 
 import { StationAna } from '../../station/models/StationAna'
 
-@Entity()
+@Entity({ name: 'water_quality_observation', schema: process.env.SCHEMA })
 class WaterQualityObservation {
   @PrimaryColumn({ name: 'station_code' })
   @ManyToOne((type) => StationAna)

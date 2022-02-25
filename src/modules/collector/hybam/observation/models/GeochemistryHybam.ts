@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 
 import { StationHybam } from '../../station/models/StationHybam'
 
-@Entity({ name: 'geochemistry_hybam' })
+@Entity({ name: 'geochemistry_hybam', schema: process.env.SCHEMA })
 class GeochemistryHybam {
   @PrimaryColumn({ name: 'station_code' })
   stationCode: string
