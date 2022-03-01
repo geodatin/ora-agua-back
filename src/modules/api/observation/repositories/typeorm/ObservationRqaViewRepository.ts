@@ -74,7 +74,7 @@ export class ObservationRqaViewRepository
     const columns = {
       ph: 'AVG(ph)',
       OD: 'AVG("OD")',
-      electricConductivity: 'AVG(electric_coductivity)',
+      electricConductivity: 'AVG(electric_conductivity)',
       turbidity: 'AVG(turbidity)',
       sampleTemperature: 'AVG(sample_temperature)',
       totalDissolvedSolid: 'AVG(total_dissolved_solid)',
