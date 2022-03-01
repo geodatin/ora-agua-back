@@ -105,7 +105,7 @@ export class ObservationRqaViewRepository
         'observation.total_suspension_solid',
         'observations_totalSuspensionSolid'
       )
-      .addSelect('MAX(observation.timestamp)', 'lastUpdate')
+      .addSelect('timestamp', 'lastUpdate')
       .addSelect('station.location', 'location')
       .addSelect('station.code', 'code')
       .addSelect('station.responsible', 'responsible')
@@ -116,6 +116,16 @@ export class ObservationRqaViewRepository
         'station',
         'station.code = observation.station_code'
       )
+      .andWhere((qb) => {
+        const timestampQuery = qb
+          .subQuery()
+          .select('MAX(timestamp)', 'timestamp')
+          .from(ObservationRqaView, 'observation_aux')
+          .where('observation_aux.station_code = observation.station_code')
+          .getQuery()
+
+        return `timestamp = ${timestampQuery}`
+      })
 
     if (stationCode) {
       query.andWhere('station.code = :stationCode', { stationCode })
@@ -124,20 +134,6 @@ export class ObservationRqaViewRepository
     applyFilters(query, filters, false)
 
     query
-      .groupBy('observation."OD"')
-      .addGroupBy('observation.electric_conductivity')
-      .addGroupBy('observation.turbidity')
-      .addGroupBy('observation.ph')
-      .addGroupBy('observation.sample_temperature')
-      .addGroupBy('observation.total_dissolved_solid')
-      .addGroupBy('observation.total_nitrogen')
-      .addGroupBy('observation.total_ortophosphate')
-      .addGroupBy('observation.total_suspension_solid')
-      .addGroupBy('station.location')
-      .addGroupBy('station.code')
-      .addGroupBy('station.responsible')
-      .addGroupBy('station.network')
-      .addGroupBy('station.name')
       .orderBy('"lastUpdate"', 'DESC')
       .addOrderBy('observation.ph', 'DESC', 'NULLS LAST')
 
