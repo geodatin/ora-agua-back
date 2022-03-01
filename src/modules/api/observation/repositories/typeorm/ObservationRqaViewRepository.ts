@@ -114,7 +114,7 @@ export class ObservationRqaViewRepository
       .innerJoin(
         StationView,
         'station',
-        'station.code = observation.station_code'
+        `station.code = observation.station_code AND station.network = 'RQA'`
       )
       .andWhere((qb) => {
         const timestampQuery = qb

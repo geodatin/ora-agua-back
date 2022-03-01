@@ -35,7 +35,7 @@ export class LastObservationRhaViewRepository
       .innerJoin(
         StationView,
         'station',
-        'station.code = observation.station_code'
+        `station.code = observation.station_code AND station.network = 'RHA'`
       )
       .andWhere('observation.frequency = :frequency', { frequency })
       .orderBy('observation.last_update', 'DESC')
