@@ -1,4 +1,8 @@
+import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
+import { StationView } from '@modules/api/station/models/StationView'
 import { getRepository, Repository } from 'typeorm'
+
+import { applyFilters } from '@shared/database/utils/applyFilters'
 
 import { ITimeSeriesEntryDTO } from '../../dtos/ITimeSeriesDTO'
 import { ObservationRqaView } from '../../models/ObservationRqaView'
@@ -48,7 +52,7 @@ export class ObservationRqaViewRepository
       .select('timestamp', 'x')
       .addSelect('ph', 'ph')
       .addSelect('"OD"', '"OD"')
-      .addSelect('electric_coductivity', 'electricConductivity')
+      .addSelect('electric_conductivity', 'electricConductivity')
       .addSelect('turbidity', 'turbidity')
       .addSelect('sample_temperature', 'sampleTemperature')
       .addSelect('total_dissolved_solid', 'totalDissolvedSolid')
@@ -68,6 +72,76 @@ export class ObservationRqaViewRepository
       .getRawMany()
 
     return timeSeries
+  }
+
+  async getLastObservations(
+    filters: IFiltersDTO,
+    frequency?: FrequencyType,
+    stationCode?: string
+  ): Promise<any> {
+    const query = this.repository
+      .createQueryBuilder('observation')
+      .select('observation."OD"', 'observations_OD')
+      .addSelect(
+        'observation.electric_conductivity',
+        'observations_electricConductivity'
+      )
+      .addSelect('observation.turbidity', 'observations_turbidity')
+      .addSelect('observation.ph', 'observations_ph')
+      .addSelect(
+        'observation.sample_temperature',
+        'observations_sampleTemperature'
+      )
+      .addSelect(
+        'observation.total_dissolved_solid',
+        'observations_totalDissolvedSolid'
+      )
+      .addSelect('observation.total_nitrogen', 'observations_totalNitrogen')
+      .addSelect(
+        'observation.total_ortophosphate',
+        'observations_totalOrtophosphate'
+      )
+      .addSelect(
+        'observation.total_suspension_solid',
+        'observations_totalSuspensionSolid'
+      )
+      .addSelect('MAX(observation.timestamp)', 'lastUpdate')
+      .addSelect('station.location', 'location')
+      .addSelect('station.code', 'code')
+      .addSelect('station.responsible', 'responsible')
+      .addSelect('station.network', 'network')
+      .addSelect('station.name', 'name')
+      .innerJoin(
+        StationView,
+        'station',
+        'station.code = observation.station_code'
+      )
+
+    if (stationCode) {
+      query.andWhere('station.code = :stationCode', { stationCode })
+    }
+
+    applyFilters(query, filters, false)
+
+    query
+      .groupBy('observation."OD"')
+      .addGroupBy('observation.electric_conductivity')
+      .addGroupBy('observation.turbidity')
+      .addGroupBy('observation.ph')
+      .addGroupBy('observation.sample_temperature')
+      .addGroupBy('observation.total_dissolved_solid')
+      .addGroupBy('observation.total_nitrogen')
+      .addGroupBy('observation.total_ortophosphate')
+      .addGroupBy('observation.total_suspension_solid')
+      .addGroupBy('station.location')
+      .addGroupBy('station.code')
+      .addGroupBy('station.responsible')
+      .addGroupBy('station.network')
+      .addGroupBy('station.name')
+      .orderBy('"lastUpdate"', 'DESC')
+      .addOrderBy('observation.ph', 'DESC', 'NULLS LAST')
+
+    return await query.getRawMany()
   }
 
   private getColumnByDataType(dataType: string): string {
