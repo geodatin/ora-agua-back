@@ -4,6 +4,7 @@ import { Column, ViewEntity } from 'typeorm'
 @ViewEntity({
   name: 'station_view',
   materialized: true,
+  schema: process.env.SCHEMA,
   expression: `
     select stations.*, countries.name as country, countries.id as country_id
     from

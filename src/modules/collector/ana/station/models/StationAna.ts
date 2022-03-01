@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 import { ObservationAna } from '../../observation/models/ObservationAna'
 
-@Entity({ name: 'station_ana' })
+@Entity({ name: 'station_ana', schema: process.env.SCHEMA })
 class StationAna {
   @PrimaryColumn()
   code: number

@@ -34,6 +34,7 @@ class TimeSeriesService {
           stationCode,
           frequency
         )
+        console.log(observations[0])
       } else {
         observations = await this.observationRqaViewRepository.timeSeriesRaw(
           stationCode,
@@ -96,14 +97,14 @@ class TimeSeriesService {
         const response: ITimeSeriesDTO = {
           x: [],
           rain: [],
-          adoptedLevel: [],
+          level: [],
           flowRate: [],
         }
 
         observations.forEach((observation: ITimeSeriesEntryDTO) => {
           response.x.push(observation.x.toISOString())
           response.rain.push(observation.rain)
-          response.adoptedLevel.push(observation.level)
+          response.level.push(observation.level)
           response.flowRate.push(observation.flowRate)
         })
 

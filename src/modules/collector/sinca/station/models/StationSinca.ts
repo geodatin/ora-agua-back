@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 import { WaterQualitySinca } from '../../observation/models/WaterQualitySinca'
 
-@Entity('station_sinca')
+@Entity({ name: 'station_sinca', schema: process.env.SCHEMA })
 class StationSinca {
   @PrimaryColumn()
   code: string

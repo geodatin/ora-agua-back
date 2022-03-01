@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm'
 import { PrimaryColumn } from 'typeorm/decorator/columns/PrimaryColumn'
 
-@Entity('water_quality_ideam')
+@Entity({ name: 'water_quality_ideam', schema: process.env.SCHEMA })
 class WaterQualityIdeam {
   @PrimaryColumn({ name: 'station_code' })
   stationCode: number

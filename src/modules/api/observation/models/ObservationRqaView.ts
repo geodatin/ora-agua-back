@@ -29,6 +29,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
         `,
   name: 'observation_rqa_view',
   materialized: true,
+  schema: process.env.SCHEMA,
 })
 export class ObservationRqaView {
   @ViewColumn({ name: 'station_code' })

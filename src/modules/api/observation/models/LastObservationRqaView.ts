@@ -657,6 +657,7 @@ import { ViewColumn, ViewEntity } from 'typeorm'
     FROM station_view s `,
   materialized: true,
   name: 'last_observation_rqa_view',
+  schema: process.env.SCHEMA,
 })
 export class LastObservationRqaView {
   @ViewColumn()

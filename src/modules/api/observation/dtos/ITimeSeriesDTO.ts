@@ -2,7 +2,7 @@ interface ITimeSeriesDTO {
   x: String[]
   y?: Number[]
   rain?: Number[]
-  adoptedLevel?: Number[]
+  level?: Number[]
   flowRate?: Number[]
 }
 
