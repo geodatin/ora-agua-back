@@ -7,5 +7,5 @@ export interface ILastObservationViewRepository {
     filters: IFiltersDTO,
     frequency: FrequencyType,
     stationCode?: string
-  ): Promise<any>
+  ): Promise<any[]>
 }
