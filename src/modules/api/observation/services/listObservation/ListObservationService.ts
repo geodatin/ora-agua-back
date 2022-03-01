@@ -7,14 +7,15 @@ import {
   IListObservationResponseDTO,
 } from '../../dtos/IListObservationDTO'
 import { ILastObservationViewRepository } from '../../repositories/ILastObservationViewRepository'
+import { IObservationRqaViewRepository } from '../../repositories/IObservationRqaViewRepository'
 
 @injectable()
 export class ListObservationService {
   constructor(
     @inject('LastObservationRhaViewRepository')
     private lastObservationRhaViewRepository: ILastObservationViewRepository,
-    @inject('LastObservationRqaViewRepository')
-    private lastObservationRqaViewRepository: ILastObservationViewRepository
+    @inject('ObservationRqaViewRepository')
+    private observationRqaViewRepository: IObservationRqaViewRepository
   ) {}
 
   async execute({
@@ -25,17 +26,35 @@ export class ListObservationService {
     stationCode,
   }: IListObservationRequestDTO) {
     let repository: ILastObservationViewRepository
-    if (filters.network[0] === 'RQA') {
-      repository = this.lastObservationRqaViewRepository
-    } else {
-      repository = this.lastObservationRhaViewRepository
-    }
+    let response = []
+    if (filters.network.length > 0) {
+      if (filters.network[0] === 'RQA') {
+        repository = this.observationRqaViewRepository
+      } else {
+        repository = this.lastObservationRhaViewRepository
+      }
 
-    const response = await repository.getLastObservations(
-      filters,
-      frequency,
-      stationCode
-    )
+      response = await repository.getLastObservations(
+        filters,
+        frequency,
+        stationCode
+      )
+    } else {
+      const responseRha =
+        await this.lastObservationRhaViewRepository.getLastObservations(
+          filters,
+          frequency,
+          stationCode
+        )
+
+      const responseRqa =
+        await this.observationRqaViewRepository.getLastObservations(
+          filters,
+          frequency,
+          stationCode
+        )
+      response = responseRha.concat(responseRqa)
+    }
 
     response.forEach((observation: IListObservationResponseDTO) => {
       observation.observations = []
