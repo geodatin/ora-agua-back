@@ -6,14 +6,14 @@ import {
   IListObservationRequestDTO,
   IListObservationResponseDTO,
 } from '../../dtos/IListObservationDTO'
-import { ILastObservationViewRepository } from '../../repositories/ILastObservationViewRepository'
+import { IObservationRhaListViewRepository } from '../../repositories/IObservationRhaListViewRepository'
 import { IObservationRqaViewRepository } from '../../repositories/IObservationRqaViewRepository'
 
 @injectable()
 export class ListObservationService {
   constructor(
-    @inject('LastObservationRhaViewRepository')
-    private lastObservationRhaViewRepository: ILastObservationViewRepository,
+    @inject('ObservationRhaListViewRepository')
+    private observationRhaListViewRepository: IObservationRhaListViewRepository,
     @inject('ObservationRqaViewRepository')
     private observationRqaViewRepository: IObservationRqaViewRepository
   ) {}
@@ -25,30 +25,32 @@ export class ListObservationService {
     filters,
     stationCode,
   }: IListObservationRequestDTO) {
-    let repository: ILastObservationViewRepository
+    let repository:
+      | IObservationRhaListViewRepository
+      | IObservationRqaViewRepository
     let response = []
     if (filters.network.length > 0) {
       if (filters.network[0] === 'RQA') {
         repository = this.observationRqaViewRepository
       } else {
-        repository = this.lastObservationRhaViewRepository
+        repository = this.observationRhaListViewRepository
       }
 
-      response = await repository.getLastObservations(
+      response = await repository.listObservations(
         filters,
         frequency,
         stationCode
       )
     } else {
       const responseRha =
-        await this.lastObservationRhaViewRepository.getLastObservations(
+        await this.observationRhaListViewRepository.listObservations(
           filters,
           frequency,
           stationCode
         )
 
       const responseRqa =
-        await this.observationRqaViewRepository.getLastObservations(
+        await this.observationRqaViewRepository.listObservations(
           filters,
           frequency,
           stationCode

@@ -13,7 +13,7 @@ interface IObservationRqaViewRepository {
     stationCode: string,
     frequency: FrequencyType
   ): Promise<ITimeSeriesEntryDTO[]>
-  getLastObservations(
+  listObservations(
     filters: IFiltersDTO,
     frequency?: FrequencyType,
     stationCode?: string

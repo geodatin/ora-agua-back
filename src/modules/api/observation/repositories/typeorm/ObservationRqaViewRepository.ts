@@ -74,7 +74,7 @@ export class ObservationRqaViewRepository
     return timeSeries
   }
 
-  async getLastObservations(
+  async listObservations(
     filters: IFiltersDTO,
     frequency?: FrequencyType,
     stationCode?: string
