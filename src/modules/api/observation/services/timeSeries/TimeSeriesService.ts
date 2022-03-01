@@ -15,7 +15,6 @@ class TimeSeriesService {
   constructor(
     @inject('ObservationRhaViewRepository')
     private observationRhaViewRepository: IObservationRhaViewRepository,
-
     @inject('ObservationRqaViewRepository')
     private observationRqaViewRepository: IObservationRqaViewRepository
   ) {}
@@ -34,7 +33,6 @@ class TimeSeriesService {
           stationCode,
           frequency
         )
-        console.log(observations[0])
       } else {
         observations = await this.observationRqaViewRepository.timeSeriesRaw(
           stationCode,
