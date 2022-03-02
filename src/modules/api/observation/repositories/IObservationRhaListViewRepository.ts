@@ -2,10 +2,10 @@ import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
 
 import { FrequencyType } from '../types/FrequencyType'
 
-export interface ILastObservationViewRepository {
-  getLastObservations(
+export interface IObservationRhaListViewRepository {
+  listObservations(
     filters: IFiltersDTO,
     frequency: FrequencyType,
     stationCode?: string
-  ): Promise<any>
+  ): Promise<any[]>
 }

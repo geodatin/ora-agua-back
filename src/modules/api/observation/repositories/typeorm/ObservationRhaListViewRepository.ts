@@ -4,19 +4,19 @@ import { getRepository, Repository } from 'typeorm'
 
 import { applyFilters } from '@shared/database/utils/applyFilters'
 
-import { LastObservationRhaView } from '../../models/LastObservationRhaView'
+import { ObservationRhaListView } from '../../models/ObservationRhaListView'
 import { FrequencyType } from '../../types/FrequencyType'
-import { ILastObservationViewRepository } from '../ILastObservationViewRepository'
+import { IObservationRhaListViewRepository } from '../IObservationRhaListViewRepository'
 
-export class LastObservationRhaViewRepository
-  implements ILastObservationViewRepository
+export class ObservationRhaListViewRepository
+  implements IObservationRhaListViewRepository
 {
-  private repository: Repository<LastObservationRhaView>
+  private repository: Repository<ObservationRhaListView>
   constructor() {
-    this.repository = getRepository(LastObservationRhaView)
+    this.repository = getRepository(ObservationRhaListView)
   }
 
-  async getLastObservations(
+  async listObservations(
     filters: IFiltersDTO,
     frequency: FrequencyType,
     stationCode?: string
@@ -35,7 +35,7 @@ export class LastObservationRhaViewRepository
       .innerJoin(
         StationView,
         'station',
-        'station.code = observation.station_code'
+        `station.code = observation.station_code AND station.network = 'RHA'`
       )
       .andWhere('observation.frequency = :frequency', { frequency })
       .orderBy('observation.last_update', 'DESC')

@@ -15,7 +15,6 @@ class TimeSeriesService {
   constructor(
     @inject('ObservationRhaViewRepository')
     private observationRhaViewRepository: IObservationRhaViewRepository,
-
     @inject('ObservationRqaViewRepository')
     private observationRqaViewRepository: IObservationRqaViewRepository
   ) {}

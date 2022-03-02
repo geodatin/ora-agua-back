@@ -260,10 +260,10 @@ import { ViewColumn, ViewEntity } from 'typeorm'
   'year' AS frequency
   FROM station_view s`,
   materialized: true,
-  name: 'last_observation_rha_view',
+  name: 'observation_rha_list_view',
   schema: process.env.SCHEMA,
 })
-export class LastObservationRhaView {
+export class ObservationRhaListView {
   @ViewColumn()
   rain: number
 

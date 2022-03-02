@@ -1,4 +1,4 @@
-import { LastObservationRhaView } from '@modules/api/observation/models/LastObservationRhaView'
+import { ObservationRhaListView } from '@modules/api/observation/models/ObservationRhaListView'
 import { toSnakeCase } from '@utils/toSnakeCase'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
@@ -135,7 +135,7 @@ class StationViewRepository implements IStationViewRepository {
 
     query
       .leftJoin(
-        LastObservationRhaView,
+        ObservationRhaListView,
         'observation',
         `station.code = observation.station_code AND observation.frequency = 'week'`
       )
