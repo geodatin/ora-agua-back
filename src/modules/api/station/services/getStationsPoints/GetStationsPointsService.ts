@@ -29,7 +29,7 @@ class GetStationsPointsService {
         station.rain ||
         station.level ||
         station.flowRate ||
-        station.type === 'RQA'
+        station.network === 'RQA'
       ) {
         station.hasData = true
       } else {
