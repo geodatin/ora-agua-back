@@ -2,9 +2,11 @@ import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { GeochemistryHybam } from '../../models/GeochemistryHybam'
-import { IObservationHybamRepository } from '../IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '../IObservationHybamCollectorRepository'
 
-class GeochemistryHybamRepository implements IObservationHybamRepository {
+class GeochemistryHybamRepository
+  implements IObservationHybamCollectorRepository
+{
   private repository: Repository<GeochemistryHybam>
 
   constructor() {

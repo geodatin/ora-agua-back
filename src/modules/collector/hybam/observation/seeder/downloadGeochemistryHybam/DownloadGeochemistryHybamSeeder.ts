@@ -12,7 +12,7 @@ import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
-import { IObservationHybamRepository } from '../../repositories/IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '../../repositories/IObservationHybamCollectorRepository'
 
 const elementPropertyObj = {
   Ca: 'ca_mg_l',
@@ -68,7 +68,7 @@ const elementPropertyObj = {
 class DownloadGeochemistryHybamSeeder {
   constructor(
     @inject('GeochemistryHybamRepository')
-    private geochemistryHybamRepository: IObservationHybamRepository,
+    private geochemistryHybamRepository: IObservationHybamCollectorRepository,
 
     @inject('StationHybamRepository')
     private stationHybamRepository: IStationHybamRepository

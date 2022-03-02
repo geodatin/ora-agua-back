@@ -34,7 +34,6 @@ class TimeSeriesService {
           stationCode,
           frequency
         )
-        console.log(observations[0])
       } else {
         observations = await this.observationRqaViewRepository.timeSeriesRaw(
           stationCode,

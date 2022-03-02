@@ -6,16 +6,16 @@ import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
-import { IObservationHybamRepository } from '../../repositories/IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '../../repositories/IObservationHybamCollectorRepository'
 
 @injectable()
 class DownloadWaterLevelsHybamSeeder {
   constructor(
     @inject('DailyWaterLevelHybamRepository')
-    private dailyWaterLevelHybamRepository: IObservationHybamRepository,
+    private dailyWaterLevelHybamRepository: IObservationHybamCollectorRepository,
 
     @inject('MonthlyWaterLevelHybamRepository')
-    private monthlyWaterLevelHybamRepository: IObservationHybamRepository,
+    private monthlyWaterLevelHybamRepository: IObservationHybamCollectorRepository,
 
     @inject('StationHybamRepository')
     private stationHybamRepository: IStationHybamRepository

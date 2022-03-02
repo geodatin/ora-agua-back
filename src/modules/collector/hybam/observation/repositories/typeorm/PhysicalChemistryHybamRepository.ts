@@ -2,9 +2,11 @@ import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { PhysicalChemistryHybam } from '../../models/PhysicalChemistryHybam'
-import { IObservationHybamRepository } from '../IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '../IObservationHybamCollectorRepository'
 
-class PhysicalChemistryHybamRepository implements IObservationHybamRepository {
+class PhysicalChemistryHybamRepository
+  implements IObservationHybamCollectorRepository
+{
   private repository: Repository<PhysicalChemistryHybam>
 
   constructor() {

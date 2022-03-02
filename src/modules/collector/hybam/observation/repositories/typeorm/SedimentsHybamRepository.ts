@@ -2,9 +2,9 @@ import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { SedimentsHybam } from '../../models/SedimentsHybam'
-import { IObservationHybamRepository } from '../IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '../IObservationHybamCollectorRepository'
 
-class SedimentsHybamRepository implements IObservationHybamRepository {
+class SedimentsHybamRepository implements IObservationHybamCollectorRepository {
   private repository: Repository<SedimentsHybam>
 
   constructor() {

@@ -1,16 +1,16 @@
 import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
-import { DailyDischargeHybam } from '../../models/DailyDischargeHybam'
+import { ObservationHybam } from '../../models/ObservationHybam'
 import { IObservationHybamCollectorRepository } from '../IObservationHybamCollectorRepository'
 
-class DailyDischargeHybamRepository
+class ObservationHybamCollectorRepository
   implements IObservationHybamCollectorRepository
 {
-  private repository: Repository<DailyDischargeHybam>
+  private repository: Repository<ObservationHybam>
 
   constructor() {
-    this.repository = getRepository(DailyDischargeHybam)
+    this.repository = getRepository(ObservationHybam)
   }
 
   async getLastObservation(): Promise<{ code: string; date: Date }[]> {
@@ -24,16 +24,16 @@ class DailyDischargeHybamRepository
   }
 
   async insertFromCSV(filePath: string, header: string): Promise<void> {
-    await insertFromCsvPg(filePath, header, 'daily_discharge_hybam')
+    await insertFromCsvPg(filePath, header, 'observation_hybam')
   }
 
   async deleteAll(): Promise<void> {
     await getConnection()
       .createQueryBuilder()
       .delete()
-      .from(DailyDischargeHybam)
+      .from(ObservationHybam)
       .execute()
   }
 }
 
-export { DailyDischargeHybamRepository }
+export { ObservationHybamCollectorRepository }

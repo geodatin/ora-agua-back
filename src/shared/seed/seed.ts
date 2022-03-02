@@ -5,6 +5,7 @@ import insertObservationFromApiController from '@modules/collector/ana/observati
 import insertStationController from '@modules/collector/ana/station/seeders/insertStation/InsertStationController'
 import downloadDischargesHybamController from '@modules/collector/hybam/observation/seeder/downloadDischargesHybam/DownloadDischargesHybamController'
 import downloadGeochemistryHybamController from '@modules/collector/hybam/observation/seeder/downloadGeochemistryHybam/DownloadGeochemistryHybamController'
+import downloadObservationsHybamController from '@modules/collector/hybam/observation/seeder/downloadObservationsHybam/DownloadObservationsHybamController'
 import downloadPhysicalChemistryHybamController from '@modules/collector/hybam/observation/seeder/downloadPhysicalChemistryHybam/DownloadPhysicalChemistryHybamController'
 import downloadSedimentsHybamController from '@modules/collector/hybam/observation/seeder/downloadSedimentsHybam/DownloadSedimentsHybamController'
 import downloadWaterLevelsHybamController from '@modules/collector/hybam/observation/seeder/downloadWaterLevelsHybam/DownloadWaterLevelsHybamController'
@@ -113,7 +114,5 @@ createConnection().then(async (connection) => {
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW last_observation_rha_view')
 
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW last_update_view')
+  await downloadObservationsHybamController.start()
 })

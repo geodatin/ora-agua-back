@@ -15,12 +15,13 @@ import { ObservationRepository } from '@modules/collector/ana/observation/reposi
 import { WaterQualityObservationRepository } from '@modules/collector/ana/observation/repositories/typeorm/WaterQualityObservationRepository'
 import { IStationRepository } from '@modules/collector/ana/station/repositories/IStationRepository'
 import { StationRepository } from '@modules/collector/ana/station/repositories/typeorm/StationRepository'
-import { IObservationHybamRepository } from '@modules/collector/hybam/observation/repositories/IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '@modules/collector/hybam/observation/repositories/IObservationHybamCollectorRepository'
 import { DailyDischargeHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
 import { GeochemistryHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/GeochemistryHybamRepository'
 import { MonthlyDischargeHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/MonthlyDischargeHybamRepository'
 import { MonthlyWaterLevelHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/MonthlyWaterLevelHybamRepository'
+import { ObservationHybamCollectorRepository } from '@modules/collector/hybam/observation/repositories/typeorm/ObservationHybamCollectorRepository'
 import { PhysicalChemistryHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/PhysicalChemistryHybamRepository'
 import { SatelliteDerivedSedimentsHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/SatelliteDerivedSedimentsHybamRepository'
 import { SedimentsHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/SedimentsHybamRepository'
@@ -61,44 +62,49 @@ container.registerSingleton<IStationHybamRepository>(
   StationHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'DailyWaterLevelHybamRepository',
   DailyWaterLevelHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'MonthlyWaterLevelHybamRepository',
   MonthlyWaterLevelHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'DailyDischargeHybamRepository',
   DailyDischargeHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'MonthlyDischargeHybamRepository',
   MonthlyDischargeHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'SedimentsHybamRepository',
   SedimentsHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'SatelliteDerivedSedimentsHybamRepository',
   SatelliteDerivedSedimentsHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'PhysicalChemistryHybamRepository',
   PhysicalChemistryHybamRepository
 )
 
-container.registerSingleton<IObservationHybamRepository>(
+container.registerSingleton<IObservationHybamCollectorRepository>(
   'GeochemistryHybamRepository',
   GeochemistryHybamRepository
+)
+
+container.registerSingleton<IObservationHybamCollectorRepository>(
+  'ObservationHybamCollectorRepository',
+  ObservationHybamCollectorRepository
 )
 
 container.registerSingleton<IWaterQualityObservationRepository>(

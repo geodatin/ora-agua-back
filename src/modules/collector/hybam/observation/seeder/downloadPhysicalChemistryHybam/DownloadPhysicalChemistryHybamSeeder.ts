@@ -7,13 +7,13 @@ import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
-import { IObservationHybamRepository } from '../../repositories/IObservationHybamRepository'
+import { IObservationHybamCollectorRepository } from '../../repositories/IObservationHybamCollectorRepository'
 
 @injectable()
 class DownloadPhysicalChemistryHybamSeeder {
   constructor(
     @inject('PhysicalChemistryHybamRepository')
-    private physicalChemistryHybamRepository: IObservationHybamRepository,
+    private physicalChemistryHybamRepository: IObservationHybamCollectorRepository,
 
     @inject('StationHybamRepository')
     private stationHybamRepository: IStationHybamRepository
