@@ -25,7 +25,12 @@ class GetStationsPointsService {
         station.situation = 'normal'
       }
 
-      if (station.rain || station.level || station.flowRate) {
+      if (
+        station.rain ||
+        station.level ||
+        station.flowRate ||
+        station.type === 'RQA'
+      ) {
         station.hasData = true
       } else {
         station.hasData = false
