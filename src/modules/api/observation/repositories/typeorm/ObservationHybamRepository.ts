@@ -26,10 +26,10 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
       .addSelect(this.getColumnByDataType(dataType), 'y')
       .where('station_code = :code', { code: stationCode })
       .groupBy('x')
-      .orderBy('x', 'DESC')
+      .orderBy('x', 'ASC')
       .getRawMany()
 
-    return timeSeries.reverse()
+    return timeSeries
   }
 
   async timeSeriesRaw(stationCode: string): Promise<ITimeSeriesEntryDTO[]> {
