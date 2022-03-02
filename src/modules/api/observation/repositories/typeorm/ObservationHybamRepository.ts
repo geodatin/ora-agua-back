@@ -18,33 +18,21 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
 
   async timeSeries(
     stationCode: string,
-    frequency: FrequencyType,
     dataType: string
   ): Promise<ITimeSeriesEntryDTO[]> {
     const timeSeries = await this.repository
       .createQueryBuilder()
-      .select('date_trunc(:frequency, timestamp)', 'x')
+      .select('timestamp', 'x')
       .addSelect(this.getColumnByDataType(dataType), 'y')
       .where('station_code = :code', { code: stationCode })
       .groupBy('x')
       .orderBy('x', 'DESC')
-      .limit(200)
-      .setParameter('frequency', frequency)
       .getRawMany()
 
     return timeSeries.reverse()
   }
 
-  async timeSeriesRaw(
-    stationCode: string,
-    frequency: FrequencyType
-  ): Promise<ITimeSeriesEntryDTO[]> {
-    const { maxTimestamp } = await this.repository
-      .createQueryBuilder()
-      .select('MAX(timestamp)', 'maxTimestamp')
-      .where('station_code = :code', { code: stationCode })
-      .getRawOne()
-
+  async timeSeriesRaw(stationCode: string): Promise<ITimeSeriesEntryDTO[]> {
     const timeSeries = await this.repository
       .createQueryBuilder()
       .select('timestamp', 'x')
@@ -55,14 +43,6 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
       .addSelect('level', 'level')
       .addSelect('flow_rate', 'flowRate')
       .where('station_code = :code', { code: stationCode })
-      .andWhere(
-        `timestamp > :maxTimestamp::DATE - INTERVAL '${
-          frequency === 'quarter' ? '3 months' : '1 ' + frequency
-        }'`,
-        {
-          maxTimestamp,
-        }
-      )
       .orderBy('x', 'ASC')
       .getRawMany()
 
@@ -125,15 +105,12 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
 
   private getColumnByDataType(dataType: string): string {
     const columns = {
-      ph: 'AVG(ph)',
-      OD: 'AVG("OD")',
-      electricConductivity: 'AVG(electric_conductivity)',
-      turbidity: 'AVG(turbidity)',
-      sampleTemperature: 'AVG(sample_temperature)',
-      totalDissolvedSolid: 'AVG(total_dissolved_solid)',
-      totalNitrogen: 'AVG(total_nitrogen)',
-      totalOrtophosphate: 'AVG(total_ortophosphate)',
-      totalSuspensionSolid: 'AVG(total_suspension_solid)',
+      ph: 'ph',
+      electricConductivity: 'electric_conductivity',
+      sampleTemperature: 'sample_temperature',
+      totalOrtophosphate: 'total_ortophosphate',
+      flowRate: 'flow_rate',
+      level: 'level',
     }
     return columns[dataType]
   }
