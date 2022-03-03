@@ -25,7 +25,6 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
       .select('timestamp', 'x')
       .addSelect(this.getColumnByDataType(dataType), 'y')
       .where('station_code = :code', { code: stationCode })
-      .groupBy('x')
       .orderBy('x', 'ASC')
       .getRawMany()
 
