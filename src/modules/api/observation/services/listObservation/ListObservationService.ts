@@ -6,6 +6,7 @@ import {
   IListObservationRequestDTO,
   IListObservationResponseDTO,
 } from '../../dtos/IListObservationDTO'
+import { IObservationHybamRepository } from '../../repositories/IObservationHybamRepository'
 import { IObservationRhaListViewRepository } from '../../repositories/IObservationRhaListViewRepository'
 import { IObservationRqaViewRepository } from '../../repositories/IObservationRqaViewRepository'
 
@@ -15,7 +16,9 @@ export class ListObservationService {
     @inject('ObservationRhaListViewRepository')
     private observationRhaListViewRepository: IObservationRhaListViewRepository,
     @inject('ObservationRqaViewRepository')
-    private observationRqaViewRepository: IObservationRqaViewRepository
+    private observationRqaViewRepository: IObservationRqaViewRepository,
+    @inject('ObservationHybamRepository')
+    private observationHybamRepository: IObservationHybamRepository
   ) {}
 
   async execute({
@@ -28,12 +31,16 @@ export class ListObservationService {
     let repository:
       | IObservationRhaListViewRepository
       | IObservationRqaViewRepository
+      | IObservationHybamRepository
+
     let response = []
     if (filters.network.length > 0) {
       if (filters.network[0] === 'RQA') {
         repository = this.observationRqaViewRepository
-      } else {
+      } else if (filters.network[0] === 'RHA') {
         repository = this.observationRhaListViewRepository
+      } else if (filters.network[0] === 'HYBAM') {
+        repository = this.observationHybamRepository
       }
 
       response = await repository.listObservations(
@@ -55,14 +62,31 @@ export class ListObservationService {
           frequency,
           stationCode
         )
-      response = responseRha.concat(responseRqa)
+
+      const responseHybam =
+        await this.observationHybamRepository.listObservations(
+          filters,
+          frequency,
+          stationCode
+        )
+
+      response = responseRha
+        .concat(responseRqa)
+        .concat(responseHybam)
+        .sort(() => Math.random() - 0.5)
     }
+
+    const newObservations: IListObservationResponseDTO[] = []
 
     response.forEach((observation: IListObservationResponseDTO) => {
       observation.observations = []
       observation.id = createUuid()
+      let allNullValues = true
       for (const key in observation) {
         if (key.toString().includes('observations_')) {
+          if (observation[key]) {
+            allNullValues = false
+          }
           const newKey = key.split('_')[1]
           observation.observations.push({
             key: newKey,
@@ -71,15 +95,18 @@ export class ListObservationService {
           delete observation[key]
         }
       }
+      if (!allNullValues) {
+        newObservations.push(observation)
+      }
     })
 
     if (stationCode) {
-      return response[0]
+      return newObservations[0]
     }
     return {
-      values: paginate(response, page, pageSize),
-      pages: countPages(response, pageSize),
-      total: response.length,
+      values: paginate(newObservations, page, pageSize),
+      pages: countPages(newObservations, pageSize),
+      total: newObservations.length,
     }
   }
 }

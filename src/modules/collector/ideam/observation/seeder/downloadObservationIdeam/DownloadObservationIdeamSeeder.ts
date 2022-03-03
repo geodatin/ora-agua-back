@@ -31,6 +31,9 @@ class DownloadObservationIdeamSeeder {
         '..',
         '..',
         '..',
+        '..',
+        '..',
+        '..',
         'tmp',
         `observation_ideam.csv`
       )

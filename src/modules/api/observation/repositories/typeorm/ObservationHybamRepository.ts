@@ -58,7 +58,7 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
   ): Promise<any> {
     const query = this.repository
       .createQueryBuilder('observation')
-      .addSelect(
+      .select(
         'observation.electric_conductivity',
         'observations_electricConductivity'
       )

@@ -1,8 +1,10 @@
 import { ILastUpdateViewRepository } from '@modules/api/observation/repositories/ILastUpdateViewRepository'
+import { IObservationHybamRepository } from '@modules/api/observation/repositories/IObservationHybamRepository'
 import { IObservationRhaListViewRepository } from '@modules/api/observation/repositories/IObservationRhaListViewRepository'
 import { IObservationRhaViewRepository } from '@modules/api/observation/repositories/IObservationRhaViewRepository'
 import { IObservationRqaViewRepository } from '@modules/api/observation/repositories/IObservationRqaViewRepository'
 import { LastUpdateViewRepository } from '@modules/api/observation/repositories/typeorm/LastUpdateViewRepository'
+import { ObservationHybamRepository } from '@modules/api/observation/repositories/typeorm/ObservationHybamRepository'
 import { ObservationRhaListViewRepository } from '@modules/api/observation/repositories/typeorm/ObservationRhaListViewRepository'
 import { ObservationRhaViewRepository } from '@modules/api/observation/repositories/typeorm/ObservationRhaViewRepository'
 import { ObservationRqaViewRepository } from '@modules/api/observation/repositories/typeorm/ObservationRqaViewRepository'
@@ -179,4 +181,8 @@ container.registerSingleton<IObservationRhaListViewRepository>(
 container.registerSingleton<ILastUpdateViewRepository>(
   'LastUpdateViewRepository',
   LastUpdateViewRepository
+)
+container.registerSingleton<IObservationHybamRepository>(
+  'ObservationHybamRepository',
+  ObservationHybamRepository
 )

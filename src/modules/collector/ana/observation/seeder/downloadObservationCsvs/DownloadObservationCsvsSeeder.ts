@@ -1,4 +1,3 @@
-import { IDownloadOptionsDTO } from '@modules/api/observation/dtos/IDownloadOptionsDTO'
 import { formatDate } from '@utils/formatDate'
 import { formatNumber } from '@utils/formatNumber'
 import AdmZip from 'adm-zip'
@@ -12,6 +11,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { IStationRepository } from '../../../station/repositories/IStationRepository'
 import { IWaterQualityObservationRepository } from '../../repositories/IWaterQualityObservationRepository'
+import { IDownloadOptions } from './interfaces/IDownloadOptions'
 
 @injectable()
 class DownloadObservationCsvsSeeder {
@@ -43,7 +43,7 @@ class DownloadObservationCsvsSeeder {
   async downloadDocument(stationCode: number) {
     const baseUrl =
       'https://www.snirh.gov.br/hidroweb/rest/api/documento/convencionais'
-    const options: IDownloadOptionsDTO = {
+    const options: IDownloadOptions = {
       directory: path.resolve(
         __dirname,
         '..',
@@ -73,7 +73,7 @@ class DownloadObservationCsvsSeeder {
     }
   }
 
-  async unzipDocument(options: IDownloadOptionsDTO): Promise<void> {
+  async unzipDocument(options: IDownloadOptions): Promise<void> {
     const zip = new AdmZip(path.join(options.directory, options.filename))
     for (const entry of zip.getEntries()) {
       const extension = entry.name.substring(entry.name.length - 3)
@@ -112,7 +112,7 @@ class DownloadObservationCsvsSeeder {
     }
   }
 
-  async downloadFile(url: string, options: IDownloadOptionsDTO): Promise<void> {
+  async downloadFile(url: string, options: IDownloadOptions): Promise<void> {
     const writer = createWriteStream(
       path.join(options.directory, options.filename)
     )
