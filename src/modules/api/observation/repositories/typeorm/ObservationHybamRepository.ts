@@ -20,11 +20,13 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
     stationCode: string,
     dataType: string
   ): Promise<ITimeSeriesHybamEntryDTO[]> {
+    const column = this.getColumnByDataType(dataType)
     const timeSeries = await this.repository
       .createQueryBuilder()
       .select('timestamp', 'x')
-      .addSelect(this.getColumnByDataType(dataType), 'y')
+      .addSelect(column, 'y')
       .where('station_code = :code', { code: stationCode })
+      .andWhere(`${column} is not null`)
       .orderBy('x', 'ASC')
       .getRawMany()
 
