@@ -37,6 +37,7 @@ class DownloadObservationsHybamSeeder {
       '..',
       '..',
       '..',
+      '..',
       'tmp',
       `observation_hybam.csv`
     )
