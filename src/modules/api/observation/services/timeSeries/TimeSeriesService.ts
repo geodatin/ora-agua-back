@@ -1,11 +1,10 @@
-import json2csv from 'json2csv'
 import { inject, injectable } from 'tsyringe'
 
-import { ITimeSeriesDTO, ITimeSeriesEntryDTO } from '../../dtos/ITimeSeriesDTO'
-import {
-  ITimeSeriesRqaDTO,
-  ITimeSeriesRqaEntryDTO,
-} from '../../dtos/ITimeSeriesRqaDTO'
+import { ITimeSeriesDTO } from '../../dtos/ITimeSeriesDTO'
+import { ITimeSeriesRqaDTO } from '../../dtos/ITimeSeriesRqaDTO'
+import { NetworkTypeError } from '../../errors/NetworkTypeError'
+import { TimeSeriesMapper } from '../../mappers/TimeSeriesMapper'
+import { IObservationHybamRepository } from '../../repositories/IObservationHybamRepository'
 import { IObservationRhaViewRepository } from '../../repositories/IObservationRhaViewRepository'
 import { IObservationRqaViewRepository } from '../../repositories/IObservationRqaViewRepository'
 import { FrequencyType } from '../../types/FrequencyType'
@@ -16,7 +15,9 @@ class TimeSeriesService {
     @inject('ObservationRhaViewRepository')
     private observationRhaViewRepository: IObservationRhaViewRepository,
     @inject('ObservationRqaViewRepository')
-    private observationRqaViewRepository: IObservationRqaViewRepository
+    private observationRqaViewRepository: IObservationRqaViewRepository,
+    @inject('ObservationHybamRepository')
+    private observationHybamRepository: IObservationHybamRepository
   ) {}
 
   async execute(
@@ -33,11 +34,17 @@ class TimeSeriesService {
           stationCode,
           frequency
         )
-      } else {
+      } else if (network === 'rqa') {
         observations = await this.observationRqaViewRepository.timeSeriesRaw(
           stationCode,
           frequency
         )
+      } else if (network === 'hybam') {
+        observations = await this.observationHybamRepository.timeSeriesRaw(
+          stationCode
+        )
+      } else {
+        throw new NetworkTypeError()
       }
     } else {
       if (network === 'rha') {
@@ -46,109 +53,27 @@ class TimeSeriesService {
           frequency,
           dataType
         )
-      } else {
+      } else if (network === 'rqa') {
         observations = await this.observationRqaViewRepository.timeSeries(
           stationCode,
           frequency,
           dataType
         )
+      } else if (network === 'hybam') {
+        observations = await this.observationHybamRepository.timeSeries(
+          stationCode,
+          dataType
+        )
+      } else {
+        throw new NetworkTypeError()
       }
     }
 
     if (format === 'csv') {
-      const csvValues = observations.map((o) => {
-        if (dataType !== 'raw') {
-          return {
-            date: o.x,
-            value: o.y,
-          }
-        } else {
-          if (network === 'rha') {
-            return {
-              date: o.x,
-              rain: o.rain,
-              level: o.level,
-              flowRate: o.flowRate,
-            }
-          } else {
-            return {
-              date: o.x,
-              ph: o.ph,
-              OD: o.OD,
-              electricConductivity: o.electricConductivity,
-              turbidity: o.turbidity,
-              sampleTemperature: o.sampleTemperature,
-              totalDissolvedSolid: o.totalDissolvedSolid,
-              totalNitrogen: o.totalNitrogen,
-              totalOrtophosphate: o.totalOrtophosphate,
-              totalSuspensionSolid: o.totalSuspensionSolid,
-            }
-          }
-        }
-      })
-
-      return json2csv.parse(csvValues)
+      return TimeSeriesMapper.toCSV(observations, dataType, network)
     }
 
-    if (dataType === 'raw') {
-      if (network === 'rha') {
-        const response: ITimeSeriesDTO = {
-          x: [],
-          rain: [],
-          level: [],
-          flowRate: [],
-        }
-
-        observations.forEach((observation: ITimeSeriesEntryDTO) => {
-          response.x.push(observation.x.toISOString())
-          response.rain.push(observation.rain)
-          response.level.push(observation.level)
-          response.flowRate.push(observation.flowRate)
-        })
-
-        return response
-      } else {
-        const response: ITimeSeriesRqaDTO = {
-          x: [],
-          ph: [],
-          OD: [],
-          electricConductivity: [],
-          turbidity: [],
-          sampleTemperature: [],
-          totalDissolvedSolid: [],
-          totalNitrogen: [],
-          totalOrtophosphate: [],
-          totalSuspensionSolid: [],
-        }
-
-        observations.forEach((observation: ITimeSeriesRqaEntryDTO) => {
-          response.x.push(observation.x.toISOString())
-          response.ph.push(observation.ph)
-          response.OD.push(observation.OD)
-          response.electricConductivity.push(observation.electricConductivity)
-          response.turbidity.push(observation.turbidity)
-          response.sampleTemperature.push(observation.sampleTemperature)
-          response.totalDissolvedSolid.push(observation.totalDissolvedSolid)
-          response.totalNitrogen.push(observation.totalNitrogen)
-          response.totalOrtophosphate.push(observation.totalOrtophosphate)
-          response.totalSuspensionSolid.push(observation.totalSuspensionSolid)
-        })
-
-        return response
-      }
-    }
-
-    const response: ITimeSeriesDTO = {
-      x: [],
-      y: [],
-    }
-
-    observations.forEach((observation) => {
-      response.x.push(observation.x.toISOString())
-      response.y.push(observation.y)
-    })
-
-    return response
+    return TimeSeriesMapper.toDTO(observations, dataType, network)
   }
 }
 

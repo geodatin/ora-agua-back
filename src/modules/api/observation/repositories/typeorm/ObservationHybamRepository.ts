@@ -5,7 +5,7 @@ import { getRepository, Repository } from 'typeorm'
 
 import { applyFilters } from '@shared/database/utils/applyFilters'
 
-import { ITimeSeriesEntryDTO } from '../../dtos/ITimeSeriesDTO'
+import { ITimeSeriesHybamEntryDTO } from '../../dtos/ITimeSeriesHybamDTO'
 import { FrequencyType } from '../../types/FrequencyType'
 import { IObservationHybamRepository } from '../IObservationHybamRepository'
 
@@ -19,7 +19,7 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
   async timeSeries(
     stationCode: string,
     dataType: string
-  ): Promise<ITimeSeriesEntryDTO[]> {
+  ): Promise<ITimeSeriesHybamEntryDTO[]> {
     const timeSeries = await this.repository
       .createQueryBuilder()
       .select('timestamp', 'x')
@@ -32,7 +32,9 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
     return timeSeries
   }
 
-  async timeSeriesRaw(stationCode: string): Promise<ITimeSeriesEntryDTO[]> {
+  async timeSeriesRaw(
+    stationCode: string
+  ): Promise<ITimeSeriesHybamEntryDTO[]> {
     const timeSeries = await this.repository
       .createQueryBuilder()
       .select('timestamp', 'x')

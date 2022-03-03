@@ -577,11 +577,11 @@ Uma série temporal de observações (chuva, vazão ou nível) de uma determinad
 
   **Obrigatórios:**
 
-  network:[number] - Tipo da rede (rha ou rqa)
+  network:[number] - Tipo da rede (rha, rqa ou hybam)
 
   stationCode:[number] - Código da estação
 
-  dataType:[string] - Tipo de dado - para a rede hidrológica: rain, flowRate ou level; para a rede de qualidade: ph, OD, electricConductivity, turbidity, sampleTemperature, totalDissolvedSolid, totalNitrogen, totalOrtophosphate ou totalSuspensionSolid; para dados brutos: raw.
+  dataType:[string] - Tipo de dado - para a rede hidrológica: rain, flowRate ou level; para a rede de qualidade: ph, OD, electricConductivity, turbidity, sampleTemperature, totalDissolvedSolid, totalNitrogen, totalOrtophosphate ou totalSuspensionSolid; para a rede do hybam: flowRate, level, ph, electricConductivity, sampleTemperature ou totalOrtophosphate; para dados brutos: raw.
 
   frequency:[string] - Frequência dos dados (hour, day, week, month, quarter, year)
 

@@ -4,7 +4,7 @@ import { getRepository, Repository } from 'typeorm'
 
 import { applyFilters } from '@shared/database/utils/applyFilters'
 
-import { ITimeSeriesEntryDTO } from '../../dtos/ITimeSeriesDTO'
+import { ITimeSeriesRqaEntryDTO } from '../../dtos/ITimeSeriesRqaDTO'
 import { ObservationRqaView } from '../../models/ObservationRqaView'
 import { FrequencyType } from '../../types/FrequencyType'
 import { IObservationRqaViewRepository } from '../IObservationRqaViewRepository'
@@ -22,7 +22,7 @@ export class ObservationRqaViewRepository
     stationCode: string,
     frequency: FrequencyType,
     dataType: string
-  ): Promise<ITimeSeriesEntryDTO[]> {
+  ): Promise<ITimeSeriesRqaEntryDTO[]> {
     const timeSeries = await this.repository
       .createQueryBuilder()
       .select('date_trunc(:frequency, timestamp)', 'x')
@@ -40,7 +40,7 @@ export class ObservationRqaViewRepository
   async timeSeriesRaw(
     stationCode: string,
     frequency: FrequencyType
-  ): Promise<ITimeSeriesEntryDTO[]> {
+  ): Promise<ITimeSeriesRqaEntryDTO[]> {
     const { maxTimestamp } = await this.repository
       .createQueryBuilder()
       .select('MAX(timestamp)', 'maxTimestamp')

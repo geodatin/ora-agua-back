@@ -1,6 +1,6 @@
 import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
 
-import { ITimeSeriesEntryDTO } from '../dtos/ITimeSeriesDTO'
+import { ITimeSeriesRqaEntryDTO } from '../dtos/ITimeSeriesRqaDTO'
 import { FrequencyType } from '../types/FrequencyType'
 
 interface IObservationRqaViewRepository {
@@ -8,11 +8,11 @@ interface IObservationRqaViewRepository {
     stationCode: string,
     frequency: FrequencyType,
     dataType: string
-  ): Promise<ITimeSeriesEntryDTO[]>
+  ): Promise<ITimeSeriesRqaEntryDTO[]>
   timeSeriesRaw(
     stationCode: string,
     frequency: FrequencyType
-  ): Promise<ITimeSeriesEntryDTO[]>
+  ): Promise<ITimeSeriesRqaEntryDTO[]>
   listObservations(
     filters: IFiltersDTO,
     frequency?: FrequencyType,
