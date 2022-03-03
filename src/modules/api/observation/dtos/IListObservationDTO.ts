@@ -18,5 +18,5 @@ export interface IListObservationResponseDTO {
   location: Point
   responsible: string
   lastUpdate: string
-  observations?: { key: string; value: number }[]
+  observations?: { key: string; value: number; mode: string }[]
 }
