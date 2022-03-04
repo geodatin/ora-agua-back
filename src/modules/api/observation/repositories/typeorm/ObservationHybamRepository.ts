@@ -110,7 +110,7 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
     const columns = {
       ph: 'ph',
       electricConductivity: 'electric_conductivity',
-      sampleTemperature: 'sample_temperature',
+      sampleTemperature: 'temperature',
       totalOrtophosphate: 'total_ortophosphate',
       flowRate: 'flow_rate',
       level: 'level',
