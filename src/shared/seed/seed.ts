@@ -112,7 +112,7 @@ createConnection().then(async (connection) => {
 
   await connection
     .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW last_observation_rha_view')
+    .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
 
   await downloadObservationsHybamController.start()
 })
