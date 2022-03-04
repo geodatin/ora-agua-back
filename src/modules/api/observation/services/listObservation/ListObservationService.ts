@@ -49,26 +49,32 @@ export class ListObservationService {
         stationCode
       )
     } else {
-      const responseRha =
-        await this.observationRhaListViewRepository.listObservations(
+      const responseRhaPromise =
+        this.observationRhaListViewRepository.listObservations(
           filters,
           frequency,
           stationCode
         )
 
-      const responseRqa =
-        await this.observationRqaViewRepository.listObservations(
+      const responseRqaPromise =
+        this.observationRqaViewRepository.listObservations(
           filters,
           frequency,
           stationCode
         )
 
-      const responseHybam =
-        await this.observationHybamRepository.listObservations(
+      const responseHybamPromise =
+        this.observationHybamRepository.listObservations(
           filters,
           frequency,
           stationCode
         )
+
+      const [responseRha, responseRqa, responseHybam] = await Promise.all([
+        responseRhaPromise,
+        responseRqaPromise,
+        responseHybamPromise,
+      ])
 
       response = responseRha
         .concat(responseRqa)
@@ -88,10 +94,28 @@ export class ListObservationService {
             allNullValues = false
           }
           const newKey = key.split('_')[1]
-          observation.observations.push({
-            key: newKey,
-            value: observation[key],
-          })
+          if (filters.network[0] === 'RHA' && frequency !== 'last') {
+            if (newKey === 'rain') {
+              observation.observations.push({
+                key: newKey,
+                value: observation[key],
+                mode: 'sum',
+              })
+            } else {
+              observation.observations.push({
+                key: newKey,
+                value: observation[key],
+                mode: 'avg',
+              })
+            }
+          } else {
+            observation.observations.push({
+              key: newKey,
+              value: observation[key],
+              mode: 'last',
+            })
+          }
+
           delete observation[key]
         }
       }

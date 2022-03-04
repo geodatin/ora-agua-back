@@ -6,6 +6,7 @@ enum FrequencyType {
   QUARTER = 'quarter',
   // SEMESTER = 'semester',
   YEAR = 'year',
+  LAST = 'last',
 }
 
 export { FrequencyType }
