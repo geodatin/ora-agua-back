@@ -24,10 +24,10 @@ import { createConnection } from 'typeorm'
 
 const hoursInterval = 4
 
-/* env.config()
+env.config()
 log(`Running seeders every ${hoursInterval} hours`)
 const task = cron.schedule(
-  `0 *\/${hoursInterval} * * *`,
+  `0 */${hoursInterval} * * *`,
   async () => {
     const connection = await createConnection()
     // await insertStationController.start()
@@ -37,19 +37,20 @@ const task = cron.schedule(
     await insertObservationSenhamiController.start()
     // await insertObservationSenhamiPeController.start()
 
-    await insertStationsSincaController.start()
+    // await insertStationsSincaController.start()
     await downloadWaterQualitySincaController.start()
 
-    await insertStationsIdeamController.start()
+    // await insertStationsIdeamController.start()
     await downloadObservationIdeamController.start()
     await downloadWaterQualityIdeamController.start()
+    await downloadObservationsHybamController.start()
 
-    await insertStationsHybamController.start()
-    await downloadWaterLevelsHybamController.start()
-    await downloadDischargesHybamController.start()
-    await downloadSedimentsHybamController.start()
-    await downloadPhysicalChemistryHybamController.start()
-    await downloadGeochemistryHybamController.start()
+    // await insertStationsHybamController.start()
+    // await downloadWaterLevelsHybamController.start()
+    // await downloadDischargesHybamController.start()
+    // await downloadSedimentsHybamController.start()
+    // await downloadPhysicalChemistryHybamController.start()
+    // await downloadGeochemistryHybamController.start()
 
     await connection
       .createQueryRunner()
@@ -78,9 +79,9 @@ const task = cron.schedule(
     timezone: 'America/Sao_Paulo',
   }
 )
-task.start() */
+task.start()
 
-createConnection().then(async (connection) => {
+/* createConnection().then(async (connection) => {
   // await insertStationController.start()
   // await downloadObservationCsvsController.start()
 
@@ -114,5 +115,5 @@ createConnection().then(async (connection) => {
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
 
-  await downloadObservationsHybamController.start()
-})
+  // await downloadObservationsHybamController.start()
+}) */
