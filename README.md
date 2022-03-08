@@ -1018,7 +1018,7 @@ Método que retorna o shape das estações projetadas.
 
 - **Exemplo:**
 
-  /api/station/location
+  /api/station/projected/location
 
 - **Resposta:**
 
