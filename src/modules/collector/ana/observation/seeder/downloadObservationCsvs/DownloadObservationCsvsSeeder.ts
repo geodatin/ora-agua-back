@@ -166,6 +166,7 @@ class DownloadObservationCsvsSeeder {
           await this.waterQualityObservationRepository.createMany(
             observationArray
           )
+          unlinkSync(path.join(directory, file))
         })
     }
   }
