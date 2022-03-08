@@ -1,6 +1,6 @@
 import { ObservationRhaListView } from '@modules/api/observation/models/ObservationRhaListView'
 import { toSnakeCase } from '@utils/toSnakeCase'
-import { getConnection, getRepository, Repository } from 'typeorm'
+import { getConnection, getManager, getRepository, Repository } from 'typeorm'
 
 import { applyFilters } from '@shared/database/utils/applyFilters'
 
@@ -205,6 +205,13 @@ class StationViewRepository implements IStationViewRepository {
       .getRawMany()
 
     return stationsCountByVariableAndNetwork
+  }
+
+  async getProjectedStations(): Promise<any> {
+    const stations = await getManager().query(
+      `select nome as name, ST_AsGeoJSON(geom)::json as location, territorio as country, origem as responsible, 'RHA' as network from pontos_de_interesse where tem_est = 0`
+    )
+    return stations
   }
 }
 
