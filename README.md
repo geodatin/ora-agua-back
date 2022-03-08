@@ -990,3 +990,85 @@ Método que retorna as notificações da situação de cada estação.
       message: "Internal Server Error";
     }
     ```
+
+## **Shape das estações**
+
+Método que retorna o shape das estações projetadas.
+
+- **URL:**
+
+  /api/station/projected/location
+
+- **Método:**
+
+  `GET`
+
+- **Parâmetros na URL:**
+
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
+
+  Nenhum
+
+- **Parâmetros do Body:**
+
+  Nenhum
+
+- **Exemplo:**
+
+  /api/station/location
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+
+    ```javascript
+        {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -65.504917769,
+              -10.604771325
+            ]
+          },
+          "properties": {
+            "name": null,
+            "country": "Bolivia",
+            "responsible": null,
+            "network": "RHA"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -69.233376551,
+              -12.510808748
+            ]
+          },
+          "properties": {
+            "name": null,
+            "country": "Peru",
+            "responsible": null,
+            "network": "RHA"
+          }
+        },...
+        ]
+        }
+    ```
+
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
