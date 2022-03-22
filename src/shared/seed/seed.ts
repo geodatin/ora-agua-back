@@ -79,9 +79,9 @@ const task = cron.schedule(
     timezone: 'America/Sao_Paulo',
   }
 )
-// task.start()
+task.start()
 
-createConnection().then(async (connection) => {
+/* createConnection().then(async (connection) => {
   await insertObservationFromApiController.start()
   await insertObservationSenhamiController.start()
   await insertObservationSenhamiPeController.start()
@@ -120,4 +120,4 @@ createConnection().then(async (connection) => {
   await connection
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
-})
+}) */
