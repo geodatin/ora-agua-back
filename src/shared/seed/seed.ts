@@ -35,7 +35,7 @@ const task = cron.schedule(
 
     await insertObservationFromApiController.start()
     await insertObservationSenhamiController.start()
-    // await insertObservationSenhamiPeController.start()
+    await insertObservationSenhamiPeController.start()
 
     // await insertStationsSincaController.start()
     await downloadWaterQualitySincaController.start()
@@ -62,7 +62,7 @@ const task = cron.schedule(
 
     await connection
       .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW last_observation_rha_view')
+      .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
 
     await connection
       .createQueryRunner()
@@ -79,22 +79,20 @@ const task = cron.schedule(
     timezone: 'America/Sao_Paulo',
   }
 )
-task.start()
+// task.start()
 
-/* createConnection().then(async (connection) => {
-  // await insertStationController.start()
-  // await downloadObservationCsvsController.start()
-
+createConnection().then(async (connection) => {
   await insertObservationFromApiController.start()
   await insertObservationSenhamiController.start()
   await insertObservationSenhamiPeController.start()
 
   // await insertStationsSincaController.start()
-  // await downloadWaterQualitySincaController.start()
+  await downloadWaterQualitySincaController.start()
 
   // await insertStationsIdeamController.start()
-  // await downloadObservationIdeamController.start()
-  // await downloadWaterQualityIdeamController.start()
+  await downloadObservationIdeamController.start()
+  await downloadWaterQualityIdeamController.start()
+  await downloadObservationsHybamController.start()
 
   // await insertStationsHybamController.start()
   // await downloadWaterLevelsHybamController.start()
@@ -115,5 +113,11 @@ task.start()
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
 
-  // await downloadObservationsHybamController.start()
-}) */
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW last_update_view')
+
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
+})
