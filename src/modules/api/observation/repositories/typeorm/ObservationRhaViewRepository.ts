@@ -1,4 +1,5 @@
-import { getRepository, Repository } from 'typeorm'
+import { toSnakeCase } from '@utils/toSnakeCase'
+import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { ITimeSeriesEntryDTO } from '../../dtos/ITimeSeriesDTO'
 import { ObservationRhaView } from '../../models/ObservationRhaView'
@@ -60,6 +61,44 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
       .getRawMany()
 
     return timeSeries
+  }
+
+  async getLimits(stationCode: string, dataType: string) {
+    const { superiorLimit } = await getConnection()
+      .createQueryBuilder()
+      .select(`MIN(value)`, 'superiorLimit')
+      .from((qb) => {
+        return qb
+          .select(`${toSnakeCase(dataType)}`, 'value')
+          .addSelect(
+            `PERCENT_RANK() OVER (ORDER BY ${toSnakeCase(dataType)})`,
+            'percentage'
+          )
+          .where(`${toSnakeCase(dataType)} IS NOT NULL`)
+          .from(ObservationRhaView, 'observation')
+          .andWhere('station_code = :stationCode', { stationCode })
+      }, 't1')
+      .where('percentage > 0.9')
+      .getRawOne()
+
+    const { inferiorLimit } = await getConnection()
+      .createQueryBuilder()
+      .select(`MAX(value)`, 'inferiorLimit')
+      .from((qb) => {
+        return qb
+          .select(`${toSnakeCase(dataType)}`, 'value')
+          .addSelect(
+            `PERCENT_RANK() OVER (ORDER BY ${toSnakeCase(dataType)})`,
+            'percentage'
+          )
+          .from(ObservationRhaView, 'observation')
+          .where(`${toSnakeCase(dataType)} IS NOT NULL`)
+          .andWhere('station_code = :stationCode', { stationCode })
+      }, 't1')
+      .where('percentage < 0.1')
+      .getRawOne()
+
+    return { superiorLimit, inferiorLimit }
   }
 
   private getColumnByDataType(dataType: string): string {
