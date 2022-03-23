@@ -4,6 +4,14 @@ interface ITimeSeriesDTO {
   rain?: Number[]
   level?: Number[]
   flowRate?: Number[]
+  limits?:
+    | { superiorLimit: number; inferiorLimit: number }
+    | {
+        rainSuperiorLimit: number
+        rainInferiorLimit: number
+        flowRateSuperiorLimit: number
+        flowRateInferiorLimit: number
+      }
 }
 
 interface ITimeSeriesEntryDTO {
