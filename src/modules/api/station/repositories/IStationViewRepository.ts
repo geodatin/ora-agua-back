@@ -34,7 +34,8 @@ interface IStationViewRepository {
 
   countStationsByVariable(filters: IFiltersDTO): Promise<IVariablesCountDTO[]>
 
-  getProjectedStations(): Promise<any>
+  getProjectedRhaStations(): Promise<any>
+  getProjectedRqaStations(): Promise<any>
 }
 
 export { IStationViewRepository }
