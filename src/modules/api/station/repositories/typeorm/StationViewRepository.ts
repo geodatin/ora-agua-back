@@ -207,14 +207,19 @@ class StationViewRepository implements IStationViewRepository {
     return stationsCountByVariableAndNetwork
   }
 
-  async getProjectedStations(): Promise<any> {
+  async getProjectedRhaStations(): Promise<any> {
     const stationsRha = await getManager().query(
       `select nome as name, ST_AsGeoJSON(geom)::json as location, territorio as country, origem as responsible, 'RHA' as network from pontos_de_interesse where tem_est = 0`
     )
+
+    return stationsRha
+  }
+
+  async getProjectedRqaStations(): Promise<any> {
     const stationsRqa = await getManager().query(
       `select nombresiti as name, ST_AsGeoJSON(geom)::json as location, pais as country, null as responsible, 'RQA' as network from rrmca_general where tipositio = 'Referencia' or tipositio = 'Referencia_extra'`
     )
-    return stationsRha.concat(stationsRqa)
+    return stationsRqa
   }
 }
 
