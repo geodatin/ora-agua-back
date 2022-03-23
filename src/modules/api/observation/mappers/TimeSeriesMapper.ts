@@ -18,7 +18,15 @@ export class TimeSeriesMapper {
       | ITimeSeriesRqaEntryDTO[]
       | ITimeSeriesHybamEntryDTO[],
     dataType: string,
-    network: string
+    network: string,
+    limits?:
+      | { superiorLimit: number; inferiorLimit: number }
+      | {
+          rainSuperiorLimit: number
+          rainInferiorLimit: number
+          flowRateSuperiorLimit: number
+          flowRateInferiorLimit: number
+        }
   ): ITimeSeriesDTO | ITimeSeriesRqaDTO | ITimeSeriesHybamDTO {
     if (dataType === 'raw') {
       if (network === 'rha') {
@@ -35,6 +43,8 @@ export class TimeSeriesMapper {
           response.level.push(entry.level)
           response.flowRate.push(entry.flowRate)
         })
+
+        response.limits = limits
 
         return response
       } else if (network === 'rqa') {
@@ -101,6 +111,10 @@ export class TimeSeriesMapper {
       response.x.push(entry.x.toISOString())
       response.y.push(entry.y)
     })
+
+    if (dataType !== 'rain') {
+      response.limits = limits
+    }
 
     return response
   }
