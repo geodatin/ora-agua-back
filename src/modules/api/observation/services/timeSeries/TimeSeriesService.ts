@@ -28,8 +28,29 @@ class TimeSeriesService {
     format?: string
   ): Promise<ITimeSeriesDTO | ITimeSeriesRqaDTO | string> {
     let observations = null
+    let limits = null
     if (dataType === 'raw') {
       if (network === 'rha') {
+        const {
+          superiorLimit: rainSuperiorLimit,
+          inferiorLimit: rainInferiorLimit,
+        } = await this.observationRhaViewRepository.getLimits(
+          stationCode,
+          'level'
+        )
+        const {
+          superiorLimit: flowRateSuperiorLimit,
+          inferiorLimit: flowRateInferiorLimit,
+        } = await this.observationRhaViewRepository.getLimits(
+          stationCode,
+          'flowRate'
+        )
+        limits = {
+          rainSuperiorLimit,
+          rainInferiorLimit,
+          flowRateSuperiorLimit,
+          flowRateInferiorLimit,
+        }
         observations = await this.observationRhaViewRepository.timeSeriesRaw(
           stationCode,
           frequency
@@ -48,6 +69,15 @@ class TimeSeriesService {
       }
     } else {
       if (network === 'rha') {
+        const { superiorLimit, inferiorLimit } =
+          await this.observationRhaViewRepository.getLimits(
+            stationCode,
+            dataType
+          )
+        limits = {
+          superiorLimit,
+          inferiorLimit,
+        }
         observations = await this.observationRhaViewRepository.timeSeries(
           stationCode,
           frequency,
@@ -73,7 +103,7 @@ class TimeSeriesService {
       return TimeSeriesMapper.toCSV(observations, dataType, network)
     }
 
-    return TimeSeriesMapper.toDTO(observations, dataType, network)
+    return TimeSeriesMapper.toDTO(observations, dataType, network, limits)
   }
 }
 
