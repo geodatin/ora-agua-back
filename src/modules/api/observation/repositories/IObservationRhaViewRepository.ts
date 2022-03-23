@@ -11,6 +11,7 @@ interface IObservationRhaViewRepository {
     stationCode: string,
     frequency: FrequencyType
   ): Promise<ITimeSeriesEntryDTO[]>
+  getLimits(stationCode: string, dataType: string): Promise<any>
 }
 
 export { IObservationRhaViewRepository }
