@@ -23,6 +23,7 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
       .select('date_trunc(:frequency, timestamp)', 'x')
       .addSelect(this.getColumnByDataType(dataType), 'y')
       .where('station_code = :code', { code: stationCode })
+      .andWhere(`${toSnakeCase(dataType)} != 0`)
       .groupBy('x')
       .orderBy('x', 'DESC')
       .limit(200)
@@ -75,6 +76,7 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
             'percentage'
           )
           .where(`${toSnakeCase(dataType)} IS NOT NULL`)
+          .andWhere(`${toSnakeCase(dataType)} != 0`)
           .from(ObservationRhaView, 'observation')
           .andWhere('station_code = :stationCode', { stationCode })
       }, 't1')
@@ -93,6 +95,7 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
           )
           .from(ObservationRhaView, 'observation')
           .where(`${toSnakeCase(dataType)} IS NOT NULL`)
+          .andWhere(`${toSnakeCase(dataType)} != 0`)
           .andWhere('station_code = :stationCode', { stationCode })
       }, 't1')
       .where('percentage < 0.1')
