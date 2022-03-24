@@ -14,4 +14,5 @@ export interface IObservationHybamRepository {
     frequency?: FrequencyType,
     stationCode?: string
   ): Promise<any[]>
+  getLimits(stationCode: string, dataType: string): Promise<any>
 }
