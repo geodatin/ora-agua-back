@@ -65,6 +65,30 @@ class TimeSeriesService {
           frequency
         )
       } else if (network === 'hybam') {
+        const {
+          superiorLimit: levelSuperiorLimit,
+          inferiorLimit: levelInferiorLimit,
+        } = await this.observationHybamRepository.getLimits(
+          stationCode,
+          'level'
+        )
+        const {
+          superiorLimit: flowRateSuperiorLimit,
+          inferiorLimit: flowRateInferiorLimit,
+        } = await this.observationHybamRepository.getLimits(
+          stationCode,
+          'flowRate'
+        )
+        limits = {
+          level: {
+            superiorLimit: levelSuperiorLimit,
+            inferiorLimit: levelInferiorLimit,
+          },
+          flowRate: {
+            superiorLimit: flowRateSuperiorLimit,
+            inferiorLimit: flowRateInferiorLimit,
+          },
+        }
         observations = await this.observationHybamRepository.timeSeriesRaw(
           stationCode
         )
@@ -95,6 +119,13 @@ class TimeSeriesService {
           dataType
         )
       } else if (network === 'hybam') {
+        const { superiorLimit, inferiorLimit } =
+          await this.observationHybamRepository.getLimits(stationCode, dataType)
+        limits = {}
+        limits[dataType] = {
+          superiorLimit,
+          inferiorLimit,
+        }
         observations = await this.observationHybamRepository.timeSeries(
           stationCode,
           dataType
