@@ -20,9 +20,20 @@ export class TimeSeriesMapper {
     dataType: string,
     network: string,
     limits?:
-      | { superiorLimit: number; inferiorLimit: number }
       | {
-          rain: {
+          level: {
+            superiorLimit: number
+            inferiorLimit: number
+          }
+        }
+      | {
+          flowRate: {
+            superiorLimit: number
+            inferiorLimit: number
+          }
+        }
+      | {
+          level: {
             superiorLimit: number
             inferiorLimit: number
           }
