@@ -32,8 +32,8 @@ class TimeSeriesService {
     if (dataType === 'raw') {
       if (network === 'rha') {
         const {
-          superiorLimit: rainSuperiorLimit,
-          inferiorLimit: rainInferiorLimit,
+          superiorLimit: levelSuperiorLimit,
+          inferiorLimit: levelInferiorLimit,
         } = await this.observationRhaViewRepository.getLimits(
           stationCode,
           'level'
@@ -46,9 +46,9 @@ class TimeSeriesService {
           'flowRate'
         )
         limits = {
-          rain: {
-            superiorLimit: rainSuperiorLimit,
-            inferiorLimit: rainInferiorLimit,
+          level: {
+            superiorLimit: levelSuperiorLimit,
+            inferiorLimit: levelInferiorLimit,
           },
           flowRate: {
             superiorLimit: flowRateSuperiorLimit,
@@ -78,7 +78,8 @@ class TimeSeriesService {
             stationCode,
             dataType
           )
-        limits = {
+        limits = {}
+        limits[dataType] = {
           superiorLimit,
           inferiorLimit,
         }
