@@ -46,10 +46,14 @@ class TimeSeriesService {
           'flowRate'
         )
         limits = {
-          rainSuperiorLimit,
-          rainInferiorLimit,
-          flowRateSuperiorLimit,
-          flowRateInferiorLimit,
+          rain: {
+            superiorLimit: rainSuperiorLimit,
+            inferiorLimit: rainInferiorLimit,
+          },
+          flowRate: {
+            superiorLimit: flowRateSuperiorLimit,
+            inferiorLimit: flowRateInferiorLimit,
+          },
         }
         observations = await this.observationRhaViewRepository.timeSeriesRaw(
           stationCode,
