@@ -1,7 +1,8 @@
 import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
 import { StationView } from '@modules/api/station/models/StationView'
 import { ObservationHybam } from '@modules/collector/hybam/observation/models/ObservationHybam'
-import { getRepository, Repository } from 'typeorm'
+import { toSnakeCase } from '@utils/toSnakeCase'
+import { getConnection, getRepository, Repository } from 'typeorm'
 
 import { applyFilters } from '@shared/database/utils/applyFilters'
 
@@ -104,6 +105,46 @@ export class ObservationHybamRepository implements IObservationHybamRepository {
       .addOrderBy('observation.ph', 'DESC', 'NULLS LAST')
 
     return await query.getRawMany()
+  }
+
+  async getLimits(stationCode: string, dataType: string) {
+    const { superiorLimit } = await getConnection()
+      .createQueryBuilder()
+      .select(`MIN(value)`, 'superiorLimit')
+      .from((qb) => {
+        return qb
+          .select(`${toSnakeCase(dataType)}`, 'value')
+          .addSelect(
+            `PERCENT_RANK() OVER (ORDER BY ${toSnakeCase(dataType)})`,
+            'percentage'
+          )
+          .where(`${toSnakeCase(dataType)} IS NOT NULL`)
+          .andWhere(`${toSnakeCase(dataType)} != 0`)
+          .from(ObservationHybam, 'observation')
+          .andWhere('station_code = :stationCode', { stationCode })
+      }, 't1')
+      .where('percentage > 0.9')
+      .getRawOne()
+
+    const { inferiorLimit } = await getConnection()
+      .createQueryBuilder()
+      .select(`MAX(value)`, 'inferiorLimit')
+      .from((qb) => {
+        return qb
+          .select(`${toSnakeCase(dataType)}`, 'value')
+          .addSelect(
+            `PERCENT_RANK() OVER (ORDER BY ${toSnakeCase(dataType)})`,
+            'percentage'
+          )
+          .from(ObservationHybam, 'observation')
+          .where(`${toSnakeCase(dataType)} IS NOT NULL`)
+          .andWhere(`${toSnakeCase(dataType)} != 0`)
+          .andWhere('station_code = :stationCode', { stationCode })
+      }, 't1')
+      .where('percentage < 0.1')
+      .getRawOne()
+
+    return { superiorLimit, inferiorLimit }
   }
 
   private getColumnByDataType(dataType: string): string {
