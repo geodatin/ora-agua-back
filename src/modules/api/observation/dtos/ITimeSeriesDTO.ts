@@ -7,10 +7,14 @@ interface ITimeSeriesDTO {
   limits?:
     | { superiorLimit: number; inferiorLimit: number }
     | {
-        rainSuperiorLimit: number
-        rainInferiorLimit: number
-        flowRateSuperiorLimit: number
-        flowRateInferiorLimit: number
+        rain: {
+          superiorLimit: number
+          inferiorLimit: number
+        }
+        flowRate: {
+          superiorLimit: number
+          inferiorLimit: number
+        }
       }
 }
 
