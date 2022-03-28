@@ -34,7 +34,7 @@ const task = cron.schedule(
     // await downloadObservationCsvsController.start()
 
     await insertObservationFromApiController.start()
-    await insertObservationSenhamiController.start()
+    // await insertObservationSenhamiController.start()
     await insertObservationSenhamiPeController.start()
 
     // await insertStationsSincaController.start()
@@ -81,9 +81,9 @@ const task = cron.schedule(
 )
 task.start()
 
-/* createConnection().then(async (connection) => {
+createConnection().then(async (connection) => {
   await insertObservationFromApiController.start()
-  await insertObservationSenhamiController.start()
+  // await insertObservationSenhamiController.start()
   await insertObservationSenhamiPeController.start()
 
   // await insertStationsSincaController.start()
@@ -120,4 +120,5 @@ task.start()
   await connection
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
-}) */
+  connection.close()
+})
