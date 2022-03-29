@@ -119,13 +119,19 @@ class TimeSeriesService {
           dataType
         )
       } else if (network === 'hybam') {
-        const { superiorLimit, inferiorLimit } =
-          await this.observationHybamRepository.getLimits(stationCode, dataType)
-        limits = {}
-        limits[dataType] = {
-          superiorLimit,
-          inferiorLimit,
+        if (dataType === 'flowRate' || dataType === 'level') {
+          const { superiorLimit, inferiorLimit } =
+            await this.observationHybamRepository.getLimits(
+              stationCode,
+              dataType
+            )
+          limits = {}
+          limits[dataType] = {
+            superiorLimit,
+            inferiorLimit,
+          }
         }
+
         observations = await this.observationHybamRepository.timeSeries(
           stationCode,
           dataType
