@@ -3,9 +3,9 @@ import { IFiltersDTO } from './IFiltersDTO'
 export interface IGetNotificationsRequestDTO {
   filters: IFiltersDTO
   limits: {
-    rainLimits: number[]
-    levelLimits: number[]
-    flowRateLimits: number[]
+    rainLimits: { attentionLimit: number; alertLimit: number }
+    levelLimits: { attentionLimit: number; alertLimit: number }
+    flowRateLimits: { attentionLimit: number; alertLimit: number }
   }
   network?: string
   page?: number
