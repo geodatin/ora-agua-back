@@ -118,6 +118,7 @@ class StationViewRepository implements IStationViewRepository {
   async getStations({
     filters,
     network,
+    isNotification,
   }: IGetStationsRequestDTO): Promise<IGetStationsResponseDTO[]> {
     let query = this.repository
       .createQueryBuilder('station')
@@ -140,32 +141,37 @@ class StationViewRepository implements IStationViewRepository {
         'observation',
         `station.code = observation.station_code AND observation.frequency = 'week' AND station.network = 'RHA'`
       )
-      .innerJoin(
-        StationLimitView,
-        'limit',
-        'limit.station_code = observation.station_code'
-      )
+
       .addSelect('observation.rain', 'rain')
       .addSelect('observation.flow_rate', 'flowRate')
       .addSelect('observation.level', 'level')
       .addSelect('observation.last_update', 'lastUpdate')
-      .addSelect(
-        `json_build_object(
+
+    if (isNotification) {
+      query
+        .innerJoin(
+          StationLimitView,
+          'limit',
+          'limit.station_code = observation.station_code'
+        )
+        .addSelect(
+          `json_build_object(
           'alertLimit', limit.level_inferior_limit, 
           'attentionLimit', limit.level_superior_limit
           )`,
-        'levelLimits'
-      )
-      .addSelect(
-        `json_build_object(
+          'levelLimits'
+        )
+        .addSelect(
+          `json_build_object(
           'alertLimit', limit.flow_rate_inferior_limit, 
           'attentionLimit', limit.flow_rate_superior_limit
           )`,
-        'flowRateLimits'
-      )
-      .andWhere('observation.rain IS NOT NULL')
-      .andWhere('observation.flow_rate IS NOT NULL')
-      .andWhere('observation.level IS NOT NULL')
+          'flowRateLimits'
+        )
+        .andWhere('observation.rain IS NOT NULL')
+        .andWhere('observation.flow_rate IS NOT NULL')
+        .andWhere('observation.level IS NOT NULL')
+    }
 
     return query.getRawMany()
   }
