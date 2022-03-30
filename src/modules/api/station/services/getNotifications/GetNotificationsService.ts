@@ -22,6 +22,7 @@ export class GetNotificationsService {
   }: IGetNotificationsRequestDTO) {
     const stations = await this.stationViewRepository.getStations({
       filters,
+      isNotification: true,
     })
 
     const notifications: INotification[] = []
