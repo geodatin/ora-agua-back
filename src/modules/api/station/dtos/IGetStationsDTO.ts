@@ -23,4 +23,5 @@ export interface IGetStationsResponseDTO {
 export interface IGetStationsRequestDTO {
   filters: IFiltersDTO
   network?: string
+  isNotification?: boolean
 }
