@@ -47,6 +47,8 @@ import { ViewColumn, ViewEntity } from 'typeorm'
     ) AS level_superior_limit,
     code AS station_code
     FROM station_view s
+    GROUP BY station_code
+    ORDER BY station_code
   `,
 })
 export class StationLimitView {
