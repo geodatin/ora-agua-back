@@ -4,8 +4,8 @@ import { v4 as createUuid } from 'uuid'
 
 import { IGetNotificationsRequestDTO } from '../../dtos/IGetNotificationsDTO'
 import { IGetStationsResponseDTO } from '../../dtos/IGetStationsDTO'
+import { INotification } from '../../interfaces/INotification'
 import { IStationViewRepository } from '../../repositories/IStationViewRepository'
-import { INotification } from './interfaces/INotification'
 
 @injectable()
 export class GetNotificationsService {
@@ -29,7 +29,15 @@ export class GetNotificationsService {
 
     stations.forEach((station) => {
       notificationTypes.forEach((notificationType) => {
-        const [alertLimit, attentionLimit] = limits[`${notificationType}Limits`]
+        let alertLimit, attentionLimit
+        if (notificationType === 'rain') {
+          alertLimit = limits[`${notificationType}Limits`].alertLimit
+          attentionLimit = limits[`${notificationType}Limits`].attentionLimit
+        } else {
+          alertLimit = station[`${notificationType}Limits`].alertLimit
+          attentionLimit = station[`${notificationType}Limits`].attentionLimit
+        }
+
         const notification = this.generateNotification(
           station,
           notificationType,
@@ -65,11 +73,20 @@ export class GetNotificationsService {
       lastUpdate: station.lastUpdate,
       network: station.network,
     }
-    if (station[type] > alertLimit) {
-      notification.situation = 'alert'
-    } else if (station[type] > attentionLimit) {
-      notification.situation = 'emergency'
+    if (type === 'rain') {
+      if (station[type] > alertLimit) {
+        notification.situation = 'alert'
+      } else if (station[type] > attentionLimit) {
+        notification.situation = 'emergency'
+      }
+    } else {
+      if (station[type] < alertLimit) {
+        notification.situation = 'alert'
+      } else if (station[type] > attentionLimit) {
+        notification.situation = 'emergency'
+      }
     }
+
     return notification
   }
 }
