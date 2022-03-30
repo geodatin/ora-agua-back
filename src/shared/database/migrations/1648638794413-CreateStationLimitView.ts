@@ -48,6 +48,8 @@ export class CreateStationLimitView1648638794413 implements MigrationInterface {
         ) AS level_superior_limit,
         code AS station_code
         FROM station_view s
+        GROUP BY station_code
+        ORDER BY station_code
               `,
         name: 'station_limit_view',
         materialized: true,
