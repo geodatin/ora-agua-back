@@ -30,20 +30,20 @@ export class GetNotificationsService {
 
     stations.forEach((station) => {
       notificationTypes.forEach((notificationType) => {
-        let alertLimit, attentionLimit
+        let inferiorLimit, superiorLimit
         if (notificationType === 'rain') {
-          alertLimit = limits[`${notificationType}Limits`].alertLimit
-          attentionLimit = limits[`${notificationType}Limits`].attentionLimit
+          inferiorLimit = limits[`${notificationType}Limits`].inferiorLimit
+          superiorLimit = limits[`${notificationType}Limits`].superiorLimit
         } else {
-          alertLimit = station[`${notificationType}Limits`].alertLimit
-          attentionLimit = station[`${notificationType}Limits`].attentionLimit
+          inferiorLimit = station[`${notificationType}Limits`].inferiorLimit
+          superiorLimit = station[`${notificationType}Limits`].superiorLimit
         }
 
         const notification = this.generateNotification(
           station,
           notificationType,
-          alertLimit,
-          attentionLimit
+          inferiorLimit,
+          superiorLimit
         )
         if (notification.situation) notifications.push(notification)
       })
@@ -59,8 +59,8 @@ export class GetNotificationsService {
   private generateNotification(
     station: IGetStationsResponseDTO,
     type: string,
-    alertLimit: number,
-    attentionLimit: number
+    inferiorLimit: number,
+    superiorLimit: number
   ) {
     const notification = {
       id: createUuid(),
@@ -74,16 +74,10 @@ export class GetNotificationsService {
       lastUpdate: station.lastUpdate,
       network: station.network,
     }
-    if (type === 'rain') {
-      if (station[type] > alertLimit) {
+    if (type !== 'rain') {
+      if (station[type] < inferiorLimit) {
         notification.situation = 'alert'
-      } else if (station[type] > attentionLimit) {
-        notification.situation = 'emergency'
-      }
-    } else {
-      if (station[type] < alertLimit) {
-        notification.situation = 'alert'
-      } else if (station[type] > attentionLimit) {
+      } else if (station[type] > superiorLimit) {
         notification.situation = 'emergency'
       }
     }
