@@ -9,7 +9,7 @@ export class GetNotificationsController {
     const { page, pageSize } = request.query
 
     const limitsDefault = {
-      rainLimits: { attentionLimit: 5, alertLimit: 10 },
+      rainLimits: { superiorLimit: 5, inferiorLimit: 10 },
     }
 
     const getNotificationsService = container.resolve(GetNotificationsService)
