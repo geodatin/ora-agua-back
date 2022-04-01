@@ -146,28 +146,28 @@ class StationViewRepository implements IStationViewRepository {
       .addSelect('observation.flow_rate', 'flowRate')
       .addSelect('observation.level', 'level')
       .addSelect('observation.last_update', 'lastUpdate')
+      .leftJoin(
+        StationLimitView,
+        'limit',
+        'limit.station_code = observation.station_code'
+      )
+      .addSelect(
+        `json_build_object(
+        'inferiorLimit', limit.level_inferior_limit, 
+        'superiorLimit', limit.level_superior_limit
+        )`,
+        'levelLimits'
+      )
+      .addSelect(
+        `json_build_object(
+        'inferiorLimit', limit.flow_rate_inferior_limit, 
+        'superiorLimit', limit.flow_rate_superior_limit
+        )`,
+        'flowRateLimits'
+      )
 
     if (isNotification) {
       query
-        .innerJoin(
-          StationLimitView,
-          'limit',
-          'limit.station_code = observation.station_code'
-        )
-        .addSelect(
-          `json_build_object(
-          'alertLimit', limit.level_inferior_limit, 
-          'attentionLimit', limit.level_superior_limit
-          )`,
-          'levelLimits'
-        )
-        .addSelect(
-          `json_build_object(
-          'alertLimit', limit.flow_rate_inferior_limit, 
-          'attentionLimit', limit.flow_rate_superior_limit
-          )`,
-          'flowRateLimits'
-        )
         .andWhere('observation.rain IS NOT NULL')
         .andWhere('observation.flow_rate IS NOT NULL')
         .andWhere('observation.level IS NOT NULL')
