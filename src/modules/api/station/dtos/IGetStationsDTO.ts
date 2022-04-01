@@ -18,6 +18,8 @@ export interface IGetStationsResponseDTO {
   situation: string
   hasData: boolean
   lastUpdate: string
+  levelLimits: { superiorLimit: number; inferiorLimit: number }
+  flowRateLimits: { superiorLimit: number; inferiorLimit: number }
 }
 
 export interface IGetStationsRequestDTO {
