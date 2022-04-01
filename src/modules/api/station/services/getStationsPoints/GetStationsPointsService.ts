@@ -17,10 +17,15 @@ class GetStationsPointsService {
       filters,
     })
     stations.map((station) => {
-      if (station.rain > 10) {
+      const isOverSuperiorLimit =
+        station.level > station.levelLimits.superiorLimit ||
+        station.flowRate > station.flowRateLimits.superiorLimit
+      const isUnderInferiorLimit =
+        station.level < station.levelLimits.inferiorLimit ||
+        station.flowRate < station.flowRateLimits.inferiorLimit
+
+      if (isOverSuperiorLimit || isUnderInferiorLimit) {
         station.situation = 'alert'
-      } else if (station.rain > 5) {
-        station.situation = 'attention'
       } else {
         station.situation = 'normal'
       }
@@ -39,6 +44,8 @@ class GetStationsPointsService {
       delete station.rain
       delete station.level
       delete station.flowRate
+      delete station.flowRateLimits
+      delete station.levelLimits
       return station
     })
     const parsed = geojson.parse(stations, { GeoJSON: 'location' })
