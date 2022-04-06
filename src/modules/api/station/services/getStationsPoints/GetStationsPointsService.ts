@@ -18,11 +18,14 @@ class GetStationsPointsService {
     })
     stations.map((station) => {
       const isOverSuperiorLimit =
-        station.level > station.levelLimits.superiorLimit ||
-        station.flowRate > station.flowRateLimits.superiorLimit
+        (station.level > station.levelLimits.superiorLimit ||
+          station.flowRate > station.flowRateLimits.superiorLimit) &&
+        (station.level || station.flowRate)
+
       const isUnderInferiorLimit =
-        station.level < station.levelLimits.inferiorLimit ||
-        station.flowRate < station.flowRateLimits.inferiorLimit
+        (station.level < station.levelLimits.inferiorLimit ||
+          station.flowRate < station.flowRateLimits.inferiorLimit) &&
+        (station.level || station.flowRate)
 
       if (isOverSuperiorLimit || isUnderInferiorLimit) {
         station.situation = 'alert'
