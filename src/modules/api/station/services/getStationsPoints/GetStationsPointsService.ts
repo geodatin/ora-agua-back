@@ -44,9 +44,6 @@ class GetStationsPointsService {
         station.hasData = false
       }
 
-      delete station.rain
-      delete station.level
-      delete station.flowRate
       delete station.flowRateLimits
       delete station.levelLimits
       return station
