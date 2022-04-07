@@ -10,8 +10,8 @@ import queryString from 'query-string'
 import { inject, injectable } from 'tsyringe'
 
 import { IStationRepository } from '../../../station/repositories/IStationRepository'
+import { IDownloadOptions } from '../../interfaces/IDownloadOptions'
 import { IWaterQualityObservationRepository } from '../../repositories/IWaterQualityObservationRepository'
-import { IDownloadOptions } from './interfaces/IDownloadOptions'
 
 @injectable()
 class DownloadObservationCsvsSeeder {
@@ -23,13 +23,14 @@ class DownloadObservationCsvsSeeder {
   ) {}
   async execute(): Promise<void> {
     const stations = await this.stationRepository.getAllStationsFullTable()
-
+    const { index: lastUpdatedIndex } = await this.getLastUpdatedIndex()
     for (const [index, station] of stations.entries()) {
-      try {
-        await this.downloadDocument(station.code)
-        console.log(index)
-      } catch (err) {
-        console.error(err)
+      if (index >= lastUpdatedIndex) {
+        try {
+          await this.downloadDocument(station.code)
+        } catch (err) {
+          console.error(err)
+        }
       }
     }
     await this.readFiles(
@@ -61,7 +62,6 @@ class DownloadObservationCsvsSeeder {
       documentos: stationCode,
       tipo: 3,
     }
-    console.log(baseUrl.concat('?', queryString.stringify(query)))
     try {
       await this.downloadFile(
         baseUrl.concat('?', queryString.stringify(query)),
@@ -78,7 +78,6 @@ class DownloadObservationCsvsSeeder {
     for (const entry of zip.getEntries()) {
       const extension = entry.name.substring(entry.name.length - 3)
       const name = entry.name.substring(0, 8)
-      console.log(entry.name)
       if (extension === 'zip' && name === 'qualagua') {
         zip.extractEntryTo(entry.name, path.join(options.directory, 'zipped'))
         await this.unzipDocument({
@@ -104,7 +103,17 @@ class DownloadObservationCsvsSeeder {
         zip.addFile(entry.name, Buffer.from(content, 'utf8'))
         zip.extractAllTo(
           path.join(
-            path.resolve(__dirname, '..', '..', '..', '..', '..', 'tmp'),
+            path.resolve(
+              __dirname,
+              '..',
+              '..',
+              '..',
+              '..',
+              '..',
+              '..',
+              '..',
+              'tmp'
+            ),
             'csvs'
           )
         )
@@ -169,6 +178,21 @@ class DownloadObservationCsvsSeeder {
           unlinkSync(path.join(directory, file))
         })
     }
+  }
+
+  async updateLastIndex(index: number): Promise<void> {
+    filesystem.writeFileSync(
+      path.resolve(__dirname, 'files', 'index.json'),
+      JSON.stringify({ index: index })
+    )
+  }
+
+  async getLastUpdatedIndex(): Promise<{ index: number }> {
+    const file = filesystem.readFileSync(
+      path.resolve(__dirname, 'files', 'index.json')
+    )
+    const { index } = JSON.parse(file.toString())
+    return { index }
   }
 }
 
