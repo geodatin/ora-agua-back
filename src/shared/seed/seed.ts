@@ -22,7 +22,7 @@ import env from 'dotenv-safe'
 import cron from 'node-cron'
 import { createConnection } from 'typeorm'
 
-const hoursInterval = 4
+const hoursInterval = 1
 
 env.config()
 log(`Running seeders every ${hoursInterval} hours`)
@@ -30,6 +30,7 @@ const task = cron.schedule(
   `0 */${hoursInterval} * * *`,
   async () => {
     const connection = await createConnection()
+    log(`Seed started`)
     // await insertStationController.start()
     // await downloadObservationCsvsController.start()
 
@@ -72,7 +73,8 @@ const task = cron.schedule(
       .createQueryRunner()
       .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
 
-    connection.close()
+    await connection.close()
+    log(`Seed finished`)
   },
   {
     scheduled: true,
@@ -81,18 +83,19 @@ const task = cron.schedule(
 )
 task.start()
 
-createConnection().then(async (connection) => {
-  await insertObservationFromApiController.start()
+/* createConnection().then(async (connection) => {
+  await downloadObservationCsvsController.start()
+  // await insertObservationFromApiController.start()
   // await insertObservationSenhamiController.start()
-  await insertObservationSenhamiPeController.start()
+  // await insertObservationSenhamiPeController.start()
 
   // await insertStationsSincaController.start()
-  await downloadWaterQualitySincaController.start()
+  // await downloadWaterQualitySincaController.start()
 
   // await insertStationsIdeamController.start()
-  await downloadObservationIdeamController.start()
-  await downloadWaterQualityIdeamController.start()
-  await downloadObservationsHybamController.start()
+  // await downloadObservationIdeamController.start()
+  // await downloadWaterQualityIdeamController.start()
+  // await downloadObservationsHybamController.start()
 
   // await insertStationsHybamController.start()
   // await downloadWaterLevelsHybamController.start()
@@ -120,5 +123,6 @@ createConnection().then(async (connection) => {
   await connection
     .createQueryRunner()
     .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
-  connection.close()
+  await connection.close()
 })
+ */
