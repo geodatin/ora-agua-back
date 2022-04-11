@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { inject, injectable } from 'tsyringe'
 
 import { IGetStationsRequestDTO } from '../../dtos/IGetStationsDTO'
@@ -17,17 +18,35 @@ class GetStationsPointsService {
       filters,
     })
     stations.map((station) => {
-      const isOverSuperiorLimit =
-        (station.level > station.levelLimits.superiorLimit ||
-          station.flowRate > station.flowRateLimits.superiorLimit) &&
-        (station.level || station.flowRate)
+      const isOverSuperiorFlowRateLimit =
+        station.flowRate > station.flowRateLimits.superiorLimit &&
+        station.flowRate
 
-      const isUnderInferiorLimit =
-        (station.level < station.levelLimits.inferiorLimit ||
-          station.flowRate < station.flowRateLimits.inferiorLimit) &&
-        (station.level || station.flowRate)
+      const isOverSuperiorLevelLimit =
+        station.level > station.levelLimits.superiorLimit && station.level
 
-      if (isOverSuperiorLimit || isUnderInferiorLimit) {
+      const isUnderInferiorFlowRateLimit =
+        station.flowRate < station.flowRateLimits.inferiorLimit &&
+        station.flowRate
+
+      const isUnderInferiorLevelLimit =
+        station.level < station.levelLimits.inferiorLimit && station.level
+
+      const isAlert =
+        isOverSuperiorFlowRateLimit ||
+        isOverSuperiorLevelLimit ||
+        isUnderInferiorFlowRateLimit ||
+        isUnderInferiorLevelLimit
+
+      const isLast3Days = moment(station.lastUpdate).isAfter(
+        moment().subtract(30, 'days')
+      )
+
+      if (station.name === 'Manaus') {
+        console.log(station, isAlert)
+      }
+
+      if (isAlert && isLast3Days) {
         station.situation = 'alert'
       } else {
         station.situation = 'normal'
