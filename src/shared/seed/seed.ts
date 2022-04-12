@@ -82,20 +82,22 @@ const task = cron.schedule(
   }
 )
 task.start()
+/* 
+createConnection().then(async (connection) => {
+  // await insertStationController.start()
+  // await downloadObservationCsvsController.start()
 
-/* createConnection().then(async (connection) => {
-  await downloadObservationCsvsController.start()
-  // await insertObservationFromApiController.start()
+  await insertObservationFromApiController.start()
   // await insertObservationSenhamiController.start()
-  // await insertObservationSenhamiPeController.start()
+  await insertObservationSenhamiPeController.start()
 
   // await insertStationsSincaController.start()
-  // await downloadWaterQualitySincaController.start()
+  await downloadWaterQualitySincaController.start()
 
   // await insertStationsIdeamController.start()
-  // await downloadObservationIdeamController.start()
-  // await downloadWaterQualityIdeamController.start()
-  // await downloadObservationsHybamController.start()
+  await downloadObservationIdeamController.start()
+  await downloadWaterQualityIdeamController.start()
+  await downloadObservationsHybamController.start()
 
   // await insertStationsHybamController.start()
   // await downloadWaterLevelsHybamController.start()
@@ -103,26 +105,5 @@ task.start()
   // await downloadSedimentsHybamController.start()
   // await downloadPhysicalChemistryHybamController.start()
   // await downloadGeochemistryHybamController.start()
-
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW station_view')
-
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW observation_rha_view')
-
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
-
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW last_update_view')
-
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
   await connection.close()
-})
- */
+}) */
