@@ -36,6 +36,7 @@ interface IStationViewRepository {
 
   getProjectedRhaStations(): Promise<any>
   getProjectedRqaStations(): Promise<any>
+  getAllStations(): Promise<any>
 }
 
 export { IStationViewRepository }
