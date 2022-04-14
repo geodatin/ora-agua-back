@@ -15,7 +15,7 @@ import { StationLimitView } from '../../models/StationLimitView'
 import { StationView } from '../../models/StationView'
 import { IStationViewRepository } from '../IStationViewRepository'
 
-class StationViewRepository implements IStationViewRepository {
+export class StationViewRepository implements IStationViewRepository {
   private repository: Repository<StationView>
 
   constructor() {
@@ -250,6 +250,19 @@ class StationViewRepository implements IStationViewRepository {
     )
     return stationsRqa
   }
-}
 
-export { StationViewRepository }
+  async getAllStations(): Promise<any> {
+    const stations = await getManager().query(
+      `select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_ana
+      union
+      select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_senhami
+      union
+      select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_senhami_pe
+      union
+      select name as name, code::varchar as code, ST_AsGeoJSON(geometry)::jsonb as location from station_sinca
+      union
+      select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_hybam`
+    )
+    return stations
+  }
+}
