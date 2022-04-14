@@ -5,6 +5,7 @@ import { CountStationsByResponsibleController } from '@modules/api/station/servi
 import { CountStationsBySubwatershedController } from '@modules/api/station/services/countStationsBySubwatershed/CountStationsBySubwatershedController'
 import { CountStationsByTypeController } from '@modules/api/station/services/countStationsByType/CountStationsByTypeController'
 import { CountStatitonsByVariableController } from '@modules/api/station/services/countStationsByVariable/CountStationsByVariableController'
+import { GetAllStationsPointsController } from '@modules/api/station/services/getAllStations/GetAllStationsPointsController'
 import { GetFilterOptionsController } from '@modules/api/station/services/getFilterOptions/GetFilterOprionsController'
 import { GetNotificationsController } from '@modules/api/station/services/getNotifications/GetNotificationsController'
 import { GetProjectedStationsPointsController } from '@modules/api/station/services/getProjectedStationsPoints/GetProjectedStationsPointsController'
@@ -30,6 +31,7 @@ const getFilterOptionsController = new GetFilterOptionsController()
 const getNotificationsController = new GetNotificationsController()
 const getProjectedStationsPointsController =
   new GetProjectedStationsPointsController()
+const getAllStationsPointsController = new GetAllStationsPointsController()
 
 stationRoutes.post('/count', countAllStationsContoller.handle)
 stationRoutes.post('/count/type', countStationsByType.handle)
@@ -42,6 +44,7 @@ stationRoutes.post(
 stationRoutes.post('/count/network', countStationsByNetworkController.handle)
 stationRoutes.post('/count/variable', countStationsByVariablesController.handle)
 stationRoutes.post('/location', getStationsPointsController.handle)
+stationRoutes.post('/all/location', getAllStationsPointsController.handle)
 stationRoutes.get(
   '/projected/location',
   getProjectedStationsPointsController.handle
