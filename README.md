@@ -991,7 +991,7 @@ Método que retorna as notificações da situação de cada estação.
     }
     ```
 
-## **Shape das estações**
+## **Shape das estações projetadas**
 
 Método que retorna o shape das estações projetadas.
 
@@ -1060,6 +1060,85 @@ Método que retorna o shape das estações projetadas.
             "responsible": null,
             "network": "RHA"
           }
+        },...
+        ]
+        }
+    ```
+
+  - **Código:** 500 <br />
+    **Conteúdo:**
+    ```javascript
+    {
+      message: "Internal Server Error";
+    }
+    ```
+
+## **Shape de todas as estações**
+
+Método que retorna o shape das estações projetadas.
+
+- **URL:**
+
+  /api/station/all/location
+
+- **Método:**
+
+  `GET`
+
+- **Parâmetros na URL:**
+
+  **Obrigatórios:**
+  Nenhum
+
+  **Não Obrigatórios:**
+
+  Nenhum
+
+- **Parâmetros do Body:**
+
+  Nenhum
+
+- **Exemplo:**
+
+  /api/station/all/location
+
+- **Resposta:**
+
+  - **Código:** 200 <br />
+    **Conteúdo:**
+
+    ```javascript
+        {
+     "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -78.2789,
+              -0.8378
+            ]
+          },
+          "properties": {
+            "name": "CHALUPAS",
+            "code": "78018"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -75.3964,
+              -0.9167
+            ]
+          },
+          "properties": {
+            "name": "NUEVO ROCAFUERTE",
+            "code": "10082800"
+          }
+        },
         },...
         ]
         }
