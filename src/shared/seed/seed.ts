@@ -20,68 +20,66 @@ import insertStationsSincaController from '@modules/collector/sinca/station/seed
 import { log } from '@utils/log'
 import env from 'dotenv-safe'
 import cron from 'node-cron'
-import { createConnection } from 'typeorm'
+import { getConnection } from 'typeorm'
+import '../database'
 
-const hoursInterval = 1
+const hoursInterval = 2
 
 env.config()
 log(`Running seeders every ${hoursInterval} hours`)
-const task = cron.schedule(
-  `0 */${hoursInterval} * * *`,
-  async () => {
-    const connection = await createConnection()
-    log(`Seed started`)
-    // await insertStationController.start()
-    // await downloadObservationCsvsController.start()
-
-    await insertObservationFromApiController.start()
-    // await insertObservationSenhamiController.start()
-    await insertObservationSenhamiPeController.start()
-
-    // await insertStationsSincaController.start()
-    await downloadWaterQualitySincaController.start()
-
-    // await insertStationsIdeamController.start()
-    await downloadObservationIdeamController.start()
-    await downloadWaterQualityIdeamController.start()
-    await downloadObservationsHybamController.start()
-
-    // await insertStationsHybamController.start()
-    // await downloadWaterLevelsHybamController.start()
-    // await downloadDischargesHybamController.start()
-    // await downloadSedimentsHybamController.start()
-    // await downloadPhysicalChemistryHybamController.start()
-    // await downloadGeochemistryHybamController.start()
-
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW station_view')
-
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rha_view')
-
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
-
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW last_update_view')
-
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
-
-    await connection.close()
-    log(`Seed finished`)
-  },
-  {
-    scheduled: true,
-    timezone: 'America/Sao_Paulo',
-  }
-)
+const task = cron.schedule(`0 */${hoursInterval} * * *`, seed, {
+  scheduled: true,
+  timezone: 'America/Sao_Paulo',
+})
 task.start()
+
+async function seed() {
+  const connection = getConnection()
+  log(`Seed started`)
+  // await insertStationController.start()
+  // await downloadObservationCsvsController.start()
+
+  await insertObservationFromApiController.start()
+  await insertObservationSenhamiController.start()
+  await insertObservationSenhamiPeController.start()
+
+  // await insertStationsSincaController.start()
+  await downloadWaterQualitySincaController.start()
+
+  // await insertStationsIdeamController.start()
+  await downloadObservationIdeamController.start()
+  await downloadWaterQualityIdeamController.start()
+  await downloadObservationsHybamController.start()
+
+  // await insertStationsHybamController.start()
+  // await downloadWaterLevelsHybamController.start()
+  // await downloadDischargesHybamController.start()
+  // await downloadSedimentsHybamController.start()
+  // await downloadPhysicalChemistryHybamController.start()
+  // await downloadGeochemistryHybamController.start()
+
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW station_view')
+
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW observation_rha_view')
+
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
+
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW last_update_view')
+
+  await connection
+    .createQueryRunner()
+    .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
+
+  log(`Seed finished`)
+}
 /* 
 createConnection().then(async (connection) => {
   // await insertStationController.start()
