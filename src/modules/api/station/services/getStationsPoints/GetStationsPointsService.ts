@@ -42,10 +42,6 @@ class GetStationsPointsService {
         moment().subtract(30, 'days')
       )
 
-      if (station.name === 'Manaus') {
-        console.log(station, isAlert)
-      }
-
       if (isAlert && isLast3Days) {
         station.situation = 'alert'
       } else {
