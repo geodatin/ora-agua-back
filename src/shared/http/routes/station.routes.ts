@@ -44,7 +44,7 @@ stationRoutes.post(
 stationRoutes.post('/count/network', countStationsByNetworkController.handle)
 stationRoutes.post('/count/variable', countStationsByVariablesController.handle)
 stationRoutes.post('/location', getStationsPointsController.handle)
-stationRoutes.post('/all/location', getAllStationsPointsController.handle)
+stationRoutes.get('/all/location', getAllStationsPointsController.handle)
 stationRoutes.get(
   '/projected/location',
   getProjectedStationsPointsController.handle
