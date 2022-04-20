@@ -34,51 +34,55 @@ const task = cron.schedule(`0 */${hoursInterval} * * *`, seed, {
 task.start()
 
 async function seed() {
-  const connection = getConnection()
-  log(`Seed started`)
-  // await insertStationController.start()
-  // await downloadObservationCsvsController.start()
+  try {
+    const connection = getConnection()
+    log(`Seed started`)
+    // await insertStationController.start()
+    // await downloadObservationCsvsController.start()
 
-  await insertObservationFromApiController.start()
-  await insertObservationSenhamiController.start()
-  await insertObservationSenhamiPeController.start()
+    await insertObservationFromApiController.start()
+    await insertObservationSenhamiController.start()
+    await insertObservationSenhamiPeController.start()
 
-  // await insertStationsSincaController.start()
-  await downloadWaterQualitySincaController.start()
+    // await insertStationsSincaController.start()
+    await downloadWaterQualitySincaController.start()
 
-  // await insertStationsIdeamController.start()
-  await downloadObservationIdeamController.start()
-  await downloadWaterQualityIdeamController.start()
-  await downloadObservationsHybamController.start()
+    // await insertStationsIdeamController.start()
+    await downloadObservationIdeamController.start()
+    await downloadWaterQualityIdeamController.start()
+    await downloadObservationsHybamController.start()
 
-  // await insertStationsHybamController.start()
-  // await downloadWaterLevelsHybamController.start()
-  // await downloadDischargesHybamController.start()
-  // await downloadSedimentsHybamController.start()
-  // await downloadPhysicalChemistryHybamController.start()
-  // await downloadGeochemistryHybamController.start()
+    // await insertStationsHybamController.start()
+    // await downloadWaterLevelsHybamController.start()
+    // await downloadDischargesHybamController.start()
+    // await downloadSedimentsHybamController.start()
+    // await downloadPhysicalChemistryHybamController.start()
+    // await downloadGeochemistryHybamController.start()
 
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW station_view')
+    await connection
+      .createQueryRunner()
+      .query('REFRESH MATERIALIZED VIEW station_view')
 
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW observation_rha_view')
+    await connection
+      .createQueryRunner()
+      .query('REFRESH MATERIALIZED VIEW observation_rha_view')
 
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
+    await connection
+      .createQueryRunner()
+      .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
 
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW last_update_view')
+    await connection
+      .createQueryRunner()
+      .query('REFRESH MATERIALIZED VIEW last_update_view')
 
-  await connection
-    .createQueryRunner()
-    .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
+    await connection
+      .createQueryRunner()
+      .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
 
-  log(`Seed finished`)
+    log(`Seed finished`)
+  } catch (error) {
+    console.log(error)
+  }
 }
 /* 
 createConnection().then(async (connection) => {
