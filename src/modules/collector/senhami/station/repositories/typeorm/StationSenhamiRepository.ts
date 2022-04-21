@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, Like, Repository } from 'typeorm'
 
 import { ICreateStationSenhamiDTO } from '../../dtos/ICreateStationSenhamiDTO'
 import { StationSenhami } from '../../models/StationSenhami'
@@ -27,7 +27,16 @@ class StationSenhamiRepository implements IStationSenhamiRepository {
   }
 
   async listStations(): Promise<StationSenhami[]> {
-    const stations = await this.repository.find()
+    const stations = await this.repository.find({
+      where: [
+        {
+          code: Like('P%'),
+        },
+        {
+          code: Like('P%'),
+        },
+      ],
+    })
     return stations
   }
 }
