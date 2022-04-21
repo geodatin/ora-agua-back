@@ -16,6 +16,8 @@ import { ObservationRepository } from '@modules/collector/ana/observation/reposi
 import { WaterQualityObservationRepository } from '@modules/collector/ana/observation/repositories/typeorm/WaterQualityObservationRepository'
 import { IStationRepository } from '@modules/collector/ana/station/repositories/IStationRepository'
 import { StationRepository } from '@modules/collector/ana/station/repositories/typeorm/StationRepository'
+import { IGeneralCollectorRepository } from '@modules/collector/general/repositories/IGeneralCollectorRepository'
+import { GeneralCollectorRepository } from '@modules/collector/general/repositories/typeorm/GeneralCollectorRepository'
 import { IObservationHybamCollectorRepository } from '@modules/collector/hybam/observation/repositories/IObservationHybamCollectorRepository'
 import { DailyDischargeHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/DailyDischargeHybamRepository'
 import { DailyWaterLevelHybamRepository } from '@modules/collector/hybam/observation/repositories/typeorm/DailyWaterLevelHybamRepository'
@@ -182,7 +184,13 @@ container.registerSingleton<ILastUpdateViewRepository>(
   'LastUpdateViewRepository',
   LastUpdateViewRepository
 )
+
 container.registerSingleton<IObservationHybamRepository>(
   'ObservationHybamRepository',
   ObservationHybamRepository
+)
+
+container.registerSingleton<IGeneralCollectorRepository>(
+  'GeneralCollectorRepository',
+  GeneralCollectorRepository
 )
