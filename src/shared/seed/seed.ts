@@ -27,10 +27,16 @@ const hoursInterval = 2
 
 env.config()
 log(`Running seeders every ${hoursInterval} hours`)
-const task = cron.schedule(`0 */${hoursInterval} * * *`, seed, {
-  scheduled: true,
-  timezone: 'America/Sao_Paulo',
-})
+const task = cron.schedule(
+  `0 */${hoursInterval} * * *`,
+  async () => {
+    await seed()
+  },
+  {
+    scheduled: true,
+    timezone: 'America/Sao_Paulo',
+  }
+)
 task.start()
 
 async function seed() {
@@ -59,25 +65,18 @@ async function seed() {
     // await downloadPhysicalChemistryHybamController.start()
     // await downloadGeochemistryHybamController.start()
 
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW station_view')
+    const queryRunner = connection.createQueryRunner()
+    await queryRunner.query('REFRESH MATERIALIZED VIEW station_view')
 
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rha_view')
+    await queryRunner.query('REFRESH MATERIALIZED VIEW observation_rha_view')
 
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rha_list_view')
+    await queryRunner.query(
+      'REFRESH MATERIALIZED VIEW observation_rha_list_view'
+    )
 
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW last_update_view')
+    await queryRunner.query('REFRESH MATERIALIZED VIEW last_update_view')
 
-    await connection
-      .createQueryRunner()
-      .query('REFRESH MATERIALIZED VIEW observation_rqa_view')
+    await queryRunner.query('REFRESH MATERIALIZED VIEW observation_rqa_view')
 
     log(`Seed finished`)
   } catch (error) {
