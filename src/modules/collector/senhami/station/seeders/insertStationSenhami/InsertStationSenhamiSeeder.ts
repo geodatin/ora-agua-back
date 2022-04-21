@@ -1,16 +1,17 @@
+import axios from 'axios'
 import { inject, injectable } from 'tsyringe'
 
 import { IStationSenhamiRepository } from '../../repositories/IStationSenhamiRepository'
 
 @injectable()
-class InsertStationSenhamiSeeder {
+export class InsertStationSenhamiSeeder {
   constructor(
     @inject('StationSenhamiRepository')
     private stationSenhamiRepository: IStationSenhamiRepository
   ) {}
 
   async execute() {
-    await this.stationSenhamiRepository.create({
+    /*     await this.stationSenhamiRepository.create({
       code: 'PI001',
       name: 'Pico de Loro - GPRS',
       city: 'Vinto',
@@ -89,8 +90,22 @@ class InsertStationSenhamiSeeder {
       height: 200,
       latitude: '-17.683600',
       longitude: '-62.775300',
-    })
+    }) */
+
+    const url = `https://onsc.senamhi.gob.bo/senamhiback/api/layers/stations`
+    const {
+      data: { data: stations },
+    } = await axios.get(url)
+
+    for (const station of stations) {
+      await this.stationSenhamiRepository.create({
+        code: station.id,
+        name: station.station,
+        city: station.nameMunicipality,
+        height: station.altitude,
+        latitude: station.latitude,
+        longitude: station.longitude,
+      })
+    }
   }
 }
-
-export { InsertStationSenhamiSeeder }
