@@ -26,7 +26,9 @@ import { Column, ViewEntity } from 'typeorm'
   stations.flow_rate,
   stations.adopted_level,
   countries.name AS country,
-  countries.id AS country_id
+  countries.id AS country_id,
+  cities.name_es AS city,
+  states.name_es AS state
  FROM ( SELECT s.code,
           initcap(s.name::text) AS name,
           s.type,
@@ -210,7 +212,63 @@ import { Column, ViewEntity } from 'typeorm'
           false AS flow_rate,
           false AS adopted_level
          FROM station_ana s
-           JOIN (select * from rrmca_cobrape where dist_m < 5000) r ON  s.code::varchar = r.codigo
+           JOIN ( SELECT rrmca_cobrape.id,
+                  rrmca_cobrape.geom,
+                  rrmca_cobrape.codigo,
+                  rrmca_cobrape.cod_final,
+                  rrmca_cobrape.pais,
+                  rrmca_cobrape.longitude,
+                  rrmca_cobrape.latitude,
+                  rrmca_cobrape.x,
+                  rrmca_cobrape.y,
+                  rrmca_cobrape.cocursodag,
+                  rrmca_cobrape.cobacia,
+                  rrmca_cobrape.nunivotto2,
+                  rrmca_cobrape.sub_bacia,
+                  rrmca_cobrape.n_estacoes,
+                  rrmca_cobrape.as_2019,
+                  rrmca_cobrape.cond_2019,
+                  rrmca_cobrape.dbo,
+                  rrmca_cobrape.dqo,
+                  rrmca_cobrape.fosforotot,
+                  rrmca_cobrape.nitrato,
+                  rrmca_cobrape.od,
+                  rrmca_cobrape.hg_2019,
+                  rrmca_cobrape.solid_susp,
+                  rrmca_cobrape.temp_ano,
+                  rrmca_cobrape.temp_2019,
+                  rrmca_cobrape.turbidez,
+                  rrmca_cobrape.ph,
+                  rrmca_cobrape.s_dbo,
+                  rrmca_cobrape.s_dqo,
+                  rrmca_cobrape.s_fosforot,
+                  rrmca_cobrape.s_nitrato,
+                  rrmca_cobrape.s_od,
+                  rrmca_cobrape.s_sst,
+                  rrmca_cobrape.s_turbidez,
+                  rrmca_cobrape.s_ph,
+                  rrmca_cobrape.t_as,
+                  rrmca_cobrape.t_cond,
+                  rrmca_cobrape.t_dbo,
+                  rrmca_cobrape.t_dqo,
+                  rrmca_cobrape.t_pt,
+                  rrmca_cobrape.t_nitrato,
+                  rrmca_cobrape.t_od,
+                  rrmca_cobrape.t_hg,
+                  rrmca_cobrape.t_ph,
+                  rrmca_cobrape.t_profundi,
+                  rrmca_cobrape.t_solid_su,
+                  rrmca_cobrape.t_temp,
+                  rrmca_cobrape.t_turbidez,
+                  rrmca_cobrape.dist_m,
+                  rrmca_cobrape.near_fid,
+                  rrmca_cobrape.near_dist,
+                  rrmca_cobrape."near_fid+1",
+                  rrmca_cobrape.j2_id,
+                  rrmca_cobrape.j2_tipo,
+                  rrmca_cobrape.j2_existe
+                 FROM rrmca_cobrape
+                WHERE rrmca_cobrape.dist_m < 5000::numeric) r ON s.code::character varying::text = r.codigo::text
       UNION
        SELECT s.code,
           initcap(s.name::text) AS name,
@@ -290,9 +348,67 @@ import { Column, ViewEntity } from 'typeorm'
           false AS flow_rate,
           false AS adopted_level
          FROM station_sinca s
-           JOIN (select * from rrmca_cobrape where dist_m < 5000) r ON s.code::text = r.codigo::character varying::text) stations,
-  south_america_country countries
-WHERE st_contains(countries.geometry, stations.location)
+           JOIN ( SELECT rrmca_cobrape.id,
+                  rrmca_cobrape.geom,
+                  rrmca_cobrape.codigo,
+                  rrmca_cobrape.cod_final,
+                  rrmca_cobrape.pais,
+                  rrmca_cobrape.longitude,
+                  rrmca_cobrape.latitude,
+                  rrmca_cobrape.x,
+                  rrmca_cobrape.y,
+                  rrmca_cobrape.cocursodag,
+                  rrmca_cobrape.cobacia,
+                  rrmca_cobrape.nunivotto2,
+                  rrmca_cobrape.sub_bacia,
+                  rrmca_cobrape.n_estacoes,
+                  rrmca_cobrape.as_2019,
+                  rrmca_cobrape.cond_2019,
+                  rrmca_cobrape.dbo,
+                  rrmca_cobrape.dqo,
+                  rrmca_cobrape.fosforotot,
+                  rrmca_cobrape.nitrato,
+                  rrmca_cobrape.od,
+                  rrmca_cobrape.hg_2019,
+                  rrmca_cobrape.solid_susp,
+                  rrmca_cobrape.temp_ano,
+                  rrmca_cobrape.temp_2019,
+                  rrmca_cobrape.turbidez,
+                  rrmca_cobrape.ph,
+                  rrmca_cobrape.s_dbo,
+                  rrmca_cobrape.s_dqo,
+                  rrmca_cobrape.s_fosforot,
+                  rrmca_cobrape.s_nitrato,
+                  rrmca_cobrape.s_od,
+                  rrmca_cobrape.s_sst,
+                  rrmca_cobrape.s_turbidez,
+                  rrmca_cobrape.s_ph,
+                  rrmca_cobrape.t_as,
+                  rrmca_cobrape.t_cond,
+                  rrmca_cobrape.t_dbo,
+                  rrmca_cobrape.t_dqo,
+                  rrmca_cobrape.t_pt,
+                  rrmca_cobrape.t_nitrato,
+                  rrmca_cobrape.t_od,
+                  rrmca_cobrape.t_hg,
+                  rrmca_cobrape.t_ph,
+                  rrmca_cobrape.t_profundi,
+                  rrmca_cobrape.t_solid_su,
+                  rrmca_cobrape.t_temp,
+                  rrmca_cobrape.t_turbidez,
+                  rrmca_cobrape.dist_m,
+                  rrmca_cobrape.near_fid,
+                  rrmca_cobrape.near_dist,
+                  rrmca_cobrape."near_fid+1",
+                  rrmca_cobrape.j2_id,
+                  rrmca_cobrape.j2_tipo,
+                  rrmca_cobrape.j2_existe
+                 FROM rrmca_cobrape
+                WHERE rrmca_cobrape.dist_m < 5000::numeric) r ON s.code::text = r.codigo::text) stations,
+  south_america_country countries,
+  amazon_city cities,
+  amazon_state states
+WHERE st_contains(countries.geometry, stations.location) AND st_contains(cities.geom, stations.location) AND st_contains(states.geom, stations.location);
   `,
 })
 class StationView {
@@ -358,6 +474,12 @@ class StationView {
 
   @Column({ name: 'adopted_level' })
   adoptedLevel: boolean
+
+  @Column({ name: 'city' })
+  city: string
+
+  @Column({ name: 'state' })
+  state: string
 }
 
 export { StationView }
