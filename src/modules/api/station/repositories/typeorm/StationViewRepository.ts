@@ -128,6 +128,8 @@ export class StationViewRepository implements IStationViewRepository {
       .addSelect('type', 'type')
       .addSelect('responsible', 'responsible')
       .addSelect('country', 'country')
+      .addSelect('city', 'city')
+      .addSelect('state', 'state')
       .addSelect('country_id', 'countryId')
       .addSelect('network', 'network')
       .addSelect('station.location', 'location')
