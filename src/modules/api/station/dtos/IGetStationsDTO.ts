@@ -20,6 +20,8 @@ export interface IGetStationsResponseDTO {
   lastUpdate: string
   levelLimits: { superiorLimit: number; inferiorLimit: number }
   flowRateLimits: { superiorLimit: number; inferiorLimit: number }
+  city: string
+  state: string
 }
 
 export interface IGetStationsRequestDTO {
