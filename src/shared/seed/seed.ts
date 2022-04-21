@@ -3,6 +3,7 @@ import '../container'
 import downloadObservationCsvsController from '@modules/collector/ana/observation/seeder/downloadObservationCsvs/DownloadObservationCsvsController'
 import insertObservationFromApiController from '@modules/collector/ana/observation/seeder/insertObservationFromApi/insertObservationFromApiController'
 import insertStationController from '@modules/collector/ana/station/seeders/insertStation/InsertStationController'
+import refreshViewsController from '@modules/collector/general/seeders/RefreshViews/RefreshViewsController'
 import downloadDischargesHybamController from '@modules/collector/hybam/observation/seeder/downloadDischargesHybam/DownloadDischargesHybamController'
 import downloadGeochemistryHybamController from '@modules/collector/hybam/observation/seeder/downloadGeochemistryHybam/DownloadGeochemistryHybamController'
 import downloadObservationsHybamController from '@modules/collector/hybam/observation/seeder/downloadObservationsHybam/DownloadObservationsHybamController'
@@ -15,17 +16,19 @@ import downloadWaterQualityIdeamController from '@modules/collector/ideam/observ
 import insertStationsIdeamController from '@modules/collector/ideam/station/seeders/insertStationsIdeam/InsertStationsIdeamController'
 import insertObservationSenhamiController from '@modules/collector/senhami/observation/seeder/insertObservationSenhami/InsertObservationSenhamiController'
 import insertObservationSenhamiPeController from '@modules/collector/senhami/observation/seeder/insertObservationSenhamiPe/InsertObservationSenhamiPeController'
+import insertStationSenhamiController from '@modules/collector/senhami/station/seeders/insertStationSenhami/InsertStationSenhamiController'
 import downloadWaterQualitySincaController from '@modules/collector/sinca/observation/seeder/downloadWaterQualitySinca/DownloadWaterQualitySincaController'
 import insertStationsSincaController from '@modules/collector/sinca/station/seeders/insertStationsSinca/InsertStationsSincaController'
 import { log } from '@utils/log'
 import env from 'dotenv-safe'
 import cron from 'node-cron'
-import { getConnection } from 'typeorm'
+import { createConnection } from 'typeorm'
 import '../database'
 
 const hoursInterval = 2
 
 env.config()
+
 log(`Running seeders every ${hoursInterval} hours`)
 const task = cron.schedule(
   `0 */${hoursInterval} * * *`,
@@ -41,7 +44,6 @@ task.start()
 
 async function seed() {
   try {
-    const connection = getConnection()
     log(`Seed started`)
     // await insertStationController.start()
     // await downloadObservationCsvsController.start()
@@ -65,46 +67,39 @@ async function seed() {
     // await downloadPhysicalChemistryHybamController.start()
     // await downloadGeochemistryHybamController.start()
 
-    const queryRunner = connection.createQueryRunner()
-    await queryRunner.query('REFRESH MATERIALIZED VIEW station_view')
-
-    await queryRunner.query('REFRESH MATERIALIZED VIEW observation_rha_view')
-
-    await queryRunner.query(
-      'REFRESH MATERIALIZED VIEW observation_rha_list_view'
-    )
-
-    await queryRunner.query('REFRESH MATERIALIZED VIEW last_update_view')
-
-    await queryRunner.query('REFRESH MATERIALIZED VIEW observation_rqa_view')
+    await refreshViewsController.start()
 
     log(`Seed finished`)
   } catch (error) {
     console.log(error)
   }
 }
-/* 
-createConnection().then(async (connection) => {
+
+/* createConnection().then(async (connection) => {
   // await insertStationController.start()
   // await downloadObservationCsvsController.start()
 
-  await insertObservationFromApiController.start()
+  // await insertObservationFromApiController.start()
   // await insertObservationSenhamiController.start()
-  await insertObservationSenhamiPeController.start()
+  // await insertObservationSenhamiPeController.start()
 
   // await insertStationsSincaController.start()
-  await downloadWaterQualitySincaController.start()
+  // await downloadWaterQualitySincaController.start()
 
   // await insertStationsIdeamController.start()
-  await downloadObservationIdeamController.start()
-  await downloadWaterQualityIdeamController.start()
-  await downloadObservationsHybamController.start()
+  // await downloadObservationIdeamController.start()
+  // await downloadWaterQualityIdeamController.start()
+  // await downloadObservationsHybamController.start()
 
   // await insertStationsHybamController.start()
+  // await insertStationSenhamiController.start()
   // await downloadWaterLevelsHybamController.start()
   // await downloadDischargesHybamController.start()
   // await downloadSedimentsHybamController.start()
   // await downloadPhysicalChemistryHybamController.start()
   // await downloadGeochemistryHybamController.start()
+
+  await refreshViewsController.start()
   await connection.close()
-}) */
+})
+ */
