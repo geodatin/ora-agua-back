@@ -1,5 +1,6 @@
-import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getConnection, getRepository, Repository } from 'typeorm'
+
+import { insertFromCsvPg } from '@shared/database/utils/insertFromCsvPg'
 
 import { DailyWaterLevelHybam } from '../../models/DailyWaterLevelHybam'
 import { IObservationHybamCollectorRepository } from '../IObservationHybamCollectorRepository'

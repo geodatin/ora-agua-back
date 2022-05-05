@@ -1,5 +1,6 @@
-import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getRepository, Repository } from 'typeorm'
+
+import { insertFromCsvPg } from '@shared/database/utils/insertFromCsvPg'
 
 import { WaterQualitySinca } from '../../models/WaterQualitySinca'
 import { IWaterQualitySincaRepository } from '../IWaterQualitySincaRepository'

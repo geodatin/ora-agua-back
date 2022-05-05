@@ -1,5 +1,6 @@
-import { insertFromCsvPg } from '@utils/insertFromCsvPg'
 import { getRepository, Repository } from 'typeorm'
+
+import { insertFromCsvPg } from '@shared/database/utils/insertFromCsvPg'
 
 import { ObservationIdeam } from '../../models/ObservationIdeam'
 import { IObservationIdeamRepository } from '../IObservationIdeamRepository'
