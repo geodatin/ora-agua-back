@@ -5,6 +5,7 @@ const production = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  schema: process.env.SCHEMA,
   synchronize: false,
   logging: true,
   entities: ['./build/modules/**/models/*.ts'],
@@ -22,6 +23,7 @@ const development = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  schema: process.env.SCHEMA,
   synchronize: false,
   logging: true,
   entities: [
