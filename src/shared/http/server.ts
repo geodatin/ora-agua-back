@@ -2,7 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import 'express-async-errors'
 
-import '@utils/formatPgResponse'
+import '@shared/database/utils/formatPgResponse'
 import '../database'
 import '../container'
 import { checkError } from '../errors/checkError'
