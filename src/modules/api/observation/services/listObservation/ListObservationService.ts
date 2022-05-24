@@ -81,18 +81,17 @@ export class ListObservationService {
         .concat(responseHybam)
         .sort(() => Math.random() - 0.5)
     }
-
     const newObservations: IListObservationResponseDTO[] = []
 
     response.forEach((observation: IListObservationResponseDTO) => {
       observation.observations = []
       observation.id = createUuid()
-      let allNullValues = true
+      const allNullValues = true
       for (const key in observation) {
         if (key.toString().includes('observations_')) {
-          if (observation[key]) {
+          /*           if (observation[key]) {
             allNullValues = false
-          }
+          } */
           const newKey = key.split('_')[1]
           if (filters.network[0] === 'RHA' && frequency !== 'last') {
             if (newKey === 'rain') {
@@ -119,9 +118,9 @@ export class ListObservationService {
           delete observation[key]
         }
       }
-      if (!allNullValues) {
-        newObservations.push(observation)
-      }
+      // if (!allNullValues) {
+      newObservations.push(observation)
+      // }
     })
 
     if (stationCode) {

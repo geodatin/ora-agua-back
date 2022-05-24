@@ -48,7 +48,7 @@ class GetStationsPointsService {
         station.situation = 'normal'
       }
 
-      if (
+      /*       if (
         station.rain ||
         station.level ||
         station.flowRate ||
@@ -57,7 +57,7 @@ class GetStationsPointsService {
         station.hasData = true
       } else {
         station.hasData = false
-      }
+      } */
 
       delete station.flowRateLimits
       delete station.levelLimits
