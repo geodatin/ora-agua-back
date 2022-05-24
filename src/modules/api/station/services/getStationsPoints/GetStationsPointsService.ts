@@ -59,6 +59,7 @@ class GetStationsPointsService {
         station.hasData = false
       } */
 
+      station.hasData = true
       delete station.flowRateLimits
       delete station.levelLimits
       return station
