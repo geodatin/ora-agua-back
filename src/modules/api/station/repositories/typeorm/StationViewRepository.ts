@@ -256,14 +256,19 @@ export class StationViewRepository implements IStationViewRepository {
   async getAllStations(): Promise<any> {
     const stations = await getManager().query(
       `select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_ana
+      where st_intersects(location, (select st_union(geometry) from south_america_country))
       union
       select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_senhami
+      where st_intersects(location, (select st_union(geometry) from south_america_country))
       union
       select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_senhami_pe
+      where st_intersects(location, (select st_union(geometry) from south_america_country))
       union
       select name as name, code::varchar as code, ST_AsGeoJSON(geometry)::jsonb as location from station_sinca
+      where st_intersects(geometry, (select st_union(geometry) from south_america_country))
       union
-      select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_hybam`
+      select name as name, code::varchar as code, ST_AsGeoJSON(location)::jsonb as location from station_hybam
+      where st_intersects(location, (select st_union(geometry) from south_america_country))`
     )
     return stations
   }
