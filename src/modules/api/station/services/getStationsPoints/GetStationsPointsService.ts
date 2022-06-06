@@ -7,7 +7,7 @@ import { IStationViewRepository } from '../../repositories/IStationViewRepositor
 const geojson: any = require('geojson')
 
 @injectable()
-class GetStationsPointsService {
+export class GetStationsPointsService {
   constructor(
     @inject('StationViewRepository')
     private stationViewRepository: IStationViewRepository
@@ -48,17 +48,6 @@ class GetStationsPointsService {
         station.situation = 'normal'
       }
 
-      /*       if (
-        station.rain ||
-        station.level ||
-        station.flowRate ||
-        station.network === 'RQA'
-      ) {
-        station.hasData = true
-      } else {
-        station.hasData = false
-      } */
-
       station.hasData = true
       delete station.flowRateLimits
       delete station.levelLimits
@@ -68,5 +57,3 @@ class GetStationsPointsService {
     return parsed
   }
 }
-
-export { GetStationsPointsService }
