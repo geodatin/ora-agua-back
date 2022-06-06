@@ -1,4 +1,4 @@
-import { formatDate } from '@utils/formatDate'
+import { formatDate, formatDateCsvs } from '@utils/formatDate'
 import { formatNumber } from '@utils/formatNumber'
 import AdmZip from 'adm-zip'
 import axios from 'axios'
@@ -10,17 +10,35 @@ import queryString from 'query-string'
 import { inject, injectable } from 'tsyringe'
 
 import { IStationRepository } from '../../../station/repositories/IStationRepository'
+import { ICreateObservationDTO } from '../../dtos/ICreateObservationDTO'
 import { IDownloadOptions } from '../../interfaces/IDownloadOptions'
+import { IObservationRepository } from '../../repositories/IObservationRepository'
 import { IWaterQualityObservationRepository } from '../../repositories/IWaterQualityObservationRepository'
 
 @injectable()
 class DownloadObservationCsvsSeeder {
+  private tmpFolderPath: string
+
   constructor(
     @inject('StationRepository')
     private stationRepository: IStationRepository,
     @inject('WaterQualityObservationRepository')
-    private waterQualityObservationRepository: IWaterQualityObservationRepository
-  ) {}
+    private waterQualityObservationRepository: IWaterQualityObservationRepository,
+    @inject('ObservationRepository')
+    private observationRepository: IObservationRepository
+  ) {
+    this.tmpFolderPath = path.resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      '..',
+      '..',
+      '..',
+      '..',
+      'tmp'
+    )
+  }
   async execute(): Promise<void> {
     const stations = await this.stationRepository.getAllStationsFullTable()
     const { index: lastUpdatedIndex } = await this.getLastUpdatedIndex()
@@ -33,11 +51,10 @@ class DownloadObservationCsvsSeeder {
         }
       }
     }
-    await this.readFiles(
-      path.join(
-        path.resolve(__dirname, '..', '..', '..', '..', '..', 'tmp'),
-        'csvs'
-      )
+    await this.readFlowFiles(path.join(this.tmpFolderPath, 'csvs', 'vazoes'))
+    await this.readLevelFiles(path.join(this.tmpFolderPath, 'csvs', 'cotas'))
+    await this.readWaterQualityFiles(
+      path.join(this.tmpFolderPath, 'csvs', 'qualagua')
     )
   }
 
@@ -45,17 +62,7 @@ class DownloadObservationCsvsSeeder {
     const baseUrl =
       'https://www.snirh.gov.br/hidroweb/rest/api/documento/convencionais'
     const options: IDownloadOptions = {
-      directory: path.resolve(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-        'tmp'
-      ),
+      directory: this.tmpFolderPath,
       filename: `download.zip`,
     }
     const query = {
@@ -77,15 +84,31 @@ class DownloadObservationCsvsSeeder {
     const zip = new AdmZip(path.join(options.directory, options.filename))
     for (const entry of zip.getEntries()) {
       const extension = entry.name.substring(entry.name.length - 3)
-      const name = entry.name.substring(0, 8)
-      if (extension === 'zip' && name === 'qualagua') {
+      let shouldExtract = false
+      let name = null
+      if (entry.name.includes('cotas')) {
+        name = 'cotas'
+        shouldExtract = true
+      }
+      /*       if (entry.name.includes('qualagua')) {
+        name = 'qualagua'
+        shouldExtract = true
+      } */
+      if (entry.name.includes('vazoes')) {
+        name = 'vazoes'
+        shouldExtract = true
+      }
+
+      if (!shouldExtract) return
+
+      if (extension === 'zip') {
         zip.extractEntryTo(entry.name, path.join(options.directory, 'zipped'))
         await this.unzipDocument({
           directory: path.join(options.directory, 'zipped'),
           filename: entry.name,
         })
         unlinkSync(path.join(options.directory, 'zipped', entry.name))
-      } else if (extension === 'csv' && name === 'qualagua') {
+      } else if (extension === 'csv') {
         let shouldPrint = false
         let content = ''
         entry
@@ -101,22 +124,7 @@ class DownloadObservationCsvsSeeder {
             }
           })
         zip.addFile(entry.name, Buffer.from(content, 'utf8'))
-        zip.extractAllTo(
-          path.join(
-            path.resolve(
-              __dirname,
-              '..',
-              '..',
-              '..',
-              '..',
-              '..',
-              '..',
-              '..',
-              'tmp'
-            ),
-            'csvs'
-          )
-        )
+        zip.extractAllTo(path.join(this.tmpFolderPath, 'csvs', name))
       }
     }
   }
@@ -137,7 +145,7 @@ class DownloadObservationCsvsSeeder {
     })
   }
 
-  async readFiles(directory: string): Promise<void> {
+  async readWaterQualityFiles(directory: string): Promise<void> {
     const files = await filesystem.promises.readdir(directory)
     for (const file of files) {
       const observationArray = []
@@ -180,6 +188,126 @@ class DownloadObservationCsvsSeeder {
     }
   }
 
+  async readFlowFiles(directory: string): Promise<void> {
+    const files = await filesystem.promises.readdir(directory)
+    for (const file of files) {
+      const stationCode = file
+        .split('_')[2]
+        .substring(0, file.split('_')[2].length - 4)
+      await this.observationRepository.deleteObservations(Number(stationCode))
+      const observationArray = await this.createObservationArray(
+        directory,
+        file,
+        'Vazao'
+      )
+      const observationArrayChunckSize = 1000
+      for (
+        let i = 0;
+        i < observationArray.length;
+        i += observationArrayChunckSize
+      ) {
+        await this.observationRepository.createMany(
+          observationArray.slice(i, i + observationArrayChunckSize)
+        )
+      }
+    }
+  }
+
+  async readLevelFiles(directory: string): Promise<void> {
+    const files = await filesystem.promises.readdir(directory)
+    for (const file of files) {
+      const observationArray = await this.createObservationArray(
+        directory,
+        file,
+        'Cota'
+      )
+      const observationArrayChunckSize = 1000
+      for (
+        let i = 0;
+        i < observationArray.length;
+        i += observationArrayChunckSize
+      ) {
+        try {
+          await this.observationRepository.createMany(
+            observationArray.slice(i, i + observationArrayChunckSize)
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+  }
+
+  async createObservationArray(
+    directory: string,
+    file: string,
+    type: string
+  ): Promise<ICreateObservationDTO[]> {
+    return new Promise<ICreateObservationDTO[]>((resolve, reject) => {
+      const observationArray = []
+      filesystem
+        .createReadStream(path.join(directory, file))
+        .pipe(csvParser({ separator: ';' }))
+        .on('data', (row) => {
+          const date = formatDateCsvs(row.Data)
+
+          if (row.Hora !== '') return
+
+          if (!date) return
+
+          for (const key in row) {
+            if (key !== 'EstacaoCodigo' && key !== 'Data' && key !== 'Hora') {
+              row[key] = formatNumber(row[key])
+            }
+
+            if (key.includes(type) && !key.includes('Status')) {
+              const dayToAdd = Number(key.replace(/\D/g, '')) - 1
+              if (type === 'Vazao' && row[key]) {
+                const observation = {
+                  stationCode: Number(row.EstacaoCodigo),
+                  timestamp: moment(date)
+                    .add(dayToAdd, 'days')
+                    .add(this.generateRandomNumber(1, 60), 'minutes')
+                    .add(this.generateRandomNumber(1, 20), 'hours')
+                    .toDate(),
+                  rain: null,
+                  qRain: null,
+                  adoptedLevel: null,
+                  qAdoptedLevel: null,
+                  flowRate: row[key],
+                  qFlowRate: null,
+                }
+                observationArray.push(observation)
+              } else if (type === 'Cota' && row[key]) {
+                const observation = {
+                  stationCode: Number(row.EstacaoCodigo),
+                  timestamp: moment(date)
+                    .add(dayToAdd, 'days')
+                    .add(this.generateRandomNumber(1, 60), 'minutes')
+                    .add(this.generateRandomNumber(1, 20), 'hours')
+                    .toDate(),
+                  rain: null,
+                  qRain: null,
+                  adoptedLevel: row[key],
+                  qAdoptedLevel: null,
+                  flowRate: null,
+                  qFlowRate: null,
+                }
+                observationArray.push(observation)
+              }
+            }
+          }
+        })
+        .on('end', () => {
+          resolve(observationArray)
+          unlinkSync(path.join(directory, file))
+        })
+        .on('error', (err) => {
+          reject(err)
+        })
+    })
+  }
+
   async updateLastIndex(index: number): Promise<void> {
     filesystem.writeFileSync(
       path.resolve(__dirname, 'files', 'index.json'),
@@ -193,6 +321,10 @@ class DownloadObservationCsvsSeeder {
     )
     const { index } = JSON.parse(file.toString())
     return { index }
+  }
+
+  generateRandomNumber(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min) + min)
   }
 }
 
