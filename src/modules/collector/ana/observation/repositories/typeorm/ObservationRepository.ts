@@ -9,6 +9,7 @@ class ObservationRepository implements IObservationRepository {
   constructor() {
     this.repository = getRepository(ObservationAna)
   }
+
   async refreshLastObservationView(): Promise<void> {
     await this.repository.query(
       'REFRESH MATERIALIZED VIEW observation_station_view WITH DATA'
@@ -32,6 +33,27 @@ class ObservationRepository implements IObservationRepository {
       .createQueryBuilder('observation')
       .insert()
       .values(data)
+      .execute()
+  }
+
+  async createManyOrUpdate(data: ICreateObservationDTO[]): Promise<void> {
+    await this.repository
+      .createQueryBuilder('observation')
+      .insert()
+      .values(data)
+      .orUpdate({
+        // eslint-disable-next-line camelcase
+        conflict_target: ['station_code', 'timestamp'],
+        overwrite: ['adopted_level'],
+      })
+      .execute()
+  }
+
+  async deleteObservations(stationCode: number): Promise<void> {
+    await this.repository
+      .createQueryBuilder('observation')
+      .delete()
+      .where('station_code = :stationCode', { stationCode })
       .execute()
   }
 }
