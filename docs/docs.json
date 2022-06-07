@@ -1,0 +1,1010 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ora Network Documentation",
+        "description": "This is an API for the Ora Network Module",
+        "version": "1.0.0",
+        "contact": {
+            "email": "administrativo@geodatin.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "filters": {
+                "type": "object",
+                "properties": {
+                    "filters": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "network": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "country": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "responsible": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "river": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "variable": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "geojson": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "features": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "geometry": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "coordinates": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "properties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "river": {
+                                            "type": "string"
+                                        },
+                                        "responsible": {
+                                            "type": "string"
+                                        },
+                                        "country": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/station/count": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    }
+                ],
+                "summary": "Count stations",
+                "description": "Count the total of stations",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/count/country": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "response output format",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "csv",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Count stations by country",
+                "description": "Count the total of stations by country",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "country": {
+                                                "type": "string"
+                                            },
+                                            "countryId": {
+                                                "type": "number"
+                                            },
+                                            "count": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/count/network": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "response output format",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "csv",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Count stations by network",
+                "description": "Count the total of stations by network",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "network": {
+                                                "type": "string"
+                                            },
+                                            "count": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/count/responsible": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "response output format",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "csv",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Count stations by responsible",
+                "description": "Count the total of stations by responsible",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "responsible": {
+                                                "type": "string"
+                                            },
+                                            "count": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/count/variable": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "response output format",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "csv",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Count stations by variable",
+                "description": "Count the total of stations by variable",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "network": {
+                                                "type": "string"
+                                            },
+                                            "variable": {
+                                                "type": "string"
+                                            },
+                                            "stations": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/ranking/river": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "response output format",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "csv",
+                                "json"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "response element order",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "number of the page to be returned",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "summary": "Rank stations by river",
+                "description": "Rank the stations by river",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "x": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Madeira",
+                                                "Rio Maranon",
+                                                "Rio Purus",
+                                                "Rio Solimoes",
+                                                "Rio Branco"
+                                            ]
+                                        },
+                                        "datasets": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "label": {
+                                                        "type": "string",
+                                                        "example": "RQA"
+                                                    },
+                                                    "data": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "number"
+                                                        },
+                                                        "example": [
+                                                            0,
+                                                            0,
+                                                            1,
+                                                            0,
+                                                            1
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "position": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number"
+                                            },
+                                            "example": [
+                                                1,
+                                                2,
+                                                3,
+                                                4,
+                                                5
+                                            ]
+                                        },
+                                        "pages": {
+                                            "type": "number",
+                                            "example": 329
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/location": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    }
+                ],
+                "summary": "Get station points on map",
+                "description": "Get station points on map",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/geojson"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/filter/{filterTerm}": {
+            "get": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filterTerm",
+                        "in": "path",
+                        "description": "Name of the option",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "summary": "Get available filtering options",
+                "description": "Get available filtering options",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "value": {
+                                                "type": "string"
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/notification": {
+            "post": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number of the records",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "number of records per page",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "summary": "Notification list for the stations",
+                "description": "Notification list for the stations",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "values": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "location": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "coordinates": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "number"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "responsible": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastUpdate": {
+                                                        "type": "string"
+                                                    },
+                                                    "observations": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "key": {
+                                                                    "type": "string"
+                                                                },
+                                                                "value": {
+                                                                    "type": "number"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "pages": {
+                                            "type": "number"
+                                        },
+                                        "total": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/projected/location": {
+            "get": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [],
+                "summary": "Get projected stations points on map",
+                "description": "Get projected stations points on map",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/geojson"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/station/all/location": {
+            "get": {
+                "tags": [
+                    "Station"
+                ],
+                "parameters": [],
+                "summary": "Get projected stations points on map",
+                "description": "Get projected stations points on map",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/geojson"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/observation/timeSeries/{network}/{stationCode}/{dataType}/{frequency}": {
+            "post": {
+                "tags": [
+                    "Observation"
+                ],
+                "parameters": [
+                    {
+                        "name": "network",
+                        "in": "query",
+                        "description": "Network to be used for the observation",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "rha",
+                                "rqa",
+                                "hybam"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "stationCode",
+                        "in": "query",
+                        "description": "Station code to filter the data",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "dataType",
+                        "in": "query",
+                        "description": "Data type for the selected network",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "frequency",
+                        "in": "query",
+                        "description": "Station code to filter the data",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "hour",
+                                "day",
+                                "week",
+                                "month",
+                                "quarter",
+                                "year"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "format",
+                        "in": "query",
+                        "description": "response output format",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "csv",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "summary": "Get time series observation from specified station",
+                "description": "Get time series observation from specified station",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "x": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "2021-12-21T02:00:00.000Z",
+                                                "2021-12-21T01:00:00.000Z",
+                                                "2021-12-21T00:00:00.000Z",
+                                                "2021-12-20T23:00:00.000Z",
+                                                "2021-12-20T22:00:00.000Z"
+                                            ]
+                                        },
+                                        "y": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number",
+                                                "example": 7794285.69
+                                            },
+                                            "example": [
+                                                7794285.69,
+                                                7947833.43,
+                                                9010518.08,
+                                                8857033.11,
+                                                8962340.42
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/observation/list/{frequency}": {
+            "post": {
+                "tags": [
+                    "Observation"
+                ],
+                "parameters": [
+                    {
+                        "name": "filters",
+                        "in": "body",
+                        "description": "Filters",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/filters"
+                        }
+                    },
+                    {
+                        "name": "frequency",
+                        "in": "query",
+                        "description": "Station code to filter the data",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "hour",
+                                "day",
+                                "week",
+                                "month",
+                                "quarter",
+                                "year"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number of the records",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "number of records per page",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "stationCode",
+                        "in": "query",
+                        "description": "station code to filter records",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "summary": "List rha network stations",
+                "description": "List rha network stations",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "values": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "location": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "coordinates": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "number"
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    "responsible": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastUpdate": {
+                                                        "type": "string"
+                                                    },
+                                                    "observations": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "key": {
+                                                                    "type": "string"
+                                                                },
+                                                                "value": {
+                                                                    "type": "number"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "pages": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/observation/lastUpdate": {
+            "get": {
+                "tags": [
+                    "Observation"
+                ],
+                "parameters": [],
+                "summary": "Last timestamp of database update",
+                "description": "Last timestamp of database update",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "lastUpdate": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
