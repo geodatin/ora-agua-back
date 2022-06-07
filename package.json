@@ -69,6 +69,7 @@
     "redis": "^4.0.2",
     "reflect-metadata": "^0.1.13",
     "snake-case": "^3.0.4",
+    "swagger-ui-express": "^4.4.0",
     "system-commands": "^1.1.7",
     "table-scraper": "^1.0.3",
     "typeorm": "^0.2.37",
