@@ -141,7 +141,7 @@ export class StationViewRepository implements IStationViewRepository {
       .leftJoin(
         ObservationRhaListView,
         'observation',
-        `station.code = observation.station_code AND observation.frequency = 'last' AND station.network = 'RHA'`
+        `station.code = observation.station_code AND observation.frequency = 'week' AND station.network = 'RHA'`
       )
 
       .addSelect('observation.rain', 'rain')
