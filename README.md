@@ -678,45 +678,6 @@ Listagem de estações da rede hidrológica.
     **Conteúdo:**
     ```javascript
       {
-        "values": [
-          {
-            "rain": 0,
-            "level": null,
-            "code": "15326000",
-            "name": "Morada Nova - Jusante",
-            "location": {
-              "type": "Point",
-              "coordinates": [
-                -65.5275,
-                -9.7847
-              ]
-            },
-            "responsible": "ANA",
-            "flowRate": null,
-            "lastUpdate": "2021-12-21T13:15:00.000Z"
-          },
-          {
-            "rain": 326.6,
-            "level": 2141.52,
-            "code": "14990000",
-            "name": "Manaus",
-            "location": {
-              "type": "Point",
-              "coordinates": [
-                -60.0272,
-                -3.1383
-              ]
-            },
-            "responsible": "ANA",
-            "flowRate": null,
-            "lastUpdate": "2021-12-21T02:45:00.000Z"
-          },
-        ],
-        "pages": 10
-      }
-    ```
-    ```javascript
-      {
       "values": [
         {
           "code": "12700000",
