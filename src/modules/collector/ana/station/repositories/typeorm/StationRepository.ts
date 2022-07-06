@@ -35,6 +35,18 @@ class StationRepository implements IStationRepository {
     const stations = await this.repository.find()
     return stations
   }
+
+  async getViewStations(): Promise<{ name: string; code: string }[]> {
+    const stations = await this.repository.query(`
+      SELECT name, code FROM station_view WHERE code NOT IN (
+        SELECT station_code FROM observation_rha_view 
+        GROUP BY station_code
+        HAVING COUNT(*) > 0
+        )
+        AND responsible = 'ANA' AND network = 'RHA'
+    `)
+    return stations
+  }
 }
 
 export { StationRepository }
