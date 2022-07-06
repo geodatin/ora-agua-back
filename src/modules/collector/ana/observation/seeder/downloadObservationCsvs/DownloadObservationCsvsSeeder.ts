@@ -40,15 +40,11 @@ class DownloadObservationCsvsSeeder {
     )
   }
   async execute(): Promise<void> {
-    const stations = await this.stationRepository.getAllStationsFullTable()
+    const stations = await this.stationRepository.getViewStations()
     const { index: lastUpdatedIndex } = await this.getLastUpdatedIndex()
     for (const [index, station] of stations.entries()) {
       if (index >= lastUpdatedIndex) {
-        try {
-          await this.downloadDocument(station.code)
-        } catch (err) {
-          console.error(err)
-        }
+        await this.downloadDocument(station.code)
       }
     }
     await this.readFlowFiles(path.join(this.tmpFolderPath, 'csvs', 'vazoes'))
@@ -58,7 +54,7 @@ class DownloadObservationCsvsSeeder {
     )
   }
 
-  async downloadDocument(stationCode: number) {
+  async downloadDocument(stationCode: string) {
     const baseUrl =
       'https://www.snirh.gov.br/hidroweb/rest/api/documento/convencionais'
     const options: IDownloadOptions = {
@@ -90,16 +86,16 @@ class DownloadObservationCsvsSeeder {
         name = 'cotas'
         shouldExtract = true
       }
-      /*       if (entry.name.includes('qualagua')) {
+      if (entry.name.includes('qualagua')) {
         name = 'qualagua'
         shouldExtract = true
-      } */
+      }
       if (entry.name.includes('vazoes')) {
         name = 'vazoes'
         shouldExtract = true
       }
 
-      if (!shouldExtract) return
+      if (!shouldExtract) continue
 
       if (extension === 'zip') {
         zip.extractEntryTo(entry.name, path.join(options.directory, 'zipped'))
@@ -109,6 +105,7 @@ class DownloadObservationCsvsSeeder {
         })
         unlinkSync(path.join(options.directory, 'zipped', entry.name))
       } else if (extension === 'csv') {
+        console.log(entry.name)
         let shouldPrint = false
         let content = ''
         entry
@@ -268,7 +265,8 @@ class DownloadObservationCsvsSeeder {
                   timestamp: moment(date)
                     .add(dayToAdd, 'days')
                     .add(this.generateRandomNumber(1, 60), 'minutes')
-                    .add(this.generateRandomNumber(1, 20), 'hours')
+                    .add(this.generateRandomNumber(1, 23), 'hours')
+                    .add(this.generateRandomNumber(1, 60), 'seconds')
                     .toDate(),
                   rain: null,
                   qRain: null,
@@ -284,7 +282,8 @@ class DownloadObservationCsvsSeeder {
                   timestamp: moment(date)
                     .add(dayToAdd, 'days')
                     .add(this.generateRandomNumber(1, 60), 'minutes')
-                    .add(this.generateRandomNumber(1, 20), 'hours')
+                    .add(this.generateRandomNumber(1, 23), 'hours')
+                    .add(this.generateRandomNumber(1, 60), 'seconds')
                     .toDate(),
                   rain: null,
                   qRain: null,
