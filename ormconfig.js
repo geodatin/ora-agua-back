@@ -1,7 +1,7 @@
 const production = {
   type: 'postgres',
   host: process.env.DB_HOST,
-  port: 5432,
+  port: process.env.DB_PORT,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -19,7 +19,7 @@ const production = {
 const development = {
   type: 'postgres',
   host: process.env.DB_HOST,
-  port: 5432,
+  port: process.env.DB_PORT,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
