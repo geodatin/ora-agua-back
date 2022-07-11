@@ -31,7 +31,7 @@ env.config()
 
 log(`Running seeders every ${hoursInterval} hours`)
 const task = cron.schedule(
-  `0 */${hoursInterval} * * *`,
+  `30 */${hoursInterval} * * *`,
   async () => {
     await seed()
   },
