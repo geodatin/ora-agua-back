@@ -12,7 +12,13 @@ import { routes } from './routes/index.routes'
 
 const app = express()
 app.use(express.json())
-app.use('/api/docs', swagger.serve, swagger.setup(docs))
+app.use(
+  '/api/docs',
+  swagger.serve,
+  swagger.setup(docs, {
+    customCss: '.swagger-ui .topbar { display: none }',
+  })
+)
 // app.use(rateLimiter)
 app.use(cors())
 app.use('/api', routes)
