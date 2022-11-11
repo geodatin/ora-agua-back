@@ -737,7 +737,7 @@
             }
         },
         "/observation/timeSeries/{network}/{stationCode}/{dataType}/{frequency}": {
-            "post": {
+            "get": {
                 "tags": [
                     "Observation"
                 ],
