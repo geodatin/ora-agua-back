@@ -70,6 +70,7 @@ class InsertObservationFromApiSeeder {
       )
 
       for (const [index, measurement] of results.medicoes.entries()) {
+        if (Number(results.codigoEstacao) === 17091550) continue
         const observation = {
           stationCode: Number(results.codigoEstacao),
           timestamp: moment(measurement.id.horDataHora).toDate(),
