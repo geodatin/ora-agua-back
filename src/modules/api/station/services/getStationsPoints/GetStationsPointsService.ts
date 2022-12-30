@@ -32,18 +32,20 @@ export class GetStationsPointsService {
       const isUnderInferiorLevelLimit =
         station.level < station.levelLimits.inferiorLimit && station.level
 
-      const isAlert =
-        isOverSuperiorFlowRateLimit ||
-        isOverSuperiorLevelLimit ||
-        isUnderInferiorFlowRateLimit ||
-        isUnderInferiorLevelLimit
+      const isSuperiorAlert =
+        isOverSuperiorFlowRateLimit || isOverSuperiorLevelLimit
+
+      const isInferiorAlert =
+        isUnderInferiorFlowRateLimit || isUnderInferiorLevelLimit
 
       const isLast3Days = moment(station.lastUpdate).isAfter(
         moment().subtract(30, 'days')
       )
 
-      if (isAlert && isLast3Days) {
+      if (isInferiorAlert && isLast3Days) {
         station.situation = 'alert'
+      } else if (isSuperiorAlert && isLast3Days) {
+        station.situation = 'emergency'
       } else {
         station.situation = 'normal'
       }
