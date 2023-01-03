@@ -49,8 +49,8 @@ async function seed() {
     // await downloadObservationCsvsController.start()
 
     await insertObservationFromApiController.start()
-    await insertObservationSenhamiController.start()
-    await insertObservationSenhamiPeController.start()
+    // await insertObservationSenhamiController.start()
+    // await insertObservationSenhamiPeController.start()
 
     // await insertStationsSincaController.start()
     await downloadWaterQualitySincaController.start()
