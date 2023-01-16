@@ -771,7 +771,12 @@
                         "description": "Data type for the selected network",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "rain",
+                                "flowRate",
+                                "level"
+                            ]
                         }
                     },
                     {
