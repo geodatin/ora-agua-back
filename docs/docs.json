@@ -744,7 +744,7 @@
                 "parameters": [
                     {
                         "name": "network",
-                        "in": "query",
+                        "in": "path",
                         "description": "Network to be used for the observation",
                         "required": true,
                         "schema": {
@@ -758,7 +758,7 @@
                     },
                     {
                         "name": "stationCode",
-                        "in": "query",
+                        "in": "path",
                         "description": "Station code to filter the data",
                         "required": true,
                         "schema": {
@@ -767,7 +767,7 @@
                     },
                     {
                         "name": "dataType",
-                        "in": "query",
+                        "in": "path",
                         "description": "Data type for the selected network",
                         "required": true,
                         "schema": {
@@ -776,7 +776,7 @@
                     },
                     {
                         "name": "frequency",
-                        "in": "query",
+                        "in": "path",
                         "description": "Station code to filter the data",
                         "required": true,
                         "schema": {
@@ -793,7 +793,7 @@
                     },
                     {
                         "name": "format",
-                        "in": "query",
+                        "in": "path",
                         "description": "response output format",
                         "required": false,
                         "schema": {
