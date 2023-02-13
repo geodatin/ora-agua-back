@@ -775,7 +775,8 @@
                             "enum": [
                                 "rain",
                                 "flowRate",
-                                "level"
+                                "level",
+                                "raw"
                             ]
                         }
                     },
@@ -806,6 +807,19 @@
                             "enum": [
                                 "csv",
                                 "json"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "allTime",
+                        "in": "query",
+                        "description": "if the response should return all data",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
                             ]
                         }
                     }
@@ -872,7 +886,7 @@
                     },
                     {
                         "name": "frequency",
-                        "in": "query",
+                        "in": "path",
                         "description": "Station code to filter the data",
                         "required": true,
                         "schema": {
