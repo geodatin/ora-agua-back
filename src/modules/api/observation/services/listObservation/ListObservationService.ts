@@ -34,7 +34,7 @@ export class ListObservationService {
       | IObservationHybamRepository
 
     let response = []
-    if (filters.network.length > 0) {
+    if (filters?.network.length > 0) {
       if (filters.network[0] === 'RQA') {
         repository = this.observationRqaViewRepository
       } else if (filters.network[0] === 'RHA') {
