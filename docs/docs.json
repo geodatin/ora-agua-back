@@ -897,7 +897,8 @@
                                 "week",
                                 "month",
                                 "quarter",
-                                "year"
+                                "year",
+                                "last"
                             ]
                         }
                     },
