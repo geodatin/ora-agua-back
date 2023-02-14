@@ -82,7 +82,6 @@ export class ListObservationService {
         .sort(() => Math.random() - 0.5)
     }
     const newObservations: IListObservationResponseDTO[] = []
-
     response.forEach((observation: IListObservationResponseDTO) => {
       observation.observations = []
       observation.id = createUuid()
@@ -93,7 +92,7 @@ export class ListObservationService {
             allNullValues = false
           } */
           const newKey = key.split('_')[1]
-          if (filters.network[0] === 'RHA' && frequency !== 'last') {
+          if (filters?.network[0] === 'RHA' && frequency !== 'last') {
             if (newKey === 'rain') {
               observation.observations.push({
                 key: newKey,
