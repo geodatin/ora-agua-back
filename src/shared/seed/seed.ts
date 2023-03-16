@@ -58,7 +58,7 @@ async function seed() {
     // await insertStationsIdeamController.start()
     await downloadObservationIdeamController.start()
     await downloadWaterQualityIdeamController.start()
-    await downloadObservationsHybamController.start()
+    // await downloadObservationsHybamController.start()
 
     // await insertStationsHybamController.start()
     // await downloadWaterLevelsHybamController.start()
