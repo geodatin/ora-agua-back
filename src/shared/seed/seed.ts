@@ -53,11 +53,11 @@ async function seed() {
     // await insertObservationSenhamiPeController.start()
 
     // await insertStationsSincaController.start()
-    await downloadWaterQualitySincaController.start()
+    // await downloadWaterQualitySincaController.start()
 
-    // await insertStationsIdeamController.start()
-    await downloadObservationIdeamController.start()
-    await downloadWaterQualityIdeamController.start()
+    // // await insertStationsIdeamController.start()
+    // await downloadObservationIdeamController.start()
+    // await downloadWaterQualityIdeamController.start()
     // await downloadObservationsHybamController.start()
 
     // await insertStationsHybamController.start()
@@ -75,31 +75,26 @@ async function seed() {
   }
 }
 
-/* createConnection().then(async (connection) => {
-  // await insertStationController.start()
-  // await downloadObservationCsvsController.start()
+// createConnection().then(async (connection) => {
+//   // await insertObservationFromApiController.start()
+//   // await insertObservationSenhamiController.start()
+//   // await insertObservationSenhamiPeController.start()
 
-  // await insertObservationFromApiController.start()
-  // await insertObservationSenhamiController.start()
-  // await insertObservationSenhamiPeController.start()
+//   // await insertStationsSincaController.start()
+//   // await downloadWaterQualitySincaController.start()
 
-  // await insertStationsSincaController.start()
-  // await downloadWaterQualitySincaController.start()
+//   // await insertStationsIdeamController.start()
+//   // await downloadObservationIdeamController.start()
+//   // await downloadWaterQualityIdeamController.start()
+//   // await downloadObservationsHybamController.start()
 
-  // await insertStationsIdeamController.start()
-  // await downloadObservationIdeamController.start()
-  // await downloadWaterQualityIdeamController.start()
-  // await downloadObservationsHybamController.start()
+//   // await insertStationsHybamController.start()
+//   // await downloadWaterLevelsHybamController.start()
+//   // await downloadDischargesHybamController.start()
+//   // await downloadSedimentsHybamController.start()
+//   // await downloadPhysicalChemistryHybamController.start()
+//   // await downloadGeochemistryHybamController.start()
 
-  // await insertStationsHybamController.start()
-  // await insertStationSenhamiController.start()
-  // await downloadWaterLevelsHybamController.start()
-  // await downloadDischargesHybamController.start()
-  // await downloadSedimentsHybamController.start()
-  // await downloadPhysicalChemistryHybamController.start()
-  // await downloadGeochemistryHybamController.start()
-
-  await refreshViewsController.start()
-  await connection.close()
-})
- */
+//   await refreshViewsController.start()
+//   await connection.close()
+// })
