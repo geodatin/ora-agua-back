@@ -879,7 +879,7 @@
                         "name": "filters",
                         "in": "body",
                         "description": "Filters",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "$ref": "#/components/schemas/filters"
                         }
