@@ -30,19 +30,31 @@ const hoursInterval = 2
 env.config()
 
 log(`Running seeders every ${hoursInterval} hours`)
-const task = cron.schedule(
+const taskAna = cron.schedule(
   `30 */${hoursInterval} * * *`,
   async () => {
-    await seed()
+    await seedAna()
   },
   {
     scheduled: true,
     timezone: 'America/Sao_Paulo',
   }
 )
-task.start()
+taskAna.start()
 
-async function seed() {
+const taskGeneral = cron.schedule(
+  `00 */${hoursInterval * 2} * * *`,
+  async () => {
+    await seedGeneral()
+  },
+  {
+    scheduled: true,
+    timezone: 'America/Sao_Paulo',
+  }
+)
+taskGeneral.start()
+
+async function seedAna() {
   try {
     log(`Seed started`)
     // await insertStationController.start()
@@ -75,25 +87,33 @@ async function seed() {
   }
 }
 
-// createConnection().then(async (connection) => {
-//   // await insertObservationFromApiController.start()
-//   // await insertObservationSenhamiController.start()
-//   // await insertObservationSenhamiPeController.start()
+async function seedGeneral() {
+  try {
+    log(`General Seed started`)
 
-//   // await insertStationsSincaController.start()
+    await insertObservationSenhamiPeController.start()
+
+    // await downloadWaterQualitySincaController.start()
+
+    // await downloadObservationIdeamController.start()
+    // await downloadWaterQualityIdeamController.start()
+    await downloadObservationsHybamController.start()
+    log(`General Seed finished`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// createConnection().then(async (connection) => {
+//   //   // await insertObservationFromApiController.start()
+//   // await insertObservationSenhamiController.start()
+//   await insertObservationSenhamiPeController.start()
+
 //   // await downloadWaterQualitySincaController.start()
 
-//   // await insertStationsIdeamController.start()
 //   // await downloadObservationIdeamController.start()
 //   // await downloadWaterQualityIdeamController.start()
-//   // await downloadObservationsHybamController.start()
-
-//   // await insertStationsHybamController.start()
-//   // await downloadWaterLevelsHybamController.start()
-//   // await downloadDischargesHybamController.start()
-//   // await downloadSedimentsHybamController.start()
-//   // await downloadPhysicalChemistryHybamController.start()
-//   // await downloadGeochemistryHybamController.start()
+//   await downloadObservationsHybamController.start()
 
 //   await refreshViewsController.start()
 //   await connection.close()
