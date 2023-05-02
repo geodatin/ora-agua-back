@@ -196,6 +196,7 @@ export class InsertObservationSenhamiPeSeeder {
   }
 
   async getStationDates(station: StationSenhamiPe): Promise<string[]> {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = `0`
     const { data: html } = await axios.get(
       'https://www.senamhi.gob.pe/mapas/mapa-estaciones-2/map_red_graf.php',
       {
