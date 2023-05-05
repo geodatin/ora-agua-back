@@ -1,12 +1,12 @@
 version: "3.7"
 
-services: 
-  app:    
-    build: 
+services:
+  app:
+    build:
       context: ./
       dockerfile: dockerfile
     container_name: ora-network
-    ports: 
-      - 90:90
-    volumes: 
+    ports:
+      - 8090:8090
+    volumes:
       - .:/usr/app
