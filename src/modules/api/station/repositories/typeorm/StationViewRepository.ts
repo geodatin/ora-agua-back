@@ -168,12 +168,12 @@ export class StationViewRepository implements IStationViewRepository {
         'flowRateLimits'
       )
 
-    if (isNotification) {
-      query
-        .andWhere('observation.rain IS NOT NULL')
-        .andWhere('observation.flow_rate IS NOT NULL')
-        .andWhere('observation.level IS NOT NULL')
-    }
+    // if (isNotification) {
+    //   query
+    //     .andWhere('observation.rain IS NOT NULL')
+    //     .andWhere('observation.flow_rate IS NOT NULL')
+    //     .andWhere('observation.level IS NOT NULL')
+    // }
 
     return query.getRawMany()
   }
