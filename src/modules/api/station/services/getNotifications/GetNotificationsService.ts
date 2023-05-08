@@ -1,4 +1,5 @@
 import { paginate, countPages } from '@utils/paginate'
+import moment from 'moment'
 import { inject, injectable } from 'tsyringe'
 import { v4 as createUuid } from 'uuid'
 
@@ -6,14 +7,13 @@ import { IGetNotificationsRequestDTO } from '../../dtos/IGetNotificationsDTO'
 import { IGetStationsResponseDTO } from '../../dtos/IGetStationsDTO'
 import { INotification } from '../../interfaces/INotification'
 import { IStationViewRepository } from '../../repositories/IStationViewRepository'
-import moment from 'moment'
 
 @injectable()
 export class GetNotificationsService {
   constructor(
     @inject('StationViewRepository')
     private stationViewRepository: IStationViewRepository
-  ) { }
+  ) {}
 
   async execute({
     filters,
@@ -79,12 +79,9 @@ export class GetNotificationsService {
       moment().subtract(30, 'days')
     )
     if (type !== 'rain' && station[type] && isLast30Days) {
-
       if (station[type] < inferiorLimit && inferiorLimit) {
-        console.log(station, type, inferiorLimit, superiorLimit)
         notification.situation = 'alert'
       } else if (station[type] > superiorLimit && superiorLimit) {
-        console.log(station, type, inferiorLimit, superiorLimit)
         notification.situation = 'emergency'
       }
     }
