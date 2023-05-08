@@ -6,13 +6,14 @@ import { IGetNotificationsRequestDTO } from '../../dtos/IGetNotificationsDTO'
 import { IGetStationsResponseDTO } from '../../dtos/IGetStationsDTO'
 import { INotification } from '../../interfaces/INotification'
 import { IStationViewRepository } from '../../repositories/IStationViewRepository'
+import moment from 'moment'
 
 @injectable()
 export class GetNotificationsService {
   constructor(
     @inject('StationViewRepository')
     private stationViewRepository: IStationViewRepository
-  ) {}
+  ) { }
 
   async execute({
     filters,
@@ -74,10 +75,16 @@ export class GetNotificationsService {
       lastUpdate: station.lastUpdate,
       network: station.network,
     }
-    if (type !== 'rain') {
-      if (station[type] < inferiorLimit) {
+    const isLast30Days = moment(station.lastUpdate).isAfter(
+      moment().subtract(30, 'days')
+    )
+    if (type !== 'rain' && station[type] && isLast30Days) {
+
+      if (station[type] < inferiorLimit && inferiorLimit) {
+        console.log(station, type, inferiorLimit, superiorLimit)
         notification.situation = 'alert'
-      } else if (station[type] > superiorLimit) {
+      } else if (station[type] > superiorLimit && superiorLimit) {
+        console.log(station, type, inferiorLimit, superiorLimit)
         notification.situation = 'emergency'
       }
     }
