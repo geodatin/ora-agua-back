@@ -52,8 +52,8 @@ import { ViewColumn, ViewEntity } from 'typeorm'
   schema: process.env.SCHEMA,
 })
 export class ObservationRhaView {
-  @ViewColumn()
-  code: number
+  @ViewColumn({ name: 'station_code' })
+  stationCode: number
 
   @ViewColumn()
   timestamp: Date

@@ -13,6 +13,16 @@ class ObservationRhaViewRepository implements IObservationRhaViewRepository {
     this.repository = getRepository(ObservationRhaView)
   }
 
+  async getStationData(stationCode: string): Promise<any[]> {
+    const timeSeries = await this.repository
+      .createQueryBuilder()
+      .where('station_code = :code', { code: stationCode })
+      .orderBy('timestamp', 'DESC')
+      .getMany()
+
+    return timeSeries
+  }
+
   async timeSeries(
     stationCode: string,
     frequency: FrequencyType,
