@@ -1025,6 +1025,29 @@
                     }
                 }
             }
+        },
+        "/observation/timeSeries/{stationCode}": {
+            "get": {
+                "tags": [
+                    "Observation"
+                ],
+                "parameters": [
+                    {
+                        "name": "stationCode",
+                        "in": "path",
+                        "description": "Station code to filter the data",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "summary": "Get time series observation from specified station",
+                "description": "Get time series observation from specified station",
+                "responses": {
+                    "200": {}
+                }
+            }
         }
     }
 }
