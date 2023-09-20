@@ -2,7 +2,7 @@ import { formatDate } from '@utils/formatDate'
 import { sleep } from '@utils/sleep'
 import axios from 'axios'
 import fs from 'fs'
-import moment from 'moment'
+import { utc as moment } from 'moment'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
@@ -20,32 +20,28 @@ class InsertObservationFromApiSeeder {
   ) {}
   async execute(): Promise<void> {
     const stations = await this.stationRepository.getTelemetricStations()
-    const { code } = await this.getLastUpdatedStation()
-    const stationIndex = stations.findIndex((s) => s.code === code)
-    for (const [index, station] of stations.entries()) {
-      if (stationIndex <= index && station.id !== station.code) {
-        await this.updateLastStation(station.code)
-        const [initialDate, finalDate] = await this.getPeriod(station.id)
-        if (initialDate) {
-          const lastInsertedDate =
-            await this.observationRepository.getStationMaxDate(station.code)
-          const startDate = lastInsertedDate
-            ? moment(lastInsertedDate).add(1, 'day')
-            : moment(initialDate)
-          const endDate = moment(finalDate)
-          console.log(station.code, startDate)
-          while (startDate.isSameOrBefore(endDate)) {
-            const observations = await this.getObservationFromPeriod(
-              startDate.toDate(),
-              station.id
-            )
-            startDate.add(2, 'days')
-            await this.observationRepository.createMany(observations)
-          }
+    for (const [, station] of stations.entries()) {
+      const [initialDate] = await this.getPeriod(station.id)
+      if (initialDate) {
+        const lastInsertedDate =
+          await this.observationRepository.getStationMaxDate(station.code)
+        const startDate = lastInsertedDate
+          ? moment(lastInsertedDate)
+          : moment(initialDate)
+        while (true) {
+          const observations = await this.getObservationFromPeriod(
+            startDate.toDate(),
+            station.id
+          )
+          startDate.add(2, 'day')
+          if (observations.length === 0) break
+          console.log(
+            `inserting ${observations.length} observations for station ${station.name}`
+          )
+          await this.observationRepository.createMany(observations)
         }
       }
     }
-    await this.updateLastStation(0)
   }
 
   async getObservationFromPeriod(
@@ -53,7 +49,6 @@ class InsertObservationFromApiSeeder {
     stationId: number
   ): Promise<ICreateObservationDTO[]> {
     const observations: ICreateObservationDTO[] = []
-    console.log(start, stationId)
     try {
       const {
         data: [results],
@@ -81,7 +76,10 @@ class InsertObservationFromApiSeeder {
           flowRate: measurement.horVazao,
           qFlowRate: measurement.horQVazao,
         }
-        if (index < results.medicoes.length - 1) {
+        if (
+          index < results.medicoes.length - 1 &&
+          moment(observation.timestamp).isAfter(start)
+        ) {
           observations.push(observation)
         }
       }
@@ -115,21 +113,6 @@ class InsertObservationFromApiSeeder {
     } catch (error) {
       return [null, null]
     }
-  }
-
-  async getLastUpdatedStation(): Promise<{ code: number }> {
-    const file = fs.readFileSync(
-      path.resolve(__dirname, 'files', 'stationCode.json')
-    )
-    const { code } = JSON.parse(file.toString())
-    return { code }
-  }
-
-  async updateLastStation(code: number): Promise<void> {
-    fs.writeFileSync(
-      path.resolve(__dirname, 'files', 'stationCode.json'),
-      JSON.stringify({ code: code })
-    )
   }
 }
 
