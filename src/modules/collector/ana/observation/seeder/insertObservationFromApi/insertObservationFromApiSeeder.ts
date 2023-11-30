@@ -1,9 +1,7 @@
 import { formatDate } from '@utils/formatDate'
 import { sleep } from '@utils/sleep'
 import axios from 'axios'
-import fs from 'fs'
 import { utc as moment } from 'moment'
-import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
 import { IStationRepository } from '../../../station/repositories/IStationRepository'
