@@ -19,6 +19,7 @@ class InsertObservationFromApiSeeder {
   async execute(): Promise<void> {
     const stations = await this.stationRepository.getTelemetricStations()
     for (const [, station] of stations.entries()) {
+      console.log(station)
       const [initialDate] = await this.getPeriod(station.id)
       if (initialDate) {
         const lastInsertedDate =
