@@ -20,7 +20,6 @@ class InsertObservationFromApiSeeder {
     const stations = await this.stationRepository.getTelemetricStations()
     for (const [, station] of stations.entries()) {
       const [initialDate] = await this.getPeriod(station.id)
-      console.log(initialDate)
       if (initialDate) {
         const lastInsertedDate =
           await this.observationRepository.getStationMaxDate(station.code)
@@ -106,6 +105,8 @@ class InsertObservationFromApiSeeder {
           },
         }
       )
+      console.log(results)
+
       const [initialDate, , finalDate] =
         results.peridoDisponibilidade.split(' ')
       return [formatDate(initialDate), formatDate(finalDate)]
