@@ -97,7 +97,7 @@ async function seedGeneral() {
 
     // await downloadObservationIdeamController.start()
     // await downloadWaterQualityIdeamController.start()
-    await downloadObservationsHybamController.start()
+    // await downloadObservationsHybamController.start()
     log(`General Seed finished`)
   } catch (error) {
     console.log(error)
