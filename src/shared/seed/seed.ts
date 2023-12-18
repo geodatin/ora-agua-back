@@ -23,7 +23,7 @@ import { log } from '@utils/log'
 import env from 'dotenv-safe'
 import cron from 'node-cron'
 import { createConnection } from 'typeorm'
-// import '../database'
+import '../database'
 
 const hoursInterval = 2
 
@@ -104,17 +104,17 @@ async function seedGeneral() {
   }
 }
 
-// createConnection().then(async (connection) => {
-//   await insertObservationFromApiController.start()
-//   // await insertObservationSenhamiController.start()
-//   // await insertObservationSenhamiPeController.start()
+createConnection().then(async (connection) => {
+  await insertObservationFromApiController.start()
+  // await insertObservationSenhamiController.start()
+  // await insertObservationSenhamiPeController.start()
 
-//   // await downloadWaterQualitySincaController.start()
+  // await downloadWaterQualitySincaController.start()
 
-//   // await downloadObservationIdeamController.start()
-//   // await downloadWaterQualityIdeamController.start()
-//   // await downloadObservationsHybamController.start()
+  // await downloadObservationIdeamController.start()
+  // await downloadWaterQualityIdeamController.start()
+  // await downloadObservationsHybamController.start()
 
-//   await refreshViewsController.start()
-//   await connection.close()
-// })
+  await refreshViewsController.start()
+  await connection.close()
+})
