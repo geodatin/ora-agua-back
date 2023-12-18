@@ -105,7 +105,6 @@ class InsertObservationFromApiSeeder {
           },
         }
       )
-      console.log(results)
 
       const [initialDate, , finalDate] =
         results.peridoDisponibilidade.split(' ')
