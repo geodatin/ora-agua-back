@@ -1,8 +1,8 @@
-import { paginate, countPages } from '@utils/paginate'
 import moment from 'moment'
 import { inject, injectable } from 'tsyringe'
 import { v4 as createUuid } from 'uuid'
 
+import { countPages, paginate } from '../../../../../utils/paginate'
 import { IGetNotificationsRequestDTO } from '../../dtos/IGetNotificationsDTO'
 import { IGetStationsResponseDTO } from '../../dtos/IGetStationsDTO'
 import { INotification } from '../../interfaces/INotification'

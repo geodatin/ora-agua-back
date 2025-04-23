@@ -1,11 +1,10 @@
-import { IStationRepository } from '@modules/collector/ana/station/repositories/IStationRepository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class CountStationsByTypeService {
   constructor(
     @inject('StationRepository')
-    private stationRepository: IStationRepository
+    private stationRepository: any
   ) {}
 
   async execute() {

@@ -1,7 +1,7 @@
-import { countPages, paginate } from '@utils/paginate'
 import json2csv from 'json2csv'
 import { inject, injectable } from 'tsyringe'
 
+import { countPages, paginate } from '../../../../../utils/paginate'
 import { IFiltersDTO } from '../../dtos/IFiltersDTO'
 import { IRankingDTO } from '../../dtos/IRankingDTO'
 import { IStationViewRepository } from '../../repositories/IStationViewRepository'

@@ -1,6 +1,6 @@
-import { variables } from '@utils/variables'
 import { inject, injectable } from 'tsyringe'
 
+import { variables } from '../../../../../utils/variables'
 import { IGetFilterOptionsDTO } from '../../dtos/IGetFilterOptionsDTO'
 import { IStationViewRepository } from '../../repositories/IStationViewRepository'
 

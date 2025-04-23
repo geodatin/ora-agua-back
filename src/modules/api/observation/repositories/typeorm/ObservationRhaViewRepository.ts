@@ -1,6 +1,6 @@
-import { toSnakeCase } from '@utils/toSnakeCase'
 import { getConnection, getRepository, Repository } from 'typeorm'
 
+import { toSnakeCase } from '../../../../../utils/toSnakeCase'
 import { ITimeSeriesEntryDTO } from '../../dtos/ITimeSeriesDTO'
 import { ObservationRhaView } from '../../models/ObservationRhaView'
 import { FrequencyType } from '../../types/FrequencyType'

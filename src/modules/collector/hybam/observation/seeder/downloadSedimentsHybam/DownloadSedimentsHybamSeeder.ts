@@ -1,11 +1,10 @@
-import { IStationHybamRepository } from '@modules/collector/hybam/station/repositories/IStationHybamRepository'
-import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
+import { IStationHybamRepository } from '../../../station/repositories/IStationHybamRepository'
 import { IObservationHybamCollectorRepository } from '../../repositories/IObservationHybamCollectorRepository'
 
 @injectable()
@@ -13,10 +12,8 @@ class DownloadSedimentsHybamSeeder {
   constructor(
     @inject('SedimentsHybamRepository')
     private sedimentsHybamRepository: IObservationHybamCollectorRepository,
-
     @inject('SatelliteDerivedSedimentsHybamRepository')
     private satelliteDerivedSedimentsHybamRepository: IObservationHybamCollectorRepository,
-
     @inject('StationHybamRepository')
     private stationHybamRepository: IStationHybamRepository
   ) {}

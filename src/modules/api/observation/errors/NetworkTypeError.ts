@@ -1,4 +1,4 @@
-import { AppError } from '@shared/errors/AppError'
+import { AppError } from '../../../../shared/errors/AppError'
 
 export class NetworkTypeError extends AppError {
   constructor() {

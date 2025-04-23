@@ -1,7 +1,8 @@
-import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
-import { toSnakeCase } from '@utils/toSnakeCase'
-import { variables } from '@utils/variables'
 import { SelectQueryBuilder } from 'typeorm'
+
+import { IFiltersDTO } from '../../../modules/api/station/dtos/IFiltersDTO'
+import { toSnakeCase } from '../../../utils/toSnakeCase'
+import { variables } from '../../../utils/variables'
 
 export function applyFilters(
   query: SelectQueryBuilder<any>,

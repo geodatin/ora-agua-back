@@ -1,6 +1,6 @@
-import { StationView } from '@modules/api/station/models/StationView'
 import { getRepository, Repository } from 'typeorm'
 
+import { StationView } from '../../../../../api/station/models/StationView'
 import { ICreateStationSenhamiPeDTO } from '../../dtos/ICreateStationSenhamiPeDTO'
 import { StationSenhamiPe } from '../../models/StationSenhamiPe'
 import { IStationSenhamiPeRepository } from '../IStationSenhamiPeRepository'

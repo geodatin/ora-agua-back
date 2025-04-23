@@ -1,11 +1,10 @@
-import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
-import { StationView } from '@modules/api/station/models/StationView'
-import { ObservationHybam } from '@modules/collector/hybam/observation/models/ObservationHybam'
-import { toSnakeCase } from '@utils/toSnakeCase'
-import { getConnection, getRepository, Repository } from 'typeorm'
+import { Repository, getRepository, getConnection } from 'typeorm'
 
-import { applyFilters } from '@shared/database/utils/applyFilters'
-
+import { applyFilters } from '../../../../../shared/database/utils/applyFilters'
+import { toSnakeCase } from '../../../../../utils/toSnakeCase'
+import { ObservationHybam } from '../../../../collector/hybam/observation/models/ObservationHybam'
+import { IFiltersDTO } from '../../../station/dtos/IFiltersDTO'
+import { StationView } from '../../../station/models/StationView'
 import { ITimeSeriesHybamEntryDTO } from '../../dtos/ITimeSeriesHybamDTO'
 import { FrequencyType } from '../../types/FrequencyType'
 import { IObservationHybamRepository } from '../IObservationHybamRepository'

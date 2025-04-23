@@ -1,9 +1,8 @@
-import { ObservationRhaListView } from '@modules/api/observation/models/ObservationRhaListView'
-import { toSnakeCase } from '@utils/toSnakeCase'
-import { getConnection, getManager, getRepository, Repository } from 'typeorm'
+import { Repository, getRepository, getConnection, getManager } from 'typeorm'
 
-import { applyFilters } from '@shared/database/utils/applyFilters'
-
+import { applyFilters } from '../../../../../shared/database/utils/applyFilters'
+import { toSnakeCase } from '../../../../../utils/toSnakeCase'
+import { ObservationRhaListView } from '../../../observation/models/ObservationRhaListView'
 import { IFiltersDTO } from '../../dtos/IFiltersDTO'
 import { IGetFilterOptionsDTO } from '../../dtos/IGetFilterOptionsDTO'
 import {

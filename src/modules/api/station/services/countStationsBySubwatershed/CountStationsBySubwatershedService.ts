@@ -1,14 +1,13 @@
-import { IStationRepository } from '@modules/collector/ana/station/repositories/IStationRepository'
-import { countPages, paginate } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
 
+import { paginate, countPages } from '../../../../../utils/paginate'
 import { ICountRequestDTO } from '../../dtos/ICountRequestDTO'
 
 @injectable()
 class CountStationsBySubwatershedService {
   constructor(
     @inject('StationRepository')
-    private stationRepository: IStationRepository
+    private stationRepository: any
   ) {}
 
   async execute({ order, page }: ICountRequestDTO) {

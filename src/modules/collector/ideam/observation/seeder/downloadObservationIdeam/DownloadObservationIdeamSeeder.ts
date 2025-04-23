@@ -1,12 +1,12 @@
-import { StationIdeam } from '@modules/collector/ideam/station/models/StationIdeam'
-import { IStationIdeamRepository } from '@modules/collector/ideam/station/repositories/IStationIdeamRepository'
-import { avoidNull } from '@utils/avoidNull'
-import { log } from '@utils/log'
 import axios from 'axios'
+import { log } from 'console'
 import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
+import { avoidNull } from '../../../../../../utils/avoidNull'
+import { StationIdeam } from '../../../station/models/StationIdeam'
+import { IStationIdeamRepository } from '../../../station/repositories/IStationIdeamRepository'
 import { ICreateObservationIdeamDTO } from '../../dtos/ICreateObservationIdeamDTO'
 import { IObservationIdeamRepository } from '../../repositories/IObservationIdeamRepository'
 

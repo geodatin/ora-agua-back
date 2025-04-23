@@ -1,7 +1,7 @@
-import { countPages, paginate } from '@utils/paginate'
 import { inject, injectable } from 'tsyringe'
 import { v4 as createUuid } from 'uuid'
 
+import { countPages, paginate } from '../../../../../utils/paginate'
 import {
   IListObservationRequestDTO,
   IListObservationResponseDTO,

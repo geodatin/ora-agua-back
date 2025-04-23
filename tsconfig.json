@@ -1,20 +1,19 @@
 {
   "compilerOptions": {
-   "target": "es6",                            
-   "module": "commonjs",
-   "resolveJsonModule": true,                         
-   "baseUrl": "./src",                             
-   "paths": {
-      "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"],
-      "@errors/*": ["errors/*"],
-      "@utils/*": ["utils/*"]
-    },                                
-    "esModuleInterop": true,                       
-    "experimentalDecorators": true,            
-    "emitDecoratorMetadata": true,              
-    "skipLibCheck": true,                          
+    "target": "es6",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "**/*spec.ts"
+  ]
 }

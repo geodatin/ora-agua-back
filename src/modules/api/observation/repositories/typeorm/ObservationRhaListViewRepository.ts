@@ -1,9 +1,8 @@
-import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
-import { StationView } from '@modules/api/station/models/StationView'
 import { getRepository, Repository } from 'typeorm'
 
-import { applyFilters } from '@shared/database/utils/applyFilters'
-
+import { applyFilters } from '../../../../../shared/database/utils/applyFilters'
+import { IFiltersDTO } from '../../../station/dtos/IFiltersDTO'
+import { StationView } from '../../../station/models/StationView'
 import { ObservationRhaListView } from '../../models/ObservationRhaListView'
 import { FrequencyType } from '../../types/FrequencyType'
 import { IObservationRhaListViewRepository } from '../IObservationRhaListViewRepository'

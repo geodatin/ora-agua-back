@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { insertFromCsvPg } from '@shared/database/utils/insertFromCsvPg'
-
+import { insertFromCsvPg } from '../../../../../../shared/database/utils/insertFromCsvPg'
 import { ICreateWaterQualityIdeamDTO } from '../../dtos/ICreateWaterQualityIdeamDTO'
 import { WaterQualityIdeam } from '../../models/WaterQualityIdeam'
 import { IWaterQualityIdeamRepository } from '../IWaterQualityIdeamRepository'

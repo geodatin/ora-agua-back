@@ -4,3 +4,6 @@ ormconfig.json
 assets
 tmp/*
 !tmp/.gitkeep
+dist
+.qodo
+.vscode

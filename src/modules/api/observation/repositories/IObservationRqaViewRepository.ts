@@ -1,5 +1,4 @@
-import { IFiltersDTO } from '@modules/api/station/dtos/IFiltersDTO'
-
+import { IFiltersDTO } from '../../station/dtos/IFiltersDTO'
 import { ITimeSeriesRqaEntryDTO } from '../dtos/ITimeSeriesRqaDTO'
 import { FrequencyType } from '../types/FrequencyType'
 

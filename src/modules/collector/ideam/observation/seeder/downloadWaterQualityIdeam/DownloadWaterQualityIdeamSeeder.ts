@@ -1,9 +1,9 @@
-import { StationIdeam } from '@modules/collector/ideam/station/models/StationIdeam'
-import { IStationIdeamRepository } from '@modules/collector/ideam/station/repositories/IStationIdeamRepository'
-import { log } from '@utils/log'
 import axios from 'axios'
+import { log } from 'console'
 import { inject, injectable } from 'tsyringe'
 
+import { StationIdeam } from '../../../station/models/StationIdeam'
+import { IStationIdeamRepository } from '../../../station/repositories/IStationIdeamRepository'
 import { ICreateWaterQualityIdeamDTO } from '../../dtos/ICreateWaterQualityIdeamDTO'
 import { IWaterQualityIdeamRepository } from '../../repositories/IWaterQualityIdeamRepository'
 

@@ -3,7 +3,7 @@ import express from 'express'
 import 'express-async-errors'
 import swagger from 'swagger-ui-express'
 
-import '@shared/database/utils/formatPgResponse'
+import '../../shared/database/utils/formatPgResponse'
 import docs from '../../../docs/docs.json'
 import '../database'
 import '../container'

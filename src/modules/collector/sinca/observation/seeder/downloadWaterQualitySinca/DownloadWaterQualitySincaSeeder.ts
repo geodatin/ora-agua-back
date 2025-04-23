@@ -1,11 +1,11 @@
-import { IStationSincaRepository } from '@modules/collector/sinca/station/repositories/IStationSincaRepository'
-import { avoidNull } from '@utils/avoidNull'
-import { log } from '@utils/log'
 import axios from 'axios'
+import { log } from 'console'
 import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
+import { avoidNull } from '../../../../../../utils/avoidNull'
+import { IStationSincaRepository } from '../../../station/repositories/IStationSincaRepository'
 import { ICreateWaterQualitySincaDTO } from '../../dtos/ICreateWaterQualitySincaDTO'
 import { IWaterQualitySincaRepository } from '../../repositories/IWaterQualitySincaRepository'
 

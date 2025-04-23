@@ -1,8 +1,8 @@
-import { getVariableName } from '@utils/variables'
 import { Request, Response } from 'express'
 import json2csv from 'json2csv'
 import { container } from 'tsyringe'
 
+import { getVariableName } from '../../../../../utils/variables'
 import { CountStationsByVariableService } from './CountStationsByVariableService'
 
 class CountStatitonsByVariableController {

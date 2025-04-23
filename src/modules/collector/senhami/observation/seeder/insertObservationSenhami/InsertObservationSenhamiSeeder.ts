@@ -1,9 +1,9 @@
-import { IStationSenhamiRepository } from '@modules/collector/senhami/station/repositories/IStationSenhamiRepository'
-import { formatDateSenhami } from '@utils/formatDate'
 import axios from 'axios'
 import moment from 'moment'
 import { injectable, inject } from 'tsyringe'
 
+import { formatDateSenhami } from '../../../../../../utils/formatDate'
+import { IStationSenhamiRepository } from '../../../station/repositories/IStationSenhamiRepository'
 import { IObservationSenhamiRepository } from '../../repositories/IObservationSenhamiRepository'
 
 @injectable()

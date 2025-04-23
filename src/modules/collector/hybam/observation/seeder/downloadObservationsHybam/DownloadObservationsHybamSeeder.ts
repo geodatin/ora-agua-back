@@ -1,10 +1,10 @@
-import { IStationHybamRepository } from '@modules/collector/hybam/station/repositories/IStationHybamRepository'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
+import { IStationHybamRepository } from '../../../station/repositories/IStationHybamRepository'
 import { IObservationHybamCollectorRepository } from '../../repositories/IObservationHybamCollectorRepository'
 
 interface IObservation {

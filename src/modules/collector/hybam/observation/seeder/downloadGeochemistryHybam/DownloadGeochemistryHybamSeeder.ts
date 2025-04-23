@@ -1,17 +1,13 @@
-import {
-  IGeochemistryDTO,
-  IGeochemistryArraysDTO,
-} from '@modules/api/observation/dtos/IGeochemistryDTO'
-import { IStationHybamRepository } from '@modules/collector/hybam/station/repositories/IStationHybamRepository'
-import { log } from '@utils/log'
 import axios from 'axios'
 import cheerio from 'cheerio'
 // eslint-disable-next-line import/no-unresolved
+import { log } from 'console'
 import { stringify } from 'csv-stringify/sync'
 import fs from 'fs'
 import path from 'path'
 import { inject, injectable } from 'tsyringe'
 
+import { IStationHybamRepository } from '../../../station/repositories/IStationHybamRepository'
 import { IObservationHybamCollectorRepository } from '../../repositories/IObservationHybamCollectorRepository'
 
 const elementPropertyObj = {

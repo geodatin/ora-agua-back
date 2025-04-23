@@ -1,7 +1,6 @@
 import { getConnection, getRepository, Repository } from 'typeorm'
 
-import { insertFromCsvPg } from '@shared/database/utils/insertFromCsvPg'
-
+import { insertFromCsvPg } from '../../../../../../shared/database/utils/insertFromCsvPg'
 import { MonthlyDischargeHybam } from '../../models/MonthlyDischargeHybam'
 import { IObservationHybamCollectorRepository } from '../IObservationHybamCollectorRepository'
 

@@ -1,8 +1,9 @@
-import { DownloadObservationsController } from '@modules/api/observation/services/downloadObservations/DownloadObservationsController'
-import { LastUpdateController } from '@modules/api/observation/services/lastUpdate/LastUpdateController'
-import { ListObservationController } from '@modules/api/observation/services/listObservation/ListObservationController'
-import { TimeSeriesController } from '@modules/api/observation/services/timeSeries/TimeSeriesController'
 import { Router } from 'express'
+
+import { DownloadObservationsController } from '../../../modules/api/observation/services/downloadObservations/DownloadObservationsController'
+import { LastUpdateController } from '../../../modules/api/observation/services/lastUpdate/LastUpdateController'
+import { ListObservationController } from '../../../modules/api/observation/services/listObservation/ListObservationController'
+import { TimeSeriesController } from '../../../modules/api/observation/services/timeSeries/TimeSeriesController'
 
 const observationRoutes = Router()
 
