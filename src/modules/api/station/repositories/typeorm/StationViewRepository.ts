@@ -138,11 +138,27 @@ export class StationViewRepository implements IStationViewRepository {
 
     query
       .leftJoin(
-        ObservationRhaListView,
-        'observation',
-        `station.code = observation.station_code AND observation.frequency = 'week' AND station.network = 'RHA'`
-      )
+        (qb) => {
+          qb.select('rain', 'rain')
+            .addSelect('flow_rate', 'flow_rate')
+            .addSelect('level', 'level')
+            .addSelect('MAX(last_update)', 'last_update')
+            .addSelect('station_code', 'station_code')
+            .addSelect('frequency', 'frequency')
+            .groupBy('station_code')
+            .addGroupBy('rain')
+            .addGroupBy('flow_rate')
+            .addGroupBy('level')
+            .addGroupBy('station_code')
+            .addGroupBy('frequency')
+            .where(`observation.frequency = 'last'`)
+            .from(ObservationRhaListView, 'observation')
 
+          return qb
+        },
+        'observation',
+        `station.code = observation.station_code AND station.network = 'RHA'`
+      )
       .addSelect('observation.rain', 'rain')
       .addSelect('observation.flow_rate', 'flowRate')
       .addSelect('observation.level', 'level')
