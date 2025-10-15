@@ -28,7 +28,6 @@ export class GetNotificationsService {
 
     const notifications: INotification[] = []
     const notificationTypes = ['rain', 'level', 'flowRate']
-
     stations.forEach((station) => {
       notificationTypes.forEach((notificationType) => {
         let inferiorLimit, superiorLimit

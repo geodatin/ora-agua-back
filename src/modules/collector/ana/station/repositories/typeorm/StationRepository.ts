@@ -9,6 +9,17 @@ class StationRepository implements IStationRepository {
   constructor() {
     this.repository = getRepository(StationAna)
   }
+  async getUpdateStations(): Promise<{ code: string }[]> {
+    const stations = await this.repository.query(`
+      SELECT code 
+      FROM network.station_ana 
+      WHERE code::varchar IN (
+        SELECT DISTINCT codigoestacao 
+        FROM network.stations_whitelist
+      )
+    `)
+    return stations
+  }
 
   async getTelemetricStations(): Promise<StationAna[]> {
     const stations = await this.repository.find({ id: Not(IsNull()) })

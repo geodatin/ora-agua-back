@@ -25,7 +25,7 @@ const development = {
   database: process.env.DB_NAME,
   schema: process.env.SCHEMA,
   synchronize: false,
-  logging: true,
+  logging: false,
   entities: [
     './src/modules/**/**/models/*.ts',
     './src/modules/**/**/**/models/*.ts',

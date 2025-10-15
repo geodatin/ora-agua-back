@@ -1,9 +1,9 @@
-import { formatDate } from '@utils/formatDate'
-import { sleep } from '@utils/sleep'
 import axios from 'axios'
 import { utc as moment } from 'moment'
 import { inject, injectable } from 'tsyringe'
 
+import { formatDate } from '../../../../../../utils/formatDate'
+import { sleep } from '../../../../../../utils/sleep'
 import { IStationRepository } from '../../../station/repositories/IStationRepository'
 import { ICreateObservationDTO } from '../../dtos/ICreateObservationDTO'
 import { IObservationRepository } from '../../repositories/IObservationRepository'

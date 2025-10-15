@@ -32,6 +32,10 @@ class ObservationRepository implements IObservationRepository {
     await this.repository
       .createQueryBuilder('observation')
       .insert()
+      .orUpdate(
+        ['rain', 'flow_rate', 'adopted_level'],
+        ['station_code', 'timestamp']
+      )
       .values(data)
       .execute()
   }

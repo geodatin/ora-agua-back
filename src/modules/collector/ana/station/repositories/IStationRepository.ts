@@ -6,6 +6,7 @@ interface IStationRepository {
   getTelemetricStations(): Promise<StationAna[]>
   getAllStationsFullTable(): Promise<StationAna[]>
   getViewStations(): Promise<{ name: string; code: string }[]>
+  getUpdateStations(): Promise<{ code: string }[]>
 }
 
 export { IStationRepository }
