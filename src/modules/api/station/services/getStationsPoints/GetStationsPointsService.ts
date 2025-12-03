@@ -1,4 +1,5 @@
 // import moment from 'moment'
+import moment from 'moment'
 import { inject, injectable } from 'tsyringe'
 
 import { IGetStationsRequestDTO } from '../../dtos/IGetStationsDTO'
@@ -18,37 +19,37 @@ export class GetStationsPointsService {
       filters,
     })
     stations.map((station) => {
-      // const isOverSuperiorFlowRateLimit =
-      //   station.flowRate > station.flowRateLimits.superiorLimit &&
-      //   station.flowRate
+      const isOverSuperiorFlowRateLimit =
+        station.flowRate > station.flowRateLimits.superiorLimit &&
+        station.flowRate
 
-      // const isOverSuperiorLevelLimit =
-      //   station.level > station.levelLimits.superiorLimit && station.level
+      const isOverSuperiorLevelLimit =
+        station.level > station.levelLimits.superiorLimit && station.level
 
-      // const isUnderInferiorFlowRateLimit =
-      //   station.flowRate < station.flowRateLimits.inferiorLimit &&
-      //   station.flowRate
+      const isUnderInferiorFlowRateLimit =
+        station.flowRate < station.flowRateLimits.inferiorLimit &&
+        station.flowRate
 
-      // const isUnderInferiorLevelLimit =
-      //   station.level < station.levelLimits.inferiorLimit && station.level
+      const isUnderInferiorLevelLimit =
+        station.level < station.levelLimits.inferiorLimit && station.level
 
-      // const isSuperiorAlert =
-      //   isOverSuperiorFlowRateLimit || isOverSuperiorLevelLimit
+      const isSuperiorAlert =
+        isOverSuperiorFlowRateLimit || isOverSuperiorLevelLimit
 
-      // const isInferiorAlert =
-      //   isUnderInferiorFlowRateLimit || isUnderInferiorLevelLimit
+      const isInferiorAlert =
+        isUnderInferiorFlowRateLimit || isUnderInferiorLevelLimit
 
-      // const isLast3Days = moment(station.lastUpdate).isAfter(
-      //   moment().subtract(30, 'days')
-      // )
+      const isLast3Days = moment(station.lastUpdate).isAfter(
+        moment().subtract(30, 'days')
+      )
 
-      // if (isInferiorAlert && isLast3Days) {
-      //   station.situation = 'alert'
-      // } else if (isSuperiorAlert && isLast3Days) {
-      //   station.situation = 'emergency'
-      // } else {
-      station.situation = 'normal'
-      // }
+      if (isInferiorAlert && isLast3Days) {
+        station.situation = 'alert'
+      } else if (isSuperiorAlert && isLast3Days) {
+        station.situation = 'emergency'
+      } else {
+        station.situation = 'normal'
+      }
 
       station.hasData = true
       delete station.flowRateLimits
