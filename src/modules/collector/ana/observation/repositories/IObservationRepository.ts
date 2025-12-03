@@ -7,5 +7,6 @@ interface IObservationRepository {
   getStationMaxDate(stationCode: number): Promise<string>
   refreshLastObservationView(): Promise<void>
   deleteObservations(stationCode: number): Promise<void>
+  refreshView(viewName: string): Promise<void>
 }
 export { IObservationRepository }

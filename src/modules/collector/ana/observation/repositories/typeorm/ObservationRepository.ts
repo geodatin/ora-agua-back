@@ -10,6 +10,12 @@ class ObservationRepository implements IObservationRepository {
     this.repository = getRepository(ObservationAna)
   }
 
+  async refreshView(viewName: string): Promise<void> {
+    await this.repository.query(
+      `REFRESH MATERIALIZED VIEW network.${viewName} WITH DATA`
+    )
+  }
+
   async refreshLastObservationView(): Promise<void> {
     await this.repository.query(
       'REFRESH MATERIALIZED VIEW observation_station_view WITH DATA'
