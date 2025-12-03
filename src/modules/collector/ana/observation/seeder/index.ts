@@ -3,8 +3,6 @@ import { createConnection } from 'typeorm'
 import '../../../../../shared/container'
 import { UpdateObservationCollector } from './updateObservation/UpdateObservation'
 
-import cron from 'node-cron'
-
 async function collect() {
   const connection = await createConnection()
   try {
@@ -17,7 +15,3 @@ async function collect() {
 }
 
 collect()
-
-cron.schedule('0 0 * * *', async () => {
-  await collect()
-})

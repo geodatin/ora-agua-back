@@ -33,6 +33,9 @@ export class UpdateObservationCollector {
         await this.observationRepository.createMany(chunk)
       }
     }
+    await this.observationRepository.refreshView('observation_rha_view')
+    await this.observationRepository.refreshView('observation_rha_list_view')
+    await this.observationRepository.refreshView('last_update_view')
     console.log(`Inserted observations...`)
   }
 
